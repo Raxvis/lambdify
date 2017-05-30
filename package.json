@@ -1,0 +1,31 @@
+{
+    "name": "lambdify",
+    "version": "0.0.0",
+    "description": "AWS Lambda Deployment GUI",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "npm install && gulp"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Prefinem/lambdify"
+    },
+    "main": "dist/index.js",
+    "files": [
+        "dist"
+    ],
+    "author": "William",
+    "license": "MIT",
+    "homepage": "",
+    "devDependencies": {
+        "babel-cli": "^6.14.0",
+        "babel-eslint": "^7.1.1",
+        "babel-preset-latest": "^6.14.0",
+        "babel-preset-stage-2": "^6.17.0",
+        "eslint": "^3.15.0",
+        "gulp": "^3.9.1",
+        "gulp-babel": "^6.1.2",
+        "gulp-eslint": "^3.0.1"
+    },
+    "dependencies": {}
+}
