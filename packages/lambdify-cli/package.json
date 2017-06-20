@@ -1,6 +1,6 @@
 {
     "name": "lambdify-cli",
-    "version": "0.3.12",
+    "version": "0.3.13",
     "description": "Lambdify CLI",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",

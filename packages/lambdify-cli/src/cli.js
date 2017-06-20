@@ -33,6 +33,7 @@ commander.version(pkg.version)
 			function: options.function,
 			functionsOnly: options.no_events,
 			path: project,
+			profile: options.profile,
 			stage: options.stage
 		}, feedback);
 	});
