@@ -26,12 +26,14 @@ commander.version(pkg.version)
 	.command('deploy <project>')
 	.option('-f, --function <name>', 'Function Name')
 	.option('-s, --stage <stage>', 'Deployment Stage', 'beta')
-	.option('-n, --no_events', 'Deploy only Functions')
+	.option('-F, --functions_only', 'Deploy only Functions')
+	.option('-E, --events_only', 'Deploy only Events')
 	.option('-p, --profile <profile>', 'AWS User Profile')
 	.action((project, options) => {
 		lambdify.deploy({
+			eventsOnly: options.events_only,
 			function: options.function,
-			functionsOnly: options.no_events,
+			functionsOnly: options.functions_only,
 			path: project,
 			profile: options.profile,
 			stage: options.stage
