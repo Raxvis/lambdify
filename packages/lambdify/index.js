@@ -1,3 +1,3 @@
-const lambdify = require('lambdify');
+const lambdify = require('lambdify-core');
 
 module.exports = lambdify;
