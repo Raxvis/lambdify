@@ -1,6 +1,6 @@
 {
     "name": "lambdify",
-    "version": "0.3.14",
+    "version": "0.3.15",
     "description": "AWS Lambda and APIG Deployment Tool",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -19,7 +19,7 @@
     "license": "MIT",
     "homepage": "",
     "dependencies": {
-        "lambdify-cli": "^0.3.13",
-        "lambdify-core": "^0.3.11"
+        "lambdify-cli": "^0.3.15",
+        "lambdify-core": "^0.3.15"
     }
 }
