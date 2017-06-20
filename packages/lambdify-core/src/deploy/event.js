@@ -40,7 +40,7 @@ export class EventDeployer {
 
 			return event;
 		});
-		const httpEvents = events.filter((event) => event.http);
+		const httpEvents = events.filter((event) => event && event.http);
 
 		if (httpEvents.length > 0) {
 			const apigEventDeployer = new APIGEventDeployer(this.config, this.feedback);
@@ -70,9 +70,10 @@ export class EventDeployer {
 			return events;
 		}));
 
+		functionEvents = functionEvents.filter((event) => event);
 		functionEvents = functionEvents.reduce((newEvents, events) => (newEvents.concat(events)), []);
 
-		const httpEvents = functionEvents.filter((event) => event.http);
+		const httpEvents = functionEvents.filter((event) => event && event.http);
 
 		if (httpEvents.length > 0) {
 			const apigEventDeployer = new APIGEventDeployer(this.config, this.feedback);

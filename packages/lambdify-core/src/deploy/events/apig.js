@@ -9,12 +9,8 @@ export class APIGEventDeployer {
 	};
 
 	cors = {
-		'consumes': [
-			'application/json'
-		],
-		'produces': [
-			'application/json'
-		],
+		'consumes': ['application/json'],
+		'produces': ['application/json'],
 		'responses': {
 			'200': {
 				'description': '200 response',
@@ -69,7 +65,9 @@ export class APIGEventDeployer {
 		this.getApigName();
 
 		events.forEach((event) => {
-			this.addPath(event);
+			if (event && event.http) {
+				this.addPath(event);
+			}
 		});
 
 		await this.updateSwagger();
