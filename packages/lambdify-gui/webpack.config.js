@@ -1,10 +1,11 @@
+const argv = require('minimist')(process.argv.slice(2));
 const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
 	entry: [
-		'./src/babel-polyfill',
-		'./src/index.js'
+		'./packages/lambdify-gui/src/babel-polyfill',
+		'./packages/lambdify-gui/src/index.js'
 	],
 	module: {
 		loaders: [{
@@ -16,11 +17,11 @@ module.exports = {
 			test: /\.json$/
 		}]
 	},
-	output: { filename: './dist/bundle.js' },
-	// plugins: [
-	// 	new webpack.optimize.UglifyJsPlugin()
-	// ],
-	resolve: { alias: { utils: path.resolve('./src/utils/') } },
+	output: { filename: './packages/lambdify-gui/dist/bundle.js' },
+	plugins: [
+		argv.env.stage === 'prod' ? new webpack.optimize.UglifyJsPlugin() : undefined
+	],
+	resolve: { alias: { utils: path.resolve('./packages/lambdify-gui/src/utils/') } },
 	target: 'electron-renderer',
 	watch: true
 };
