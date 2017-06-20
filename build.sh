@@ -5,6 +5,30 @@ if [ "$1" = "" ]; then
 	exit
 fi
 
+if [ "$1" = "prod" ]; then
+	cd packages/lambdify-gui/
+	yarn
+	cd ../../
+	webpack --config packages/lambdify-gui/webpack.config.js --env.stage=prod
+
+	cd packages/lambdify/
+	yarn
+	cd ../../
+	gulp --gulpfile packages/lambdify/gulpfile.babel.js --env.stage=prod
+
+	cd packages/lambdify-cli/
+	yarn
+	cd ../../
+	gulp --gulpfile packages/lambdify-cli/gulpfile.babel.js --env.stage=prod
+
+	cd packages/lambdify-core/
+	yarn
+	cd ../../
+	gulp --gulpfile packages/lambdify-core/gulpfile.babel.js --env.stage=prod
+
+	exit
+fi
+
 ENV="beta"
 
 if [ "$2" != "" ]; then

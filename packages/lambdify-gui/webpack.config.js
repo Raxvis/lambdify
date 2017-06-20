@@ -24,5 +24,5 @@ module.exports = {
 	plugins: [argv.env.stage === 'prod' ? new webpack.optimize.UglifyJsPlugin() : undefined],
 	resolve: { alias: { utils: path.resolve('./packages/lambdify-gui/src/utils/') } },
 	target: 'electron-renderer',
-	watch: true
+	watch: argv.env.stage === 'prod' ? false : true
 };

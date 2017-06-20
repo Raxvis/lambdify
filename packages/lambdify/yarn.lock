@@ -216,17 +216,17 @@ jmespath@0.15.0:
   version "0.15.0"
   resolved "https://registry.yarnpkg.com/jmespath/-/jmespath-0.15.0.tgz#a3f222a9aae9f966f5d27c796510e28091764217"
 
-lambdify-cli@^0.3.12:
-  version "0.3.12"
-  resolved "https://registry.yarnpkg.com/lambdify-cli/-/lambdify-cli-0.3.12.tgz#ccedd3e119764b31ea724511b2383ef2261c51d0"
+lambdify-cli@^0.3.16:
+  version "0.3.16"
+  resolved "https://registry.yarnpkg.com/lambdify-cli/-/lambdify-cli-0.3.16.tgz#97f2b6db3242bc2dd738490a925781dec6ccfe60"
   dependencies:
     chalk "^1.1.3"
     commander "^2.9.0"
-    lambdify-core "^0.3.11"
+    lambdify-core "^0.3.16"
 
-lambdify-core@^0.3.11:
-  version "0.3.11"
-  resolved "https://registry.yarnpkg.com/lambdify-core/-/lambdify-core-0.3.11.tgz#4863cd7f2a0b093f67afc22775f3217694a7b84d"
+lambdify-core@^0.3.16:
+  version "0.3.16"
+  resolved "https://registry.yarnpkg.com/lambdify-core/-/lambdify-core-0.3.16.tgz#f569a4ab637c4869a003f98ccfc8e0f1f15e0ebf"
   dependencies:
     archiver "^1.3.0"
     aws-sdk "^2.58.0"
