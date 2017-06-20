@@ -1,3 +1,3 @@
 const lambdify = require('lambdify');
 
-export default lambdify;
+module.exports = lambdify;
