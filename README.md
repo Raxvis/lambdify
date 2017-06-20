@@ -1,9 +1,9 @@
 # lambdify
-[![version](https://badge.fury.io/js/lambdify-cli.svg)](http://badge.fury.io/js/lambdify-cli)
-[![issues](https://img.shields.io/github/issues/Prefinem/lambdify-cli.svg)](https://github.com/Prefinem/lambdify-cli/issues)
-[![dependencies](https://david-dm.org/Prefinem/lambdify-cli.svg)](https://david-dm.org/Prefinem/lambdify-cli)
-[![devDependencies](https://david-dm.org/Prefinem/lambdify-cli/dev-status.svg)](https://david-dm.org/Prefinem/lambdify-cli#info=devDependencies)
-[![downloads](http://img.shields.io/npm/dm/lambdify-cli.svg)](https://www.npmjs.com/package/lambdify-cli)
+[![version](https://badge.fury.io/js/lambdify.svg)](http://badge.fury.io/js/lambdify)
+[![issues](https://img.shields.io/github/issues/Prefinem/lambdify.svg)](https://github.com/Prefinem/lambdify/issues)
+[![dependencies](https://david-dm.org/Prefinem/lambdify.svg)](https://david-dm.org/Prefinem/lambdify)
+[![devDependencies](https://david-dm.org/Prefinem/lambdify/dev-status.svg)](https://david-dm.org/Prefinem/lambdify#info=devDependencies)
+[![downloads](http://img.shields.io/npm/dm/lambdify.svg)](https://www.npmjs.com/package/lambdify)
 
 ## Installation
 
@@ -26,7 +26,7 @@ Lambdify is a deployment system for Lambda on AWS.  It offers options to deploy 
 
 ### Node.js
 
-    var lambdify = require('lambdify-cli');
+    var lambdify = require('lambdify');
 
     lambdify.deploy({
             path: './projectFolder/',
