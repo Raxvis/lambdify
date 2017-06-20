@@ -1,14 +1,14 @@
 {
-    "name": "lambdify",
-    "version": "0.0.0",
-    "description": "AWS Lambda Deployment GUI",
+    "name": "lambdify-core",
+    "version": "0.3.11",
+    "description": "AWS Lambda and APIG Deployment Tool",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "npm install && gulp"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Prefinem/lambdify"
+        "url": "git+https://github.com/Prefinem/lambdify/tree/master/packages/lambdify-core"
     },
     "main": "dist/index.js",
     "files": [
@@ -27,5 +27,11 @@
         "gulp-babel": "^6.1.2",
         "gulp-eslint": "^3.0.1"
     },
-    "dependencies": {}
+    "dependencies": {
+        "archiver": "^1.3.0",
+        "aws-sdk": "^2.58.0",
+        "babel-polyfill": "^6.23.0",
+        "glob": "^7.1.2",
+        "lodash": "^4.17.4"
+    }
 }

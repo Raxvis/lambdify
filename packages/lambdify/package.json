@@ -1,0 +1,25 @@
+{
+    "name": "lambdify",
+    "version": "0.3.12",
+    "description": "AWS Lambda and APIG Deployment Tool",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "npm install && gulp"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Prefinem/lambdify/tree/master/packages/lambdify"
+    },
+    "bin": {
+        "lambdify": "./cli.js",
+        "lfy": "./cli.js"
+    },
+    "main": "index.js",
+    "author": "William",
+    "license": "MIT",
+    "homepage": "",
+    "dependencies": {
+        "lambdify-cli": "^0.3.12",
+        "lambdify-core": "^0.3.11"
+    }
+}
