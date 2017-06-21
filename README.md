@@ -1,4 +1,6 @@
 # lambdify
+[![npm package](https://nodei.co/npm/lambdify.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/request/)
+
 [![version](https://badge.fury.io/js/lambdify.svg)](http://badge.fury.io/js/lambdify)
 [![issues](https://img.shields.io/github/issues/Prefinem/lambdify.svg)](https://github.com/Prefinem/lambdify/issues)
 [![dependencies](https://david-dm.org/Prefinem/lambdify.svg)](https://david-dm.org/Prefinem/lambdify)
