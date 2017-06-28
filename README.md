@@ -100,6 +100,24 @@ Make sure your Lambda Role also has these permissions if you wish to allow HTTP 
 
 https://github.com/awslabs/aws-apigateway-importer/issues/9#issuecomment-129635827
 
+Also ensure that your Lambda Role has a minimum trust relationship of
+
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": [
+                        "apigateway.amazonaws.com",
+                        "lambda.amazonaws.com"
+                    ]
+                },
+                "Action": "sts:AssumeRole"
+            }
+        ]
+    }
+
 Events will be inside the function.json file
 
 ### API Gateway / HTTP
