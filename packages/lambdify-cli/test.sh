@@ -1,1 +1,0 @@
-node ./dist/cli.js deploy -f test ~/dcnode/lambda/dist/dcapi/
