@@ -1,0 +1,9 @@
+[
+    {
+        "http": {
+            "path": "/function/one",
+            "method": "any",
+            "cors": true
+        }
+    }
+]

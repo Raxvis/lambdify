@@ -1,0 +1,6 @@
+{
+	"Role": "arn:aws:iam::636375193492:role/service-role/lamba",
+	"profile": "william",
+	"region": "us-east-1",
+	"stage": "beta"
+}
