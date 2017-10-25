@@ -21,24 +21,24 @@ const feedback = (message) => {
 	console.log(`Lambdify CLI: ${log}`);
 };
 
-
 commander.version(pkg.version)
-	.command('deploy <project>')
-	.option('-f, --function <name>', 'Function Name')
-	.option('-s, --stage <stage>', 'Deployment Stage', 'beta')
-	.option('-F, --functions_only', 'Deploy only Functions')
-	.option('-E, --events_only', 'Deploy only Events')
+	.command('deploy <path>')
+	.option('-f, --function <function>', 'Function Name')
+	.option('-s, --stage <stage>', 'Deployment Stage')
+	.option('-v, --version <version>', 'Deployment Version')
+	.option('-e, --deployEvents', 'Deploy Events with Functions')
+	.option('-F, --functionsOnly', 'Deploy only Functions')
+	.option('-E, --eventsOnly', 'Deploy only Events')
+	.option('-s, --region <region>', 'AWS Region')
 	.option('-p, --profile <profile>', 'AWS User Profile')
-	.action((project, options) => {
-		lambdify.deploy({
-			eventsOnly: options.events_only,
-			function: options.function,
-			functionsOnly: options.functions_only,
-			path: project,
-			profile: options.profile,
-			stage: options.stage
-		}, feedback);
-	});
+	.option('--lambda_description <Description>', 'Lambda Description')
+	.option('--lambda_handler <Handler>', 'Lambda Handler')
+	.option('--lambda_memory <MemorySize>', 'Lambda Memory')
+	.option('--lambda_name <FunctionName>', 'Lambda Name')
+	.option('--lambda_role <Role>', 'Lambda Role')
+	.option('--lambda_runtime <Runtime>', 'Lambda Runtime')
+	.option('--lambda_timeout <Timeout>', 'Lambda Timeout')
+	.action((path, options) => lambdify.deploy(path, options));
 
 
 if (!process.argv.slice(2).length) {
