@@ -19,6 +19,7 @@ module.exports = {
         "init-declarations": "off",
         "max-len": ["error", 180],
         "multiline-ternary": "off",
+        "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 3 }],
         "no-confusing-arrow": ["error", {"allowParens": true}],
         "no-console": "off",
         "no-extra-parens": "off",

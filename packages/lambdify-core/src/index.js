@@ -1,19 +1,12 @@
-import Lambdify from './lambdify';
+require('babel-polyfill');
+require('babel-register')({
+	plugins: [
+		"babel-plugin-transform-async-to-generator",
+		"babel-plugin-transform-es2015-modules-commonjs",
+		"babel-plugin-transform-object-rest-spread"
+	]
+});
 
-export const deploy = (options, feedback, callback) => {
-	const newFeedback = feedback ? feedback : (message) => (console.log(message));
-	const lambdify = new Lambdify(options, newFeedback);
+const deploy = require('./deploy.js');
 
-	if (callback) {
-		lambdify.run().then(() => {
-			newFeedback('Lambdify Finished');
-			callback();
-		});
-	} else {
-		lambdify.run().then(() => {
-			newFeedback('Lambdify Finished');
-		});
-	}
-};
-
-export default { deploy };
+module.exports = deploy;
