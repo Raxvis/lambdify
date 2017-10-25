@@ -1,4 +1,6 @@
 # lambdify
+[![npm package](https://nodei.co/npm/lambdify.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/request/)
+
 [![version](https://badge.fury.io/js/lambdify.svg)](http://badge.fury.io/js/lambdify)
 [![issues](https://img.shields.io/github/issues/Prefinem/lambdify.svg)](https://github.com/Prefinem/lambdify/issues)
 [![dependencies](https://david-dm.org/Prefinem/lambdify.svg)](https://david-dm.org/Prefinem/lambdify)
@@ -97,6 +99,24 @@ Lambdify Defaults:
 Make sure your Lambda Role also has these permissions if you wish to allow HTTP Events through API Gateway
 
 https://github.com/awslabs/aws-apigateway-importer/issues/9#issuecomment-129635827
+
+Also ensure that your Lambda Role has a minimum trust relationship of
+
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Principal": {
+                    "Service": [
+                        "apigateway.amazonaws.com",
+                        "lambda.amazonaws.com"
+                    ]
+                },
+                "Action": "sts:AssumeRole"
+            }
+        ]
+    }
 
 Events will be inside the function.json file
 
