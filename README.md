@@ -63,8 +63,11 @@ Parameters:
 Each project needs a top level project.json that defines the name of the project, and any default variables.  Variables can also be overwritten the function.json file inside each function folder.  The basic structure of a project is described below.
 
 project/
+
 --project.json
+
 --function/
+
 ----function.json
 
 Variables that can be set inside the project.json or function.json.
