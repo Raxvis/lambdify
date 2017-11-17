@@ -22,14 +22,12 @@ const feedback = (message) => {
 };
 
 commander.version(pkg.version)
-	.command('deploy <path>')
-	.option('-f, --function <function>', 'Function Name')
+	.command('deploy <projectPath> [functionName]')
 	.option('-s, --stage <stage>', 'Deployment Stage')
 	.option('-v, --version <version>', 'Deployment Version')
-	.option('-e, --deployEvents', 'Deploy Events with Functions')
-	.option('-F, --functionsOnly', 'Deploy only Functions')
-	.option('-E, --eventsOnly', 'Deploy only Events')
-	.option('-s, --region <region>', 'AWS Region')
+	.option('-f, --functionsOnly', 'Deploy only Functions')
+	.option('-e, --eventsOnly', 'Deploy only Events')
+	.option('-r, --region <region>', 'AWS Region')
 	.option('-p, --profile <profile>', 'AWS User Profile')
 	.option('--lambda_description <Description>', 'Lambda Description')
 	.option('--lambda_handler <Handler>', 'Lambda Handler')
@@ -38,7 +36,10 @@ commander.version(pkg.version)
 	.option('--lambda_role <Role>', 'Lambda Role')
 	.option('--lambda_runtime <Runtime>', 'Lambda Runtime')
 	.option('--lambda_timeout <Timeout>', 'Lambda Timeout')
-	.action((path, options) => lambdify.deploy(path, options));
+	.action((projectPath, functionName, options) => {
+		options.feedback = feedback;
+		lambdify.deploy(projectPath, functionName, options)
+	});
 
 
 if (!process.argv.slice(2).length) {
