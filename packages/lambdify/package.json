@@ -5,8 +5,8 @@
         "lfy": "./cli.js"
     },
     "dependencies": {
-        "lambdify-cli": "^1.0.2",
-        "lambdify-core": "^1.0.2"
+        "lambdify-cli": "^1.0.3",
+        "lambdify-core": "^1.0.3"
     },
     "description": "AWS Lambda and APIG Deployment Tool",
     "homepage": "",
@@ -17,5 +17,5 @@
         "type": "git",
         "url": "git+https://github.com/Prefinem/lambdify/tree/master/packages/lambdify"
     },
-    "version": "1.0.2"
+    "version": "1.0.3"
 }
