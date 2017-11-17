@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const path = require('path');
-const lambdify = require('./../packages/lambdify-core/src/index.js');
+const lambdify = require('./../packages/lambdify-core/dist/index.js');
 
 /*
 	OPTIONS
