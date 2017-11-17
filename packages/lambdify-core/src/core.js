@@ -47,24 +47,61 @@ const startDeployment = async (projectPath, functionName, options) => {
 	}
 };
 
-export const deploy = async (projectPath, functionName, options, callback) => { // eslint-disable-line max-params
-	const safeFeedback = (options && options.feedback) || utils.feedback;
-
-	try {
-		safeFeedback('Lambdify Starting Up');
-		await startDeployment(path.resolve(projectPath), functionName, {
-			...options,
-			feedback: safeFeedback
-		});
-
-		safeFeedback('Lambdify Finished');
-	} catch (error) {
-		safeFeedback('Lambdify Failed');
-		safeFeedback(error);
+const getCallback = (functionName, options, callback) => {
+	if (typeof functionName === 'function') {
+		return functionName;
+	}
+	if (typeof options === 'function') {
+		return options;
+	}
+	if (typeof callback === 'function') {
+		return callback;
 	}
 
-	const cb = callback || options;
-	return typeof cb === 'function' ? cb() : true;
+	return false;
+};
+
+const getOptions = (functionName, options) => {
+	if (typeof functionName === 'object') {
+		return {
+			...functionName,
+			feedback: functionName.feedback || utils.feedback
+		};
+	}
+	if (typeof options === 'object') {
+		return {
+			...options,
+			feedback: options.feedback || utils.feedback
+		};
+	}
+
+	return { feedback: utils.feedback };
+};
+
+const getFunctionName = (functionName) => {
+	if (typeof functionName === 'string') {
+		return functionName;
+	}
+
+	return false;
+};
+
+export const deploy = async (projectPath, functionName, options, callback) => { // eslint-disable-line max-params
+	const cb = getCallback(functionName, options, callback);
+	const opt = getOptions(functionName, options);
+	const fnName = getFunctionName(functionName);
+
+	try {
+		opt.feedback('Lambdify Starting Up');
+		await startDeployment(path.resolve(projectPath), fnName, opt);
+
+		opt.feedback('Lambdify Finished');
+	} catch (error) {
+		opt.feedback('Lambdify Failed');
+		opt.feedback(error);
+	}
+
+	return cb ? cb() : true;
 };
 
 export default { deploy };
