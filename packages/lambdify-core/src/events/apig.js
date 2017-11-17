@@ -1,6 +1,7 @@
 import aws from './../aws';
 import config from './../config';
 import path from 'path';
+import utils from './../utils';
 
 const emptySwagger = {
 	info: { title: '' },
@@ -40,16 +41,25 @@ const cors = {
 	}
 };
 
-const getApigName = (options) => {
-	let { apig } = options;
+const getFunctionARN = async (options, functionPath) => {
+	const lambda = aws.lambda(options);
+	const lambdaConfig = config(utils.getFunctionOptions(functionPath, options));
+	const lambdaFunction = await lambda.getFunction({ FunctionName: lambdaConfig.FunctionName }).promise();
 
-	apig = apig ? apig : options.project;
-	apig = options.stage ? `${apig}-${options.stage}` : apig;
-
-	return apig;
+	return lambdaFunction.Configuration.FunctionArn;
 };
 
-const buildSwaggerPath = (event, options, FunctionArn) => {
+const getApigName = (options, projectPath) => {
+	const { apig, stage } = {
+		...utils.loadJSONFile(path.join(projectPath, 'project.json')),
+		...options
+	};
+	const apigName = apig ? apig : projectPath.split(path.sep).filter((folder) => Boolean(folder)).pop();
+
+	return stage ? `${apigName}-${stage}` : apigName;
+};
+
+const buildSwaggerPath = (http, options, FunctionArn) => {
 	const response = {
 		reponses: {},
 		'x-amazon-apigateway-integration': {
@@ -61,8 +71,8 @@ const buildSwaggerPath = (event, options, FunctionArn) => {
 		}
 	};
 
-	if (event.parameters) {
-		response.parameters = event.parameters.map((parameter) => ({
+	if (http.parameters) {
+		response.parameters = http.parameters.map((parameter) => ({
 			in: "path",
 			name: parameter,
 			required: true,
@@ -71,8 +81,8 @@ const buildSwaggerPath = (event, options, FunctionArn) => {
 	}
 
 	return {
-		options: event.cors ? cors : undefined,
-		[event.method === 'any' ? 'x-amazon-apigateway-any-method' : event.method]: response
+		options: http.cors ? cors : undefined,
+		[http.method === 'any' ? 'x-amazon-apigateway-any-method' : http.method]: response
 	};
 };
 
@@ -108,58 +118,39 @@ const updateAPIG = async (apigName, swagger, options) => {
 	options.feedback(`SUCCESS: Deployed APIGateway`);
 };
 
-const getFunctionARN = async (options, functionPath) => {
-	const lambda = aws.lambda(options);
-	const projectPath = path.join(functionPath, '../');
-	const lambdaConfig = config({
-		...options,
-		name: functionPath.split(path.sep).filter((folder) => Boolean(folder)).pop(),
-		project: projectPath.split(path.sep).filter((folder) => Boolean(folder)).pop()
-	});
-	const lambdaFunction = await lambda.getFunction({ FunctionName: lambdaConfig.FunctionName }).promise();
-
-	return lambdaFunction.Configuration.FunctionArn;
-};
-
-export const deployFunction = async (options, functionPath, httpEvents) => {
+export const deployFunction = async (functionPath, httpEvents, options) => {
+	const apigName = getApigName(options, path.join(functionPath, '..'));
 	const FunctionArn = await getFunctionARN(options, functionPath);
-	const apigName = getApigName(options);
 	const swagger = {
 		...emptySwagger,
-		info: { title: apigName }
+		info: { title: apigName },
+		paths: httpEvents.reduce((result, { http }) => ({
+			...result,
+			[http.path]: buildSwaggerPath(http, options, FunctionArn)
+		}), {})
 	};
-
-	swagger.paths = httpEvents.reduce((result, event) => ({
-		...result,
-		[event.path]: buildSwaggerPath(event, options, FunctionArn)
-	}), {});
 
 	await updateAPIG(apigName, swagger, options);
 };
 
-export const deployProject = async (options, functions) => {
-	const apigName = getApigName(options);
+export const deployProject = async (projectPath, httpEvents, options) => {
+	const apigName = getApigName(options, projectPath);
+	const arns = {};
+	const functionEvents = await Promise.all(httpEvents.map(async (event) => ({
+		...event,
+		FunctionArn: arns[event.functionPath] ? arns[event.functionPath] : await getFunctionARN(options, event.functionPath),
+		options: utils.getFunctionOptions(event.functionPath, options)
+	})));
 	const swagger = {
 		...emptySwagger,
-		info: { title: apigName }
+		info: { title: apigName },
+		paths: functionEvents.reduce((result, { FunctionArn, http, options }) => ({
+			...result,
+			[http.path]: buildSwaggerPath(http, options, FunctionArn)
+		}), {})
 	};
-	const functionEvents = await Promise.all(functions.map(async (event) => {
-		const FunctionArn = await getFunctionARN(options, event.functionPath);
 
-		return {
-			...event,
-			FunctionArn
-		};
-	}));
-
-	swagger.paths = functionEvents.reduce((result, { FunctionArn, events }) => (
-		events.reduce((currentResult, event) => ({
-			...currentResult,
-			[event.path]: buildSwaggerPath(event, options, FunctionArn)
-		}), result)
-	), {});
-
-	await updateAPIG(apigName, swagger, options);
+	await updateAPIG(apigName, swagger, utils.getProjectOptions(projectPath, options));
 };
 
 export default {

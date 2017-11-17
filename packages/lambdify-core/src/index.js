@@ -7,6 +7,6 @@ require('babel-register')({
 	]
 });
 
-const deploy = require('./deploy.js');
+const core = require('./core.js');
 
-module.exports = deploy;
+module.exports = core;

@@ -35,7 +35,6 @@ const checkIfFunctionExists = async (FunctionName, lambda, feedback) => {
 	} catch (error) {
 		if (error.code !== 'ResourceNotFoundException') {
 			feedback(`ERROR: ${error.message}`);
-
 			throw error;
 		}
 	}
@@ -43,16 +42,19 @@ const checkIfFunctionExists = async (FunctionName, lambda, feedback) => {
 	return false;
 };
 
-const updateLambdaConfiguration = async (lambdaConfig, lambda, feedback) => {
+const updateLambdaConfiguration = async (lambda, lambdaConfig, feedback) => {
 	try {
 		await lambda.updateFunctionConfiguration(lambdaConfig).promise();
 	} catch (error) {
 		feedback(`ERROR: ${error.message}`);
+		throw error;
 	}
 	feedback(`SUCCESS: Updated configuration for ${lambdaConfig.FunctionName}`);
 };
 
-const updateLambdaFunction = async (lambda, lambdaConfig, zippedCode, feedback) => { // eslint-disable-line max-params
+const updateLambdaFunction = async (lambda, lambdaConfig, zipPath, feedback) => { // eslint-disable-line max-params
+	await updateLambdaConfiguration(lambda, lambdaConfig, feedback);
+	const zippedCode = fs.readFileSync(zipPath);
 	const params = {
 		FunctionName: lambdaConfig.FunctionName,
 		Publish: true,
@@ -63,11 +65,13 @@ const updateLambdaFunction = async (lambda, lambdaConfig, zippedCode, feedback) 
 		await lambda.updateFunctionCode(params).promise();
 	} catch (error) {
 		feedback(`ERROR: ${error.message}`);
+		throw error;
 	}
 	feedback(`SUCCESS: Updated function ${lambdaConfig.FunctionName}`);
 };
 
-const createLambdaFunction = async (lambda, lambdaConfig, zippedCode, feedback) => { // eslint-disable-line max-params
+const createLambdaFunction = async (lambda, lambdaConfig, zipPath, feedback) => { // eslint-disable-line max-params
+	const zippedCode = fs.readFileSync(zipPath);
 	const params = {
 		...lambdaConfig,
 		Code: { ZipFile: zippedCode },
@@ -79,6 +83,7 @@ const createLambdaFunction = async (lambda, lambdaConfig, zippedCode, feedback) 
 		feedback(`SUCCESS: Created function ${lambdaConfig.FunctionName}`);
 	} catch (error) {
 		feedback(`ERROR: ${error.message}`);
+		throw error;
 	}
 };
 
@@ -87,13 +92,11 @@ const deployer = async (functionPath, options) => {
 	const lambdaConfig = config(options);
 	const zipPath = await zipFolder(functionPath, lambdaConfig.FunctionName, options.feedback);
 	const functionExists = await checkIfFunctionExists(lambdaConfig.FunctionName, lambda, options.feedback);
-	const zippedCode = fs.readFileSync(zipPath);
 
 	if (functionExists) {
-		await updateLambdaConfiguration(lambdaConfig, lambda, options.feedback);
-		await updateLambdaFunction(lambda, lambdaConfig, zippedCode, options.feedback);
+		await updateLambdaFunction(lambda, lambdaConfig, zipPath, options.feedback);
 	} else {
-		await createLambdaFunction(lambda, lambdaConfig, zippedCode, options.feedback);
+		await createLambdaFunction(lambda, lambdaConfig, zipPath, options.feedback);
 	}
 
 	fs.unlinkSync(zipPath);

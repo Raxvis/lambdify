@@ -12,26 +12,31 @@ const loadJSONEventsFile = (file) => {
 };
 
 export const deployFunction = async (functionPath, options) => {
-	const events = loadJSONEventsFile(path.join(functionPath, 'events.json'));
+	const events = loadJSONEventsFile(path.join(functionPath, 'events.json'))
+		.map((event) => ({
+			...event,
+			functionPath
+		}));
+	const httpEvents = events.filter((event) => event.http);
 
-	if (events.http) {
-		await apig.deployFunction(options, functionPath, events.http);
+	if (httpEvents.length > 0) {
+		await apig.deployFunction(functionPath, httpEvents, options);
 	}
 };
 
 export const deployProject = async (projectPath, options) => {
-	const functions = glob.sync(path.join(projectPath, '*', path.sep));
-	const events = functions.map((functionPath) => ({
-		events: loadJSONEventsFile(path.join(functionPath, 'events.json')),
-		functionPath
-	}));
-	const apigEvents = events.map((functionEvent) => ({
-		...functionEvent,
-		events: functionEvent.events ? functionEvent.events.filter((event) => Boolean(event.http)).map((event) => event.http) : undefined
-	})).filter((functionEvent) => functionEvent.events.length > 0);
+	const events = glob.sync(path.join(projectPath, '*', path.sep, 'events.json'))
+		.reduce((results, eventFile) => ([
+			...results,
+			...loadJSONEventsFile(eventFile).map((event) => ({
+				...event,
+				functionPath: eventFile.replace(`${path.sep}events.json`, ``)
+			}))
+		]), []);
+	const httpEvents = events.filter((event) => event.http);
 
-	if (apigEvents.length > 0) {
-		await apig.deployProject(options, apigEvents);
+	if (httpEvents.length > 0) {
+		await apig.deployProject(projectPath, httpEvents, options);
 	}
 };
 
