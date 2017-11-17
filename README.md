@@ -17,38 +17,42 @@ Lambdify is a deployment system for Lambda on AWS.  It offers options to deploy 
 
 ### CLI
 
-    lfy deploy <projectPath>
+    lfy deploy <projectPath> [functionName]
 
 #### Options
 
-    -f, --function <name> (Function Name)
     -s, --stage <stage> (Deployment Stage)
-    -n, --no_events (Deploy only Functions)
+    -v, --version <version> (Deployment Version)
+    -f, --functionsOnly (Deploy only Functions)
+    -e, --eventsOnly (Deploy only Events)
+    -r, --region <region> (AWS Region)
     -p, --profile <profile> (AWS User Profile)
+    --lambda_description <Description> (Lambda Description)
+    --lambda_handler <Handler> (Lambda Handler)
+    --lambda_memory <MemorySize> (Lambda Memory)
+    --lambda_name <FunctionName> (Lambda Name)
+    --lambda_role <Role> (Lambda Role)
+    --lambda_runtime <Runtime> (Lambda Runtime)
+    --lambda_timeout <Timeout> (Lambda Timeout)
 
 ### Node.js
 
     var lambdify = require('lambdify');
 
-    lambdify.deploy({
-            path: './projectFolder/',
-            function: 'functionName',
-            stage: 'beta',
-            verbose: true
-        },
-        function(message){ console.log(message); },
-        function(){ console.log('Done!'); }
-    );
+    lambdify.deploy(projectPath, functionName, options, callback);
 
 #### lambdify.deploy()
 
 Parameters:
+    projectPath
+        type: string
+        description: path (absolute) to project folder
+    functionName
+        type: string
+        description: function name to deploy (folder name)
     options
         type: object
-        description: options that are used for deployment (projectPath, stage, function, verbose)
-    feedback
-        type: function
-        description: messages are passed to this function if defined
+        description: options that are used for deployment
     callback
         type: function
         description: to handle async calls
@@ -66,23 +70,17 @@ project/
 Variables that can be set inside the project.json or function.json.
 
     {
-        "name": "",
-        "description": "",
-        "memory": 128,
-        "timeout": 15,
-        "region": "us-east-1",
-        "role": "",
-        "handler": "index.handler",
-        "environment": {
-            "key": "value"
-        },
-        "vpc": {
-            "securityGroups": [
-                "sg-00000000"
-            ],
-            "subnets":[
-                "subnet-00000000"
-            ]
+        "Description": "",
+        "Environment": {},
+        "FunctionName": "",
+        "Handler": "index.handle",
+        "MemorySize": 128,
+        "Role": "",
+        "Runtime": "nodejs6.10",
+        "Timeout": 15,
+        "VpcConfig": {
+            "SecurityGroupIds": [],
+            "SubnetIds": []
         }
     }
 
