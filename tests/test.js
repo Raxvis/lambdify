@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const lambdify = require('./index.js');
+const path = require('path');
+const lambdify = require('./../packages/lambdify-core/src/index.js');
 
 /*
 	OPTIONS
@@ -13,4 +14,4 @@ const lambdify = require('./index.js');
 	version: string
 */
 
-lambdify.deploy('/Users/william/Dropbox/Work/lambdify/tests/project');
+lambdify.deploy(path.join(__dirname, 'project'), '', { profile: 'william' });
