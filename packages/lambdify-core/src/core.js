@@ -48,30 +48,30 @@ const startDeployment = async (projectPath, functionName, options) => {
 };
 
 const getCallback = (functionName, options, callback) => {
-	if (typeof functionName === 'function') {
-		return functionName;
+	if (typeof callback === 'function') {
+		return callback;
 	}
 	if (typeof options === 'function') {
 		return options;
 	}
-	if (typeof callback === 'function') {
-		return callback;
+	if (typeof functionName === 'function') {
+		return functionName;
 	}
 
 	return false;
 };
 
 const getOptions = (functionName, options) => {
-	if (typeof functionName === 'object') {
-		return {
-			...functionName,
-			feedback: functionName.feedback || utils.feedback
-		};
-	}
 	if (typeof options === 'object') {
 		return {
 			...options,
 			feedback: options.feedback || utils.feedback
+		};
+	}
+	if (typeof functionName === 'object') {
+		return {
+			...functionName,
+			feedback: functionName.feedback || utils.feedback
 		};
 	}
 
