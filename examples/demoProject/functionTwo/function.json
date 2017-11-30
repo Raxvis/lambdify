@@ -1,0 +1,16 @@
+{
+    "Description": "Function Two",
+    "Environment": {
+        "Variables": {
+            "key": "value"
+        }
+    },
+    "Handler": "index.handle",
+    "MemorySize": 128,
+    "Runtime": "nodejs6.10",
+    "Timeout": 15,
+    "VpcConfig": {
+        "SecurityGroupIds": [],
+        "SubnetIds": []
+    }
+}

@@ -11,6 +11,12 @@
 
     npm i -g lambdify
 
+## Notes
+
+These are notes that are kept to explain certain parts of lambdify not explained elsewhere in the readme.
+
+Configuration of a function (which is what eventually gets deployed) is a cascade of the defaults, project.json, function.json and the options passed into the deployment call.  That means that settings in project.json will override defaults and settings in function.json will overrride both project.json settings and defaults.
+
 ## Usage
 
 Lambdify is a deployment system for Lambda on AWS.  It offers options to deploy using the CLI or within Node itself.
@@ -73,6 +79,12 @@ project/
 Variables that can be set inside the project.json or function.json.
 
     {
+		"stage": "<stage for deplying independant stages with similar code>",
+		"version": "<version for splitting functions>",
+		"functionsOnly": "<deploy only the functions>",
+		"eventsOnly": "<deploy only the events>",
+		"region": "<aws region>",
+		"profile": "<aws credentials profile>",
         "Description": "",
         "Environment": {},
         "FunctionName": "",

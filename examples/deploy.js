@@ -14,4 +14,4 @@ const lambdify = require('./../packages/lambdify-core/dist/index.js');
 	version: string
 */
 
-lambdify.deploy(path.join(__dirname, 'project'), { profile: 'william' });
+lambdify.deploy(path.join(__dirname, 'simpleProject'));
