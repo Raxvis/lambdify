@@ -7,6 +7,12 @@
 [![devDependencies](https://david-dm.org/Prefinem/lambdify/dev-status.svg)](https://david-dm.org/Prefinem/lambdify#info=devDependencies)
 [![downloads](http://img.shields.io/npm/dm/lambdify.svg)](https://www.npmjs.com/package/lambdify)
 
+Lambdify is a deployment system for Lambda on AWS that also managers API Gateway deployements of AWS Lambda functions.
+
+### Why not Serverless
+
+Serverless, because of it's use of Cloud Formation templates, has a hard resource limit that after 20 functions or so, won't allow any more functions.
+
 ## Installation
 
     npm i -g lambdify
