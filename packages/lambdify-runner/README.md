@@ -1,6 +1,6 @@
 # lambdify-runner
 [![version](https://badge.fury.io/js/lambdify-runner.svg)](http://badge.fury.io/js/lambdify-runner)
-[![issues](https://img.shields.io/github/issues/Prefinem/lambdify-runner.svg)](https://github.com/Prefinem/lambdify-runner/issues)
+[![issues](https://img.shields.io/github/issues/Prefinem/lambdify-runner.svg)](https://github.com/Prefinem/lambdify/issues)
 [![dependencies](https://david-dm.org/Prefinem/lambdify-runner.svg)](https://david-dm.org/Prefinem/lambdify-runner)
 [![devDependencies](https://david-dm.org/Prefinem/lambdify-runner/dev-status.svg)](https://david-dm.org/Prefinem/lambdify-runner#info=devDependencies)
 [![downloads](http://img.shields.io/npm/dm/lambdify-runner.svg)](https://www.npmjs.com/package/lambdify-runner)
