@@ -1,0 +1,30 @@
+{
+    "author": "William",
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-eslint": "^8.0.0",
+        "babel-plugin-transform-async-to-generator": "^6.24.1",
+        "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+        "babel-plugin-transform-object-rest-spread": "^6.26.0",
+        "gulp": "^3.9.1",
+        "gulp-babel": "^7.0.0",
+        "gulp-eslint": "^4.0.0"
+    },
+    "files": [
+        "dist"
+    ],
+    "description": "AWS Lambda and APIG Deployment Tool",
+    "homepage": "",
+    "license": "MIT",
+    "main": "dist/index.js",
+    "name": "lambdify-runner",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Prefinem/lambdify/tree/master/packages/lambdify-runner"
+    },
+    "scripts": {
+        "build": "gulp build",
+        "watch": "gulp watch"
+    },
+    "version": "0.0.4"
+}
