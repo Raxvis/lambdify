@@ -18,6 +18,11 @@ export const request = (event, context) => ({
 	method: get(event, 'requestContext.httpMethod', '').toUpperCase(),
 	pathParams: get(event, 'pathParameters', {}),
 	queryParams: get(event, 'queryStringParameters', {}),
+	referer: get(event, 'headers.Referer', ''),
+	s3: {
+		bucket: get(event, 'Records.0.s3.bucket.name', ''),
+		key: get(event, 'Records.0.s3.object.key', ''),
+	},
 	sns: {
 		message: parseJSON(get(event, 'Records.0.Sns.Message', '{}')),
 		subject: get(event, 'Records.0.Sns.Subject', ''),
