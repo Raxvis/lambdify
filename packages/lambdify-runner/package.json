@@ -26,5 +26,5 @@
         "build": "gulp build",
         "watch": "gulp watch"
     },
-    "version": "0.0.5"
+    "version": "0.0.7"
 }

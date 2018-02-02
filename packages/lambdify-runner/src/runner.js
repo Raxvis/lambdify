@@ -7,7 +7,9 @@ export const runner = (event, context, fn) => {
 		try {
 			const responseObject = await fn(request(event, context));
 
-			if (responseObject.body || responseObject.headers || responseObject.statusCode) {
+			if (!responseObject) {
+				resolve(json(payload({})));
+			} else if (responseObject.body || responseObject.headers || responseObject.statusCode) {
 				resolve(responseObject);
 			} else {
 				resolve(json(payload(responseObject)));
