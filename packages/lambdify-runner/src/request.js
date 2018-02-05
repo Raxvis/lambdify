@@ -16,6 +16,7 @@ export const request = (event, context) => ({
 	headers: event.headers,
 	ip: get(event, 'requestContext.identity.sourceIp', ''),
 	method: get(event, 'requestContext.httpMethod', '').toUpperCase(),
+	path: get(event, 'path', {}),
 	pathParams: get(event, 'pathParameters', {}),
 	queryParams: get(event, 'queryStringParameters', {}),
 	s3: {
