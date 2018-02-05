@@ -1,5 +1,6 @@
 {
     "author": "William",
+    "description": "AWS Lambda and APIG Deployment Tool",
     "devDependencies": {
         "babel-core": "^6.26.0",
         "babel-eslint": "^8.0.0",
@@ -13,7 +14,6 @@
     "files": [
         "dist"
     ],
-    "description": "AWS Lambda and APIG Deployment Tool",
     "homepage": "",
     "license": "MIT",
     "main": "dist/index.js",
@@ -24,7 +24,8 @@
     },
     "scripts": {
         "build": "gulp build",
+        "prepublish": "gulp build",
         "watch": "gulp watch"
     },
-    "version": "0.0.7"
+    "version": "0.0.10"
 }
