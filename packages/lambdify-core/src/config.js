@@ -9,8 +9,8 @@ const defaultConfig = {
 	Timeout: 15,
 	VpcConfig: {
 		SecurityGroupIds: [],
-		SubnetIds: []
-	}
+		SubnetIds: [],
+	},
 };
 
 const buildLambdaFunctionName = (options) => {
@@ -28,7 +28,7 @@ const config = (options) => {
 		if (key in defaultConfig) {
 			return {
 				...result,
-				[key]: options[key]
+				[key]: options[key],
 			};
 		}
 
@@ -41,7 +41,7 @@ const config = (options) => {
 		name: options.functionName,
 		project: options.projectName,
 		stage: options.stage,
-		version: options.version
+		version: options.version,
 	};
 
 	return lambdaConfig;

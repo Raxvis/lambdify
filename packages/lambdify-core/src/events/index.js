@@ -15,7 +15,7 @@ export const deployFunction = async (functionPath, options) => {
 	const events = loadJSONEventsFile(path.join(functionPath, 'events.json'))
 		.map((event) => ({
 			...event,
-			functionPath
+			functionPath,
 		}));
 	const httpEvents = events.filter((event) => event.http);
 
@@ -30,8 +30,8 @@ export const deployProject = async (projectPath, options) => {
 			...results,
 			...loadJSONEventsFile(eventFile).map((event) => ({
 				...event,
-				functionPath: eventFile.replace(`${path.sep}events.json`, ``)
-			}))
+				functionPath: eventFile.replace(`${path.sep}events.json`, ``),
+			})),
 		]), []);
 	const httpEvents = events.filter((event) => event.http);
 
@@ -42,5 +42,5 @@ export const deployProject = async (projectPath, options) => {
 
 export default {
 	deployFunction,
-	deployProject
+	deployProject,
 };

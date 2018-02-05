@@ -22,7 +22,7 @@ const deployProject = async (projectPath, options) => {
 	const { functionsOnly } = options;
 	const combinedOptions = {
 		...options,
-		functionsOnly: true
+		functionsOnly: true,
 	};
 
 	if (!combinedOptions.eventsOnly) {
@@ -65,13 +65,13 @@ const getOptions = (functionName, options) => {
 	if (typeof options === 'object') {
 		return {
 			...options,
-			feedback: options.feedback || utils.feedback
+			feedback: options.feedback || utils.feedback,
 		};
 	}
 	if (typeof functionName === 'object') {
 		return {
 			...functionName,
-			feedback: functionName.feedback || utils.feedback
+			feedback: functionName.feedback || utils.feedback,
 		};
 	}
 

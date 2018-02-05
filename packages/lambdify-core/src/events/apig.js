@@ -6,7 +6,7 @@ import utils from './../utils';
 const emptySwagger = {
 	info: { title: '' },
 	paths: {},
-	swagger: '2.0'
+	swagger: '2.0',
 };
 
 const cors = {
@@ -19,9 +19,9 @@ const cors = {
 				'Access-Control-Allow-Credentials': { 'type': 'string' },
 				'Access-Control-Allow-Headers': { 'type': 'string' },
 				'Access-Control-Allow-Methods': { 'type': 'string' },
-				'Access-Control-Allow-Origin': { 'type': 'string' }
-			}
-		}
+				'Access-Control-Allow-Origin': { 'type': 'string' },
+			},
+		},
 	},
 	'x-amazon-apigateway-integration': {
 		'passthroughBehavior': 'when_no_match',
@@ -32,13 +32,13 @@ const cors = {
 					'method.response.header.Access-Control-Allow-Credentials': "'false'",
 					'method.response.header.Access-Control-Allow-Headers': "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
 					'method.response.header.Access-Control-Allow-Methods': "'OPTIONS,GET,PUT,POST,DELETE,HEAD'",
-					'method.response.header.Access-Control-Allow-Origin': "'*'"
+					'method.response.header.Access-Control-Allow-Origin': "'*'",
 				},
-				'statusCode': '200'
-			}
+				'statusCode': '200',
+			},
 		},
-		'type': 'mock'
-	}
+		'type': 'mock',
+	},
 };
 
 const getFunctionARN = async (options, functionPath) => {
@@ -52,7 +52,7 @@ const getFunctionARN = async (options, functionPath) => {
 const getApigName = (options, projectPath) => {
 	const { apig, stage } = {
 		...utils.loadJSONFile(path.join(projectPath, 'project.json')),
-		...options
+		...options,
 	};
 	const apigName = apig ? apig : projectPath.split(path.sep).filter((folder) => Boolean(folder)).pop();
 
@@ -67,8 +67,8 @@ const buildSwaggerPath = (http, options, FunctionArn) => {
 			httpMethod: 'POST',
 			passthroughBehavior: 'when_no_match',
 			type: 'aws_proxy',
-			uri: `arn:aws:apigateway:${options.region}:lambda:path/2015-03-31/functions/${FunctionArn}/invocations`
-		}
+			uri: `arn:aws:apigateway:${options.region}:lambda:path/2015-03-31/functions/${FunctionArn}/invocations`,
+		},
 	};
 
 	if (http.parameters) {
@@ -76,13 +76,13 @@ const buildSwaggerPath = (http, options, FunctionArn) => {
 			in: "path",
 			name: parameter,
 			required: true,
-			type: "string"
+			type: "string",
 		}));
 	}
 
 	return {
 		options: http.cors ? cors : undefined,
-		[http.method === 'any' ? 'x-amazon-apigateway-any-method' : http.method]: response
+		[http.method === 'any' ? 'x-amazon-apigateway-any-method' : http.method]: response,
 	};
 };
 
@@ -107,13 +107,13 @@ const updateAPIG = async (apigName, swagger, options) => {
 		body: JSON.stringify(swagger),
 		failOnWarnings: true,
 		mode: 'merge',
-		restApiId: apigID
+		restApiId: apigID,
 	}).promise();
 
 	options.feedback(`Deploying APIGateway`);
 	await apig.createDeployment({
 		restApiId: apigID,
-		stageName: options.stage || options.project
+		stageName: options.stage || options.project,
 	}).promise();
 	options.feedback(`SUCCESS: Deployed APIGateway`);
 };
@@ -126,8 +126,8 @@ export const deployFunction = async (functionPath, httpEvents, options) => {
 		info: { title: apigName },
 		paths: httpEvents.reduce((result, { http }) => ({
 			...result,
-			[http.path]: buildSwaggerPath(http, options, FunctionArn)
-		}), {})
+			[http.path]: buildSwaggerPath(http, options, FunctionArn),
+		}), {}),
 	};
 
 	await updateAPIG(apigName, swagger, options);
@@ -139,15 +139,15 @@ export const deployProject = async (projectPath, httpEvents, options) => {
 	const functionEvents = await Promise.all(httpEvents.map(async (event) => ({
 		...event,
 		FunctionArn: arns[event.functionPath] ? arns[event.functionPath] : await getFunctionARN(options, event.functionPath),
-		options: utils.getFunctionOptions(event.functionPath, options)
+		options: utils.getFunctionOptions(event.functionPath, options),
 	})));
 	const swagger = {
 		...emptySwagger,
 		info: { title: apigName },
 		paths: functionEvents.reduce((result, { FunctionArn, http, options }) => ({
 			...result,
-			[http.path]: buildSwaggerPath(http, options, FunctionArn)
-		}), {})
+			[http.path]: buildSwaggerPath(http, options, FunctionArn),
+		}), {}),
 	};
 
 	await updateAPIG(apigName, swagger, utils.getProjectOptions(projectPath, options));
@@ -155,5 +155,5 @@ export const deployProject = async (projectPath, httpEvents, options) => {
 
 export default {
 	deployFunction,
-	deployProject
+	deployProject,
 };

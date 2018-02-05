@@ -38,7 +38,7 @@ commander.version(pkg.version)
 	.option('--lambda_timeout <Timeout>', 'Lambda Timeout')
 	.action((projectPath, functionName, options) => {
 		options.feedback = feedback;
-		lambdify.deploy(projectPath, functionName, options)
+		lambdify.deploy(projectPath, functionName, options);
 	});
 
 

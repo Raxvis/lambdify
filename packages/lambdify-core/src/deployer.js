@@ -58,7 +58,7 @@ const updateLambdaFunction = async (lambda, lambdaConfig, zipPath, feedback) => 
 	const params = {
 		FunctionName: lambdaConfig.FunctionName,
 		Publish: true,
-		ZipFile: zippedCode
+		ZipFile: zippedCode,
 	};
 
 	try {
@@ -75,7 +75,7 @@ const createLambdaFunction = async (lambda, lambdaConfig, zipPath, feedback) => 
 	const params = {
 		...lambdaConfig,
 		Code: { ZipFile: zippedCode },
-		Publish: true
+		Publish: true,
 	};
 
 	try {

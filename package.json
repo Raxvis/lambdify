@@ -1,0 +1,16 @@
+{
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-eslint": "^8.0.0",
+        "babel-plugin-transform-async-to-generator": "^6.24.1",
+        "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+        "babel-plugin-transform-object-rest-spread": "^6.26.0",
+        "gulp": "^3.9.1",
+        "gulp-babel": "^7.0.0",
+        "gulp-eslint": "^4.0.0",
+        "lerna": "^2.8.0"
+    },
+    "scripts": {
+        "clean": "eslint packages/*/src --fix"
+    }
+}

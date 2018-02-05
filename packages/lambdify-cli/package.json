@@ -1,18 +1,21 @@
 {
     "author": "William",
     "bin": {
-        "lambdify": "./src/cli.js",
-        "lfy": "./src/cli.js"
+        "lambdify": "./dist/cli.js",
+        "lfy": "./dist/cli.js"
     },
     "dependencies": {
         "chalk": "^1.1.3",
         "commander": "^2.9.0",
         "lambdify-core": "^1.0.4"
     },
+    "files": [
+        "dist"
+    ],
     "description": "Lambdify CLI",
     "homepage": "",
     "license": "MIT",
-    "main": "src/cli.js",
+    "main": "./dist/cli.js",
     "name": "lambdify-cli",
     "repository": {
         "type": "git",

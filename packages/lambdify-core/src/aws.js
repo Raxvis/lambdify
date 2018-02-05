@@ -31,5 +31,5 @@ export const lambda = ({ feedback, profile, region }) => {
 
 export default {
 	apig,
-	lambda
+	lambda,
 };
