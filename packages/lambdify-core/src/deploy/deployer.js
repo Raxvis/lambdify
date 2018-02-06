@@ -1,11 +1,10 @@
 import archiver from 'archiver';
-import aws from './aws';
+import aws from './../aws';
 import config from './config';
 import fs from 'fs';
 import path from 'path';
 
-
-const zipFolder = (functionPath, name, feedback) => {
+const zipFolder = (functionPath, name, { feedback }) => {
 	feedback(`Zipping function ${name} for uploading`);
 
 	return new Promise((resolve, reject) => {
@@ -27,7 +26,7 @@ const zipFolder = (functionPath, name, feedback) => {
 	});
 };
 
-const checkIfFunctionExists = async (FunctionName, lambda, feedback) => {
+const checkIfFunctionExists = async (lambda, { FunctionName }, { feedback }) => {
 	try {
 		await lambda.getFunction({ FunctionName }).promise();
 
@@ -42,7 +41,7 @@ const checkIfFunctionExists = async (FunctionName, lambda, feedback) => {
 	return false;
 };
 
-const updateLambdaConfiguration = async (lambda, lambdaConfig, feedback) => {
+const updateLambdaConfiguration = async (lambda, lambdaConfig, { feedback }) => {
 	try {
 		await lambda.updateFunctionConfiguration(lambdaConfig).promise();
 	} catch (error) {
@@ -52,7 +51,7 @@ const updateLambdaConfiguration = async (lambda, lambdaConfig, feedback) => {
 	feedback(`SUCCESS: Updated configuration for ${lambdaConfig.FunctionName}`);
 };
 
-const updateLambdaFunction = async (lambda, lambdaConfig, zipPath, feedback) => { // eslint-disable-line max-params
+const updateLambdaFunction = async (lambda, lambdaConfig, zipPath, { feedback }) => { // eslint-disable-line max-params
 	await updateLambdaConfiguration(lambda, lambdaConfig, feedback);
 	const zippedCode = fs.readFileSync(zipPath);
 	const params = {
@@ -70,7 +69,7 @@ const updateLambdaFunction = async (lambda, lambdaConfig, zipPath, feedback) => 
 	feedback(`SUCCESS: Updated function ${lambdaConfig.FunctionName}`);
 };
 
-const createLambdaFunction = async (lambda, lambdaConfig, zipPath, feedback) => { // eslint-disable-line max-params
+const createLambdaFunction = async (lambda, lambdaConfig, zipPath, { feedback }) => { // eslint-disable-line max-params
 	const zippedCode = fs.readFileSync(zipPath);
 	const params = {
 		...lambdaConfig,
@@ -89,14 +88,14 @@ const createLambdaFunction = async (lambda, lambdaConfig, zipPath, feedback) => 
 
 const deployer = async (functionPath, options) => {
 	const lambda = aws.lambda(options);
-	const lambdaConfig = config(options);
-	const zipPath = await zipFolder(functionPath, lambdaConfig.FunctionName, options.feedback);
-	const functionExists = await checkIfFunctionExists(lambdaConfig.FunctionName, lambda, options.feedback);
+	const lambdaConfig = config(functionPath, options);
+	const zipPath = await zipFolder(functionPath, lambdaConfig.FunctionName, options);
+	const functionExists = await checkIfFunctionExists(lambda, lambdaConfig, options);
 
 	if (functionExists) {
-		await updateLambdaFunction(lambda, lambdaConfig, zipPath, options.feedback);
+		await updateLambdaFunction(lambda, lambdaConfig, zipPath, options);
 	} else {
-		await createLambdaFunction(lambda, lambdaConfig, zipPath, options.feedback);
+		await createLambdaFunction(lambda, lambdaConfig, zipPath, options);
 	}
 
 	fs.unlinkSync(zipPath);

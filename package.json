@@ -8,9 +8,12 @@
         "gulp": "^3.9.1",
         "gulp-babel": "^7.0.0",
         "gulp-eslint": "^4.0.0",
-        "lerna": "^2.8.0"
+        "lerna": "^2.8.0",
+        "through2": "^2.0.3"
     },
     "scripts": {
-        "clean": "eslint packages/*/src --fix"
+        "build": "gulp build",
+        "clean": "eslint packages/*/src --fix",
+        "watch": "gulp watch"
     }
 }

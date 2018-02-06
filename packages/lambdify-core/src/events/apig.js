@@ -1,78 +1,74 @@
 import aws from './../aws';
 import config from './../config';
+import cors from './cors';
+import fs from 'fs';
+import merge from 'lodash.merge';
 import path from 'path';
 import utils from './../utils';
 
-const emptySwagger = {
-	info: { title: '' },
-	paths: {},
+
+const formatEvents = (files) => (
+	files.map((file) => {
+		const listOfEvents = JSON.parse(fs.readFileSync(file).toString());
+		const folders = file.split(path.sep);
+
+		folders.pop();
+
+		return {
+			functionPath: folders.join(path.sep),
+			listOfEvents,
+		};
+	}).reduce((result, { listOfEvents, functionPath }) => {
+		listOfEvents.forEach((event) => {
+			if (event.http) {
+				result.push({
+					...event.http,
+					functionPath,
+				});
+			}
+		});
+
+		return result;
+	}, [])
+);
+
+const buildSwagger = ({ apigName }, paths) => ({
+	definitions: {
+		Empty: {
+			title: 'Empty Schema',
+			type: 'object',
+		},
+	},
+	info: { title: apigName },
+	paths: { ...paths },
 	swagger: '2.0',
-};
+});
 
-const cors = {
-	'consumes': ['application/json'],
-	'produces': ['application/json'],
-	'responses': {
-		'200': {
-			'description': '200 response',
-			'headers': {
-				'Access-Control-Allow-Credentials': { 'type': 'string' },
-				'Access-Control-Allow-Headers': { 'type': 'string' },
-				'Access-Control-Allow-Methods': { 'type': 'string' },
-				'Access-Control-Allow-Origin': { 'type': 'string' },
-			},
-		},
-	},
-	'x-amazon-apigateway-integration': {
-		'passthroughBehavior': 'when_no_match',
-		'requestTemplates': { 'application/json': '{statusCode:200}' },
-		'responses': {
-			'default': {
-				'responseParameters': {
-					'method.response.header.Access-Control-Allow-Credentials': "'false'",
-					'method.response.header.Access-Control-Allow-Headers': "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-					'method.response.header.Access-Control-Allow-Methods': "'OPTIONS,GET,PUT,POST,DELETE,HEAD'",
-					'method.response.header.Access-Control-Allow-Origin': "'*'",
-				},
-				'statusCode': '200',
-			},
-		},
-		'type': 'mock',
-	},
-};
-
-const getFunctionARN = async (options, functionPath) => {
+const getFunctionARN = async (functionPath, options) => {
+	const projectOptions = utils.loadJSONFile(path.join(functionPath, '..', 'project.json'));
+	const functionOptions = utils.loadJSONFile(path.join(functionPath, 'function.json'));
 	const lambda = aws.lambda(options);
-	const lambdaConfig = config(utils.getFunctionOptions(functionPath, options));
+	const combinedOptions = merge({}, options, projectOptions, functionOptions);
+	const lambdaConfig = config(combinedOptions);
 	const lambdaFunction = await lambda.getFunction({ FunctionName: lambdaConfig.FunctionName }).promise();
 
 	return lambdaFunction.Configuration.FunctionArn;
 };
 
-const getApigName = (options, projectPath) => {
-	const { apig, stage } = {
-		...utils.loadJSONFile(path.join(projectPath, 'project.json')),
-		...options,
-	};
-	const apigName = apig ? apig : projectPath.split(path.sep).filter((folder) => Boolean(folder)).pop();
-
-	return stage ? `${apigName}-${stage}` : apigName;
-};
-
-const buildSwaggerPath = (http, options, FunctionArn) => {
+const buildSwaggerPath = (event, functionArn, options) => {
 	const response = {
-		reponses: {},
+		responses: {},
 		'x-amazon-apigateway-integration': {
-			credentials: options.Role,
+			credentials: options.role,
 			httpMethod: 'POST',
 			passthroughBehavior: 'when_no_match',
 			type: 'aws_proxy',
-			uri: `arn:aws:apigateway:${options.region}:lambda:path/2015-03-31/functions/${FunctionArn}/invocations`,
+			uri: `arn:aws:apigateway:${options.region}:lambda:path/2015-03-31/functions/${functionArn}/invocations`,
 		},
 	};
 
-	if (http.parameters) {
-		response.parameters = http.parameters.map((parameter) => ({
+	if (event.parameters) {
+		response.parameters = event.parameters.map((parameter) => ({
 			in: "path",
 			name: parameter,
 			required: true,
@@ -81,14 +77,26 @@ const buildSwaggerPath = (http, options, FunctionArn) => {
 	}
 
 	return {
-		options: http.cors ? cors : undefined,
-		[http.method === 'any' ? 'x-amazon-apigateway-any-method' : http.method]: response,
+		options: event.cors ? cors : undefined,
+		[event.method === 'any' ? 'x-amazon-apigateway-any-method' : event.method]: response,
 	};
 };
 
+const buildSwaggerEvents = (swagger, events, arns, options) => ( // eslint-disable-line max-params
+	events.reduce((result, event) => {
+		if (result.paths[event.path]) {
+			throw new Error(`Duplicate path: ${event.path}`);
+		} else {
+			result.paths[event.path] = buildSwaggerPath(event, arns[event.functionPath], options);
+		}
+
+		return result;
+	}, swagger)
+);
+
 const getApigID = async (apigName, apig) => {
 	const apigs = await apig.getRestApis({ limit: 500 }).promise();
-	const apigIDs = apigs.items.filter((apig) => apig.name === apigName).map((apig) => apig.id);
+	const apigIDs = apigs.items.filter((apigRecord) => apigRecord.name === apigName).map((apigRecord) => apigRecord.id);
 
 	if (apigIDs.length > 0) {
 		return apigIDs.pop();
@@ -99,9 +107,9 @@ const getApigID = async (apigName, apig) => {
 	return response.id;
 };
 
-const updateAPIG = async (apigName, swagger, options) => {
+const updateAPIG = async (swagger, options) => {
 	const apig = aws.apig(options);
-	const apigID = await getApigID(apigName, apig);
+	const apigID = await getApigID(options.apigName, apig);
 
 	await apig.putRestApi({
 		body: JSON.stringify(swagger),
@@ -110,50 +118,25 @@ const updateAPIG = async (apigName, swagger, options) => {
 		restApiId: apigID,
 	}).promise();
 
-	options.feedback(`Deploying APIGateway`);
 	await apig.createDeployment({
 		restApiId: apigID,
-		stageName: options.stage || options.project,
+		stageName: options.stage,
 	}).promise();
-	options.feedback(`SUCCESS: Deployed APIGateway`);
+
+	console.log(`APIGatewayID: ${apigID}`);
 };
 
-export const deployFunction = async (functionPath, httpEvents, options) => {
-	const apigName = getApigName(options, path.join(functionPath, '..'));
-	const FunctionArn = await getFunctionARN(options, functionPath);
-	const swagger = {
-		...emptySwagger,
-		info: { title: apigName },
-		paths: httpEvents.reduce((result, { http }) => ({
-			...result,
-			[http.path]: buildSwaggerPath(http, options, FunctionArn),
-		}), {}),
-	};
+const apigDeploy = async (projectPath, options, files) => {
+	const events = formatEvents(files);
+	const functionPaths = events.reduce((result, event) => ({
+		...result,
+		[event.functionPath]: true,
+	}), {});
+	const arns = await Promise.all(Object.keys(functionPaths).map((functionPath) => getFunctionARN(functionPath, options)));
+	const swagger = buildSwagger(options);
+	const swaggerEvents = buildSwaggerEvents(swagger, events, arns, options);
 
-	await updateAPIG(apigName, swagger, options);
+	await updateAPIG(swaggerEvents, options);
 };
 
-export const deployProject = async (projectPath, httpEvents, options) => {
-	const apigName = getApigName(options, projectPath);
-	const arns = {};
-	const functionEvents = await Promise.all(httpEvents.map(async (event) => ({
-		...event,
-		FunctionArn: arns[event.functionPath] ? arns[event.functionPath] : await getFunctionARN(options, event.functionPath),
-		options: utils.getFunctionOptions(event.functionPath, options),
-	})));
-	const swagger = {
-		...emptySwagger,
-		info: { title: apigName },
-		paths: functionEvents.reduce((result, { FunctionArn, http, options }) => ({
-			...result,
-			[http.path]: buildSwaggerPath(http, options, FunctionArn),
-		}), {}),
-	};
-
-	await updateAPIG(apigName, swagger, utils.getProjectOptions(projectPath, options));
-};
-
-export default {
-	deployFunction,
-	deployProject,
-};
+export default apigDeploy;

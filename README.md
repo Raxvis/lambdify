@@ -85,12 +85,12 @@ project/
 Variables that can be set inside the project.json or function.json.
 
     {
-		"stage": "<stage for deplying independant stages with similar code>",
-		"version": "<version for splitting functions>",
-		"functionsOnly": "<deploy only the functions>",
-		"eventsOnly": "<deploy only the events>",
-		"region": "<aws region>",
-		"profile": "<aws credentials profile>",
+        "stage": "<stage for deplying independant stages with similar code>",
+        "version": "<version for splitting functions>",
+        "functionsOnly": "<deploy only the functions>",
+        "eventsOnly": "<deploy only the events>",
+        "region": "<aws region>",
+        "profile": "<aws credentials profile>",
         "Description": "",
         "Environment": {},
         "FunctionName": "",
@@ -103,6 +103,7 @@ Variables that can be set inside the project.json or function.json.
             "SecurityGroupIds": [],
             "SubnetIds": []
         }
+        "APIGateway": "<API Gateway Name - will append stage if stage is present>"
     }
 
 Lambdify Defaults:
@@ -137,7 +138,7 @@ Also ensure that your Lambda Role has a minimum trust relationship of
         ]
     }
 
-Events will be inside the function.json file
+Events will be inside an events.json file
 
 ### API Gateway / HTTP
 

@@ -1,3 +1,6 @@
+import merge from 'lodash.merge';
+import path from 'path';
+
 const defaultConfig = {
 	Description: '',
 	Environment: {},
@@ -13,8 +16,8 @@ const defaultConfig = {
 	},
 };
 
-const buildLambdaFunctionName = (options) => {
-	let { functionName } = options;
+const buildLambdaFunctionName = (functionPath, options) => {
+	let [functionName] = functionPath.split(path.sep).pop().split('.');
 
 	functionName = options.version ? `${functionName}__${options.version}` : functionName;
 	functionName = options.stage ? `${options.stage}_${functionName}` : functionName;
@@ -23,19 +26,15 @@ const buildLambdaFunctionName = (options) => {
 	return functionName;
 };
 
-const config = (options) => {
-	const lambdaConfig = Object.keys(options).reduce((result, key) => {
-		if (key in defaultConfig) {
-			return {
-				...result,
-				[key]: options[key],
-			};
-		}
+const config = (functionPath, options) => {
+	const merged = merge({}, defaultConfig, options);
 
-		return result;
-	}, defaultConfig);
+	const lambdaConfig = Object.keys(defaultConfig).reduce((result, key) => ({
+		...result,
+		[key]: merged[key],
+	}), {});
 
-	lambdaConfig.FunctionName = buildLambdaFunctionName(options);
+	lambdaConfig.FunctionName = lambdaConfig.FunctionName || buildLambdaFunctionName(functionPath, options);
 	lambdaConfig.Environment.Variables = {
 		...lambdaConfig.Environment.Variables,
 		name: options.functionName,

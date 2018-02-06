@@ -1,4 +1,4 @@
-const run = (event) => {
+const run = (event, context) => {
 	context.succeed({ test: 'true' });
 };
 
