@@ -16,5 +16,9 @@ export const binary = (body, type, options) => response(body, type, {
 	...options,
 	binary: true,
 });
+export const redirect = (url) => response(null, 'text/html', {
+	headers: { Location: url },
+	statusCode: 302,
+});
 
 export default response;
