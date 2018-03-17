@@ -2,7 +2,7 @@
 
 [![npm package](https://nodei.co/npm/lambdify.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/lambdify/)
 
-![Version](https://img.shields.io/npm/v/lambdify.svg)
+![Version](https://img.shields.io/npm/v/lambdify.svg) ![Build Status](	https://img.shields.io/travis/Prefinem/lambdify.svg)
 
 ![Weekly Downloads](https://img.shields.io/npm/dw/lambdify.svg) ![Monthly Downloads](https://img.shields.io/npm/dm/lambdify.svg) ![Yearly Downloads](https://img.shields.io/npm/dy/lambdify.svg)
 
