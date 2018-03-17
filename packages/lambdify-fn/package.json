@@ -1,0 +1,41 @@
+{
+    "author": {
+        "email": "prefinem@gmail.com",
+        "name": "Prefinem",
+        "url": "http://prefinem.com"
+    },
+    "description": "Lambda Functional Methods that are completely Async / Await capable",
+    "devDependencies": {
+        "babel-core": "^6.26.0",
+        "babel-plugin-transform-async-to-generator": "^6.24.1",
+        "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+        "babel-plugin-transform-object-rest-spread": "^6.26.0",
+        "babel-preset-env": "^1.6.1",
+        "gulp": "^3.9.1",
+        "gulp-babel": "^7.0.0",
+        "gulp-eslint-if-fixed": "^1.0.0",
+        "gulp-if": "^2.0.2",
+        "jest": "^22.4.2"
+    },
+    "engines": {
+        "node": ">=6.10"
+    },
+    "files": [
+        "dist"
+    ],
+    "homepage": "https://github.com/Prefinem/lambdify",
+    "license": "MIT",
+    "main": "./dist/index.js",
+    "name": "lambdify-fn",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Prefinem/lambdify/tree/master/packages/lambdify-fn"
+    },
+    "scripts": {
+        "build": "gulp build",
+        "clean": "eslint src/**/*.js --fix",
+        "test": "gulp build && jest",
+        "watch": "gulp watch"
+    },
+    "version": "2.0.0"
+}

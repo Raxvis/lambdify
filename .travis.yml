@@ -1,0 +1,10 @@
+language: node_js
+cache:
+  directories:
+    - "node_modules"
+before_install:
+  - "npm install -g lerna"
+install:
+  - "lerna bootstrap"
+script:
+  - "lerna test"
