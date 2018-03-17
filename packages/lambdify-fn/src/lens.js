@@ -8,7 +8,7 @@ const lensObject = (func) => (
 	).reduce((result, value, index) => ({
 		...result,
 		[Object.keys(params)[index]]: value,
-	}), {}))
+	})))
 );
 
 export const lens = (func) => (
