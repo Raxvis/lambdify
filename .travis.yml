@@ -9,4 +9,4 @@ before_install:
 install:
   - "lerna bootstrap"
 script:
-  - "lerna test"
+  - "lerna run test"
