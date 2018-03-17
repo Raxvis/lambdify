@@ -1,7 +1,8 @@
 {
     "author": {
         "email": "prefinem@gmail.com",
-        "name": "Prefinem"
+        "name": "Prefinem",
+        "url": "https://prefinem.com"
     },
     "devDependencies": {
         "babel-eslint": "^8.2.2",
