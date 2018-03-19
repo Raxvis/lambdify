@@ -8,6 +8,7 @@
         "babel-eslint": "^8.2.2",
         "eslint": "^4.19.0",
         "husky": "^0.14.3",
+        "jest": "^22.4.2",
         "lerna": "^2.8.0",
         "pkg-ok": "^2.1.0",
         "through2": "^2.0.3"
@@ -17,10 +18,10 @@
     "scripts": {
         "build": "lerna run build",
         "clean": "lerna run clean",
-        "precommit": "lerna run clean && lerna run test",
-        "prepublishOnly": "lerna run build && lerna run clean && lerna run test && pkg-ok",
-        "prepush": "lerna run clean && lerna run test",
-        "test": "lerna bootstrap && lerna run test",
+        "precommit": "lerna run clean && jest",
+        "prepublishOnly": "lerna run build && lerna run clean && jest && pkg-ok",
+        "prepush": "lerna run clean && jest",
+        "test": "lerna bootstrap && lerna run build && jest --coverage",
         "watch": "learn run watch"
     },
     "version": "2.0.0"

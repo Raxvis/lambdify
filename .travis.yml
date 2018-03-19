@@ -17,6 +17,7 @@ before_script:
   - ./cc-test-reporter before-build
 script:
   - "lerna run clean"
-  - "lerna run test"
+  - "npm test"
 after_script:
+  - ./cc-test-reporter upload-coverage < coverage/lcov.info
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
