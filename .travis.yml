@@ -9,6 +9,7 @@ cache:
     - "node_modules"
 before_install:
   - "npm install -g lerna"
+  - "npm install -g jest"
 install:
   - "lerna bootstrap"
 before_script:
