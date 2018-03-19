@@ -8,7 +8,7 @@
 
 ![Issues](https://img.shields.io/github/issues/Prefinem/lambdify.svg) ![Pull Requests](https://img.shields.io/github/issues-pr/Prefinem/lambdify.svg)
 
-![Dependencies](https://img.shields.io/david/Prefinem/lambdify.svg) ![Dev Dependencies](https://img.shields.io/david/dev/Prefinem/lambdify.svg)
+![Dependencies](https://david-dm.org/Prefinem/lambdify.svg) ![Dev Dependencies](https://david-dm.org/Prefinem/lambdify/dev-status.svg)
 
 Lambdify is a set of tools to make it much easier to build and consume AWS Lambda functions.
 
