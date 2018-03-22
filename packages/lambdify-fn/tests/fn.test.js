@@ -1,5 +1,5 @@
 /* global test, expect */
-const fn = require('./../dist');
+const fn = require('./../src');
 
 const requestObj = { test: 'this' };
 const insertObj = {

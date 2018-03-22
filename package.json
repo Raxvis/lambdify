@@ -21,7 +21,7 @@
         "precommit": "lerna run clean && jest",
         "prepublishOnly": "lerna run build && lerna run clean && jest && pkg-ok",
         "prepush": "lerna run clean && jest",
-        "test": "lerna bootstrap && lerna run build && jest --coverage",
+        "test": "lerna bootstrap && jest --coverage",
         "watch": "learn run watch"
     },
     "version": "2.0.0"
