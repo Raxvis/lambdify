@@ -4,6 +4,11 @@ const runner = require('./../src');
 
 const response = { test: 'this' };
 
+test('runner loads all functions', () => {
+	const keys = Object.keys(runner).sort();
+
+	expect(keys).toEqual(['binary', 'default', 'html', 'json', 'payload', 'redirect', 'request', 'response', 'runner', 'xml']);
+});
 
 test('payload loads object', () => {
 	const output = runner.payload(response);

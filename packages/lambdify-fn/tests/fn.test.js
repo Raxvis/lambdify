@@ -13,6 +13,12 @@ const sleep = (params) => (
 	})
 );
 
+test('fn loads all functions', () => {
+	const keys = Object.keys(fn).sort();
+
+	expect(keys).toEqual(['constant', 'default', 'insert', 'lens', 'log', 'pipe']);
+});
+
 test('pipe handles multiple functions', async () => {
 	await expect(fn.pipe(
 		fn.log,
