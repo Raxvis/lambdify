@@ -5,12 +5,18 @@
         "url": "https://prefinem.com"
     },
     "devDependencies": {
+        "babel-core": "^6.26.0",
         "babel-eslint": "^8.2.2",
+        "babel-jest": "^22.4.3",
+        "babel-plugin-transform-async-to-generator": "^6.24.1",
+        "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+        "babel-plugin-transform-object-rest-spread": "^6.26.0",
         "eslint": "^4.19.0",
         "husky": "^0.14.3",
         "jest": "^22.4.2",
         "lerna": "^2.8.0",
         "pkg-ok": "^2.1.0",
+        "regenerator-runtime": "^0.11.1",
         "through2": "^2.0.3"
     },
     "license": "MIT",
@@ -21,7 +27,7 @@
         "precommit": "lerna run clean && jest",
         "prepublishOnly": "lerna run build && lerna run clean && jest && pkg-ok",
         "prepush": "lerna run clean && jest",
-        "test": "lerna bootstrap && lerna run build && jest --coverage",
+        "test": "lerna bootstrap && jest --coverage",
         "watch": "learn run watch"
     },
     "version": "2.0.0"

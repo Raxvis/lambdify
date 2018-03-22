@@ -1,6 +1,6 @@
 module.exports = {
 	collectCoverageFrom: [
-		'packages/*/dist/**.{js,jsx}',
+		'packages/*/src/**.{js,jsx}',
 		'!**/node_modules/**',
 		'!**/vendor/**',
 	],
