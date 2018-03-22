@@ -4,12 +4,9 @@ env:
 language: node_js
 node_js:
   - "node"
-cache:
-  directories:
-    - "node_modules"
+cache: yarn
 before_install:
-  - "npm install -g lerna"
-  - "npm install -g jest"
+  - "yarn global add lerna"
 install:
   - "lerna bootstrap"
 before_script:
@@ -18,7 +15,7 @@ before_script:
   - ./cc-test-reporter before-build
 script:
   - "lerna run clean"
-  - "npm test"
+  - "yarn test"
 after_script:
   - ./cc-test-reporter upload-coverage < coverage/lcov.info
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
