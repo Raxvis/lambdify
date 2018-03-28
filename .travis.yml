@@ -7,14 +7,13 @@ node_js:
 cache: yarn
 before_install:
   - "yarn global add lerna"
-install:
-  - "yarn"
-  - "lerna bootstrap"
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
+  - "yarn"
+  - "lerna bootstrap"
   - "lerna run clean"
   - "yarn run test"
 after_script:
