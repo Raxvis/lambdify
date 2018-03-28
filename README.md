@@ -14,6 +14,10 @@
 
 Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier.
 
+# NOTICE
+
+These docs are awful.  If you are interested in using one of the library and need some help, please create an issue and I will work on the docs for that first.  Thanks
+
 # Getting Started
 
 **ES6 Imports**
