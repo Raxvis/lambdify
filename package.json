@@ -30,6 +30,5 @@
         "start": "lerna bootstrap && lerna run build && lerna bootstrap",
         "test": "jest --coverage",
         "watch": "learn run watch"
-    },
-    "version": "2.0.0"
+    }
 }
