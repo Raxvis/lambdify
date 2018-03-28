@@ -11,7 +11,7 @@ const buildResponsePayload = (response) => {
 	return json(payload(response));
 };
 
-export const runner = (event, context, fn) => {
+export const run = (event, context, fn) => {
 	new Promise(async (resolve) => {
 		try {
 			const response = await fn(request(event, context));
@@ -24,4 +24,4 @@ export const runner = (event, context, fn) => {
 	}).then((data) => context.succeed(data));
 };
 
-export default runner;
+export default run;

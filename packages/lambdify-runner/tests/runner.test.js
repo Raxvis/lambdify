@@ -7,7 +7,7 @@ const response = { test: 'this' };
 test('runner loads all functions', () => {
 	const keys = Object.keys(runner).sort();
 
-	expect(keys).toEqual(['binary', 'default', 'html', 'json', 'payload', 'redirect', 'request', 'response', 'runner', 'xml']);
+	expect(keys).toEqual(['binary', 'default', 'html', 'json', 'payload', 'redirect', 'request', 'response', 'run', 'xml']);
 });
 
 test('payload loads object', () => {
@@ -20,6 +20,12 @@ test('request loads event', () => {
 	const req = runner.request(response);
 
 	expect(req.event).toEqual(response);
+});
+
+test('request handles bad json', () => {
+	const req = runner.request({ body: 'test' });
+
+	expect(req.body).toEqual('test');
 });
 
 test('response.json return json response', () => {
@@ -50,4 +56,46 @@ test('response.redirect returns redirect response', () => {
 	const res = runner.redirect('https://google.com');
 
 	expect(res.headers.Location).toEqual('https://google.com');
+});
+
+test('run returns correct payload', async () => {
+	const res = await new Promise((resolve) => {
+		const context = { succeed: resolve };
+
+		runner.run({}, context, () => (response));
+	});
+
+	expect(JSON.parse(res.body)).toEqual(runner.payload(response));
+	expect(JSON.parse(res.body).payload).toEqual(response);
+});
+
+test('run returns correctly with no payload', async () => {
+	const res = await new Promise((resolve) => {
+		const context = { succeed: resolve };
+
+		runner.run({}, context, () => { console.log('not returning payload'); });
+	});
+
+	expect(JSON.parse(res.body)).toEqual(runner.payload({}));
+	expect(JSON.parse(res.body).payload).toEqual({});
+});
+
+test('run returns correctly with response payload', async () => {
+	const res = await new Promise((resolve) => {
+		const context = { succeed: resolve };
+
+		runner.run({}, context, () => runner.json({}));
+	});
+
+	expect(JSON.parse(res.body)).toEqual({});
+});
+
+test('run handles error', async () => {
+	const res = await new Promise((resolve) => {
+		const context = { succeed: resolve };
+
+		runner.run({}, context, () => { throw new Error('basic error'); });
+	});
+
+	expect(JSON.parse(res.body).status).toEqual('error');
 });
