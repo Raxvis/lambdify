@@ -10,9 +10,9 @@ before_install:
 install:
   - "yarn"
   - "lerna bootstrap"
-  - "learn add lambdify-fn --scope=lambdify"
-  - "learn add lambdify-runner --scope=lambdify"
-  - "learn add lambdify-utils --scope=lambdify"
+  - "lerna add lambdify-fn --scope=lambdify"
+  - "lerna add lambdify-runner --scope=lambdify"
+  - "lerna add lambdify-utils --scope=lambdify"
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
