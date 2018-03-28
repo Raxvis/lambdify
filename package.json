@@ -25,9 +25,8 @@
     "scripts": {
         "build": "lerna run build",
         "clean": "lerna run clean",
-        "precommit": "lerna run clean && jest",
-        "prepublishOnly": "lerna run build && lerna run clean && jest && pkg-ok",
-        "prepush": "lerna run clean && jest",
+        "precommit": "lerna bootstrap && lerna run build && lerna bootstrap && lerna run clean && jest",
+        "prepublishOnly": "lerna bootstrap && lerna run build && lerna bootstrap && lerna run clean && jest && pkg-ok",
         "start": "lerna bootstrap && lerna run build && lerna bootstrap",
         "test": "jest --coverage",
         "watch": "learn run watch"
