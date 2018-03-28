@@ -1,15 +1,15 @@
 {
-	"lerna": "2.8.0",
-	"commands": {
-		"publish": {
-			"ignore": [
-				".DC_Store",
-				"*.md"
-			]
-		}
-	},
-	"packages": [
-		"packages/*"
-	],
-	"version": "2.0.0"
+  "lerna": "2.8.0",
+  "commands": {
+    "publish": {
+      "ignore": [
+        ".DC_Store",
+        "*.md"
+      ]
+    }
+  },
+  "packages": [
+    "packages/*"
+  ],
+  "version": "2.0.0"
 }
