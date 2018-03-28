@@ -12,12 +12,138 @@
 
 ![Dependencies](https://david-dm.org/Prefinem/lambdify.svg) ![Dev Dependencies](https://david-dm.org/Prefinem/lambdify/dev-status.svg)
 
-Lambdify is a set of tools to make it much easier to build and consume AWS Lambda functions.
+Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier.
 
-## Installation
+# Getting Started
+
+**ES6 Imports**
+
+```js
+import { run } from 'lambdify';
+
+const helloWorld = (request) => {
+	return `Hello User, I see that you are coming from IP: ${request.ip}`;
+};
+
+exports.handler = (event, context) => run(event, context, helloWorld);
+```
+
+**Old School**
+
+```js
+const lambdify = require('lambdify');
+
+function helloWorld (request) {
+	return 'Hello User, I see that you are coming from IP: ' + request.ip;
+}
+
+exports.handler = (event, context) => lambdify.run(event, context, helloWorld);
+```
+
+# Installation
 
     npm i lambdify
 
 or
 
     yarn add lambdify
+
+# API Docs
+
+## Lambidfy FN
+
+```js
+const fn = require('lambdify').fn;
+
+fn.pipe();
+```
+* constant
+* insert
+* lens
+* log
+* pipe
+
+## Lambidfy Runner
+
+```js
+const runner = require('lambdify').runner;
+
+runner.request();
+```
+* binary
+* html
+* json
+* payload
+* redirect
+* request
+* response
+* run
+* xml
+
+## Lambidfy Utils
+
+```js
+const utils = require('lambdify').utils;
+
+utils.retry();
+```
+* retry
+* retry3
+* retryImmediately
+* retryLineary
+* utils
+* withRetry
+
+# Packages
+
+Lambdify composes several packages which are documented below.  You can always install just the individual package yourself if you wish.
+
+## Lambdify FN
+
+Lambdify FN is a set of functional methods that are completely Async / Await.  Because they are Async / Await, I highly recommend that you use Lambdify Runner to ensure your lambda functions supports Async / Await (transpile with babel)
+
+**Installation**
+`npm install lambdify-fn`
+
+### constant
+```js
+import { constant } from 'lambdify';
+// If you only install this package, use the code below
+// import { constant } from 'lambdify-fn';
+
+const response = { foo: 'bar' };
+const output = await constant((data) => {
+	if (data.foo) {
+		console.log('bar');
+	}
+})(response);
+
+// console will log 'bar'
+// output will equal response
+```
+
+### insert
+### lens
+### log
+### pipe
+
+## Lambidfy Runner
+
+### binary
+### html
+### json
+### payload
+### redirect
+### request
+### response
+### run
+### xml
+
+## Lambidfy Utils
+
+### retry
+### retry3
+### retryImmediately
+### retryLineary
+### utils
+### withRetry

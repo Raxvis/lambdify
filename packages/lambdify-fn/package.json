@@ -4,7 +4,7 @@
         "name": "Prefinem",
         "url": "http://prefinem.com"
     },
-    "description": "Lambda Functional Methods that are completely Async / Await capable",
+    "description": "Lambda Functional Methods that are completely Async / Await",
     "devDependencies": {
         "babel-core": "^6.26.0",
         "babel-eslint": "^8.2.2",
