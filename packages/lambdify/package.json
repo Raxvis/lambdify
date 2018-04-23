@@ -39,10 +39,10 @@
         "test": "jest",
         "watch": "gulp watch"
     },
-    "version": "2.0.1",
+    "version": "2.0.2",
     "dependencies": {
         "lambdify-fn": "^2.0.0",
-        "lambdify-runner": "^2.0.1",
+        "lambdify-runner": "^2.0.2",
         "lambdify-utils": "^2.0.0"
     }
 }
