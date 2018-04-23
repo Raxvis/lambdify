@@ -8,10 +8,13 @@ test('lambdify loads all functions', () => {
 	expect(keys).toEqual([
 		'binary',
 		'constant',
+		'context',
 		'default',
+		'event',
 		'fn',
 		'html',
 		'insert',
+		'invoke',
 		'json',
 		'lens',
 		'log',

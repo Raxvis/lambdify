@@ -1,13 +1,14 @@
 /* global test, expect */
 
 const runner = require('./../src');
+const path = require('path');
 
 const response = { test: 'this' };
 
 test('runner loads all functions', () => {
 	const keys = Object.keys(runner).sort();
 
-	expect(keys).toEqual(['binary', 'default', 'html', 'json', 'payload', 'redirect', 'request', 'response', 'run', 'xml']);
+	expect(keys).toEqual(['binary', 'context', 'default', 'event', 'html', 'invoke', 'json', 'payload', 'redirect', 'request', 'response', 'run', 'xml']);
 });
 
 test('payload loads object', () => {
@@ -111,4 +112,46 @@ test('run handles error', async () => {
 	});
 
 	expect(JSON.parse(res.body).status).toEqual('error');
+});
+
+test('invoke calls local lambda function', async () => {
+	const res = await runner.invoke(response, path.resolve(__dirname, 'fn/fooBar.handler'));
+
+	expect(JSON.parse(res.body).payload).toEqual({ foo: 'bar' });
+});
+
+test('invoke return correct data', async () => {
+	const res = await runner.invoke({ body: JSON.stringify(response) }, path.resolve(__dirname, 'fn/request.handler'));
+
+	expect(JSON.parse(res.body).payload).toEqual({ request: response });
+});
+
+test('invoke handles errors', async () => {
+	const res = await runner.invoke(response, path.resolve(__dirname, 'fn/error.handler'));
+
+	expect(JSON.parse(res.body).status).toEqual('error');
+});
+
+test('event handles standard event', () => {
+	const event = runner.event({ path: '/test' });
+
+	expect(event.path).toEqual('/test');
+});
+
+test('event body extends original event', () => {
+	const event = runner.event({}, response);
+
+	expect(JSON.parse(event.body)).toEqual(response);
+});
+
+test('event options extends original event', () => {
+	const event = runner.event({ path: '/test' }, {}, { path: '/foo' });
+
+	expect(event.path).toEqual('/foo');
+});
+
+test('event has basic params', () => {
+	const event = runner.event();
+
+	expect(JSON.parse(event.body)).toEqual({});
 });
