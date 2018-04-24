@@ -120,6 +120,17 @@ test('invoke calls local lambda function', async () => {
 	expect(JSON.parse(res.body).payload).toEqual({ foo: 'bar' });
 });
 
+test('invoke handles function', async () => {
+	const fn = require(path.resolve(__dirname, 'fn/fooBar'));
+	const res = await runner.invoke(response, fn.handler);
+
+	expect(JSON.parse(res.body).payload).toEqual({ foo: 'bar' });
+});
+
+test('invoke throws error if bad handler', () => {
+	expect(runner.invoke(response, {})).rejects.toThrow();
+});
+
 test('invoke return correct data', async () => {
 	const res = await runner.invoke({ body: JSON.stringify(response) }, path.resolve(__dirname, 'fn/request.handler'));
 
