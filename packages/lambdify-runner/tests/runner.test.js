@@ -150,6 +150,18 @@ test('event options extends original event', () => {
 	expect(event.path).toEqual('/foo');
 });
 
+test('event can extend identity', () => {
+	const event = runner.event({}, {}, { requestContext: { identity: { ua: 'me' } } });
+
+	expect(event.requestContext.identity.ua).toEqual('me');
+});
+
+test('event can override identity', () => {
+	const event = runner.event({ requestContext: { identity: { ua: 'you' } } }, {}, { requestContext: { identity: { ua: 'me' } } });
+
+	expect(event.requestContext.identity.ua).toEqual('me');
+});
+
 test('event has basic params', () => {
 	const event = runner.event();
 

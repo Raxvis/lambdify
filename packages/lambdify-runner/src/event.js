@@ -1,22 +1,26 @@
-export const event = (originalEvent = {}, body = {}, options = {}) => ({
+export const event = (originalEvent = {}, body = {}, overrides = {}) => ({
 	...originalEvent,
-	...options,
+	...overrides,
 	body: JSON.stringify(body),
 	headers: {
 		...originalEvent.headers,
-		...options.headers,
+		...overrides.headers,
 	},
 	pathParameters: {
 		...originalEvent.pathParameters,
-		...options.pathParameters,
+		...overrides.pathParameters,
 	},
 	queryStringParameters: {
 		...originalEvent.queryStringParameters,
-		...options.queryStringParameters,
+		...overrides.queryStringParameters,
 	},
 	requestContext: {
 		...originalEvent.requestContext,
-		...options.requestContext,
+		...overrides.requestContext,
+		identity: {
+			...(originalEvent.requestContext ? originalEvent.requestContext.identity : {}),
+			...(overrides.requestContext ? overrides.requestContext.identity : {}),
+		},
 	},
 });
 
