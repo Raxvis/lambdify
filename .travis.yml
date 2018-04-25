@@ -4,6 +4,7 @@ env:
 language: node_js
 node_js:
   - "node"
+  - "9"
 cache: yarn
 before_install:
   - "yarn global add lerna"
