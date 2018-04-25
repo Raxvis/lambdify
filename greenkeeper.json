@@ -1,0 +1,13 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "packages/lambdify-fn/package.json",
+        "packages/lambdify-runner/package.json",
+        "packages/lambdify-utils/package.json",
+        "packages/lambdify/package.json"
+      ]
+    }
+  }
+}
