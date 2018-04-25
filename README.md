@@ -1,5 +1,7 @@
 # lambdify
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Prefinem/lambdify.svg)](https://greenkeeper.io/)
+
 [![npm pack age](https://nodei.co/npm/lambdify.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.org/package/lambdify)
 
 [![Version](https://badge.fury.io/js/lambdify.svg)](https://npmjs.org/package/lambidfy) [![Build Status](https://travis-ci.org/Prefinem/lambdify.svg)](https://travis-ci.org/Prefinem/lambdify)
