@@ -7,6 +7,7 @@ node_js:
 cache: yarn
 before_install:
   - "yarn global add lerna"
+  - "yarn global add jest"
 install:
   - "yarn"
   - "lerna bootstrap"

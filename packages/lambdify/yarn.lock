@@ -2940,6 +2940,18 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
+lambdify-fn@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/lambdify-fn/-/lambdify-fn-2.0.0.tgz#10e2431242d766c30eb95fdd419650d15133ba59"
+
+lambdify-runner@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/lambdify-runner/-/lambdify-runner-2.0.4.tgz#5632cca72e02b3e1c5382011794e88a04b16fd35"
+
+lambdify-utils@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/lambdify-utils/-/lambdify-utils-2.0.0.tgz#a629c72a6675640a4de2438d3bc70b933142fd01"
+
 lazy-cache@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/lazy-cache/-/lazy-cache-1.0.4.tgz#a1d78fc3a50474cb80845d3b3b6e1da49a446e8e"
