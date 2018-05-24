@@ -1,4 +1,4 @@
-const get = (record, path, defaultValue) => ((path.match(/([^.[\]]+)/g) || []).reduce((result, piece) => (result && result[piece]), record) || defaultValue);
+const get = (record, path, defaultValue) => ((path.match(/([^.[\]]+)/g)).reduce((result, piece) => (result && result[piece]), record) || defaultValue);
 
 const parseJSON = (json) => {
 	try {
