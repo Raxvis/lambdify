@@ -17,6 +17,7 @@
         "gulp-eslint": "^4.0.2",
         "gulp-eslint-if-fixed": "^1.0.0",
         "gulp-if": "^2.0.2",
+        "gulp-sourcemaps": "^2.6.4",
         "jest": "^23.0.0",
         "regenerator-runtime": "^0.11.1"
     },
