@@ -2,26 +2,29 @@ import { json } from './response';
 import payload from './payload';
 import request from './request';
 
-const buildResponsePayload = (response) => {
+const buildResponsePayload = (response, error) => {
 	if (!response) {
-		return json(payload({}));
+		return error ? json(payload({}, error)) : json(payload({}));
 	} else if (response.body || response.headers || response.statusCode) {
 		return response;
 	}
-	return json(payload(response));
+	return error ? json(payload({}, error)) : json(payload(response));
 };
 
-export const run = (event, context, fn) => {
+export const catchError = (errorFN) => (event, context, fn) => {
 	new Promise(async (resolve) => {
 		try {
 			const response = await fn(request(event, context));
 
 			resolve(buildResponsePayload(response));
 		} catch (error) {
-			console.log(error);
-			resolve(json(payload({}, error)));
+			const response = await errorFN(event, error);
+
+			resolve(buildResponsePayload(response, error));
 		}
 	}).then((data) => context.succeed(data));
 };
+
+export const run = catchError((event, error) => console.log(error));
 
 export default run;
