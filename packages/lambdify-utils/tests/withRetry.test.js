@@ -45,7 +45,7 @@ test('withRetry fails if executes to many times', async () => {
 	count = 0;
 
 	try {
-		await utils.withRetry()(failXTimes, 6);
+		await utils.withRetry({ baseDelay: 1 })(failXTimes, 6);
 	} catch (error) {
 		expect(error.message).toMatch('Not failed enough yet');
 	}
