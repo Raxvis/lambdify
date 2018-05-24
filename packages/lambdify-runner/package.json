@@ -6,8 +6,9 @@
     },
     "description": "Lambda Request / Response Functions that are completely Async / Await capable",
     "devDependencies": {
-        "babel-core": "^6.26.0",
+        "babel-core": "^6.26.3",
         "babel-eslint": "^8.2.2",
+        "babel-jest": "^23.0.0",
         "babel-plugin-transform-async-to-generator": "^6.24.1",
         "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
         "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -17,7 +18,8 @@
         "gulp-eslint": "^4.0.2",
         "gulp-eslint-if-fixed": "^1.0.0",
         "gulp-if": "^2.0.2",
-        "jest": "^22.4.2"
+        "jest": "^23.0.0",
+        "regenerator-runtime": "^0.11.1"
     },
     "engines": {
         "node": ">=6.10"
