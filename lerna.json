@@ -1,15 +1,16 @@
 {
-  "lerna": "2.8.0",
-  "commands": {
-    "publish": {
-      "ignore": [
-        ".DC_Store",
-        "*.md"
-      ]
-    }
-  },
-  "packages": [
-    "packages/*"
-  ],
-  "version": "2.0.4"
+    "commands": {
+        "publish": {
+            "ignore": [
+                ".DC_Store",
+                "*.md"
+            ]
+        }
+    },
+    "lerna": "2.8.0",
+    "npmClient": "yarn",
+    "packages": [
+        "packages/*"
+    ],
+    "version": "2.0.4"
 }
