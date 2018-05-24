@@ -2,7 +2,7 @@
 
 [![npm pack age](https://nodei.co/npm/lambdify.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.org/package/lambdify)
 
-[![Version](https://badge.fury.io/js/lambdify.svg)](https://npmjs.org/package/lambidfy) [![Build Status](https://travis-ci.org/Prefinem/lambdify.svg)](https://travis-ci.org/Prefinem/lambdify)
+[![Version](https://badge.fury.io/js/lambdify.svg)](https://npmjs.org/package/lambdify) [![Build Status](https://travis-ci.org/Prefinem/lambdify.svg)](https://travis-ci.org/Prefinem/lambdify)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/4f911850391938e811f1/maintainability)](https://codeclimate.com/github/Prefinem/lambdify/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/4f911850391938e811f1/test_coverage)](https://codeclimate.com/github/Prefinem/lambdify/test_coverage) [![Greenkeeper badge](https://badges.greenkeeper.io/Prefinem/lambdify.svg)](https://greenkeeper.io/)
 
@@ -15,6 +15,8 @@
 Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier.
 
 # NOTICE
+
+***WARNING: Version 3.0.0 is for Node 8.10 or greater***
 
 These docs are awful.  If you are interested in using one of the library and need some help, please create an issue and I will work on the docs for that first.  Thanks
 
@@ -54,7 +56,7 @@ or
 
 # API Docs
 
-## Lambidfy FN
+## Lambdify FN
 
 ```js
 const fn = require('lambdify').fn;
@@ -67,7 +69,7 @@ fn.pipe();
 * log
 * pipe
 
-## Lambidfy Runner
+## Lambdify Runner
 
 ```js
 const runner = require('lambdify').runner;
@@ -85,7 +87,7 @@ runner.request();
 * run
 * xml
 
-## Lambidfy Utils
+## Lambdify Utils
 
 ```js
 const utils = require('lambdify').utils;
@@ -135,7 +137,7 @@ const output = await constant((data) => {
 ### log
 ### pipe
 
-## Lambidfy Runner
+## Lambdify Runner
 
 ### binary
 ### catchError
@@ -148,7 +150,7 @@ const output = await constant((data) => {
 ### run
 ### xml
 
-## Lambidfy Utils
+## Lambdify Utils
 
 ### arrayToObject
 ### ignore
