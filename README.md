@@ -75,6 +75,7 @@ const runner = require('lambdify').runner;
 runner.request();
 ```
 * binary
+* catchError
 * html
 * json
 * payload
@@ -91,6 +92,9 @@ const utils = require('lambdify').utils;
 
 utils.retry();
 ```
+* arrayToObject
+* ignore
+* objectToArray
 * retry
 * retry3
 * retryImmediately
@@ -134,6 +138,7 @@ const output = await constant((data) => {
 ## Lambidfy Runner
 
 ### binary
+### catchError
 ### html
 ### json
 ### payload
@@ -145,6 +150,9 @@ const output = await constant((data) => {
 
 ## Lambidfy Utils
 
+### arrayToObject
+### ignore
+### objectToArray
 ### retry
 ### retry3
 ### retryImmediately
