@@ -1,9 +1,7 @@
-export const constant = (func) => (
-	async (params) => {
-		await func(params);
+export const constant = (func) => async (params) => {
+	await func(params);
 
-		return params;
-	}
-);
+	return params;
+};
 
 export default constant;

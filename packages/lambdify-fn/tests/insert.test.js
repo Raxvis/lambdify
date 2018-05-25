@@ -6,14 +6,15 @@ const insertObj = {
 	foo: 'bar',
 	test: 'this',
 };
-const sleep = (params) => (
+const sleep = (params) =>
 	new Promise((resolve) => {
-		setTimeout(() => { resolve(params); }, 10);
-	})
-);
+		setTimeout(() => {
+			resolve(params);
+		}, 10);
+	});
 
 test('insert handles arrays', async () => {
-	await expect(fn.insert(3, () => ('x'))([1, 2, 3, 4])).resolves.toEqual([1, 2, 'x', 3, 4]);
+	await expect(fn.insert(3, () => 'x')([1, 2, 3, 4])).resolves.toEqual([1, 2, 'x', 3, 4]);
 });
 
 test('insert handles arrays with promise', async () => {
@@ -21,7 +22,7 @@ test('insert handles arrays with promise', async () => {
 });
 
 test('insert handles objects', async () => {
-	await expect(fn.insert('foo', () => ('bar'))(requestObj)).resolves.toEqual(insertObj);
+	await expect(fn.insert('foo', () => 'bar')(requestObj)).resolves.toEqual(insertObj);
 });
 
 test('insert handles objects with promise', async () => {

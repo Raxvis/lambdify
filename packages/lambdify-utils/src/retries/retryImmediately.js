@@ -7,8 +7,6 @@ const options = {
 	retryStrategy: 'immediate',
 };
 
-export const retryImmediately = (fn, ...args) => (
-	withRetry(options)(fn, ...args)
-);
+export const retryImmediately = (fn, ...args) => withRetry(options)(fn, ...args);
 
 export default retryImmediately;

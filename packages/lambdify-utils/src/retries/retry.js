@@ -7,8 +7,6 @@ const options = {
 	retryStrategy: 'exponential',
 };
 
-export const retry = (fn, ...args) => (
-	withRetry(options)(fn, ...args)
-);
+export const retry = (fn, ...args) => withRetry(options)(fn, ...args);
 
 export default retry;

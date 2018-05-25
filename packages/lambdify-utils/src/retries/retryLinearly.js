@@ -7,8 +7,6 @@ const options = {
 	retryStrategy: 'linear',
 };
 
-export const retryLinearly = (fn, ...args) => (
-	withRetry(options)(fn, ...args)
-);
+export const retryLinearly = (fn, ...args) => withRetry(options)(fn, ...args);
 
 export default retryLinearly;

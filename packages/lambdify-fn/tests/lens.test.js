@@ -2,18 +2,19 @@
 
 const fn = require('./../src');
 const requestObj = { test: 'this' };
-const sleep = (params) => (
+const sleep = (params) =>
 	new Promise((resolve) => {
-		setTimeout(() => { resolve(params); }, 10);
-	})
-);
+		setTimeout(() => {
+			resolve(params);
+		}, 10);
+	});
 
 test('lens handles arrays', async () => {
-	await expect(fn.lens((value) => (value + 1))([1, 2, 3, 4])).resolves.toEqual([2, 3, 4, 5]);
+	await expect(fn.lens((value) => value + 1)([1, 2, 3, 4])).resolves.toEqual([2, 3, 4, 5]);
 });
 
 test('lens handles arrays with promise', async () => {
-	await expect(fn.lens((value) => (value + 1))([1, 2, 3, 4])).resolves.toEqual([2, 3, 4, 5]);
+	await expect(fn.lens((value) => value + 1)([1, 2, 3, 4])).resolves.toEqual([2, 3, 4, 5]);
 });
 
 test('lens handles objects', async () => {

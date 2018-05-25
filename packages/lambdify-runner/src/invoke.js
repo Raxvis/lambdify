@@ -1,6 +1,6 @@
 import context from './context';
 
-export const invoke = (event, handler) => (
+export const invoke = (event, handler) =>
 	new Promise((resolve, reject) => {
 		if (typeof handler === 'string') {
 			const [file, handle] = handler.split('.');
@@ -12,8 +12,6 @@ export const invoke = (event, handler) => (
 		} else {
 			reject(new Error('No valid handler passed to invoke'));
 		}
-
-	})
-);
+	});
 
 export default invoke;

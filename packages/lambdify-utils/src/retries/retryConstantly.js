@@ -7,8 +7,6 @@ const options = {
 	retryStrategy: 'constant',
 };
 
-export const retryConstantly = (fn, ...args) => (
-	withRetry(options)(fn, ...args)
-);
+export const retryConstantly = (fn, ...args) => withRetry(options)(fn, ...args);
 
 export default retryConstantly;

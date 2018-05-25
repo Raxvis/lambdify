@@ -7,7 +7,7 @@ test('run returns correct payload', async () => {
 	const res = await new Promise((resolve) => {
 		const context = { succeed: resolve };
 
-		runner.run({}, context, () => (response));
+		runner.run({}, context, () => response);
 	});
 
 	expect(JSON.parse(res.body)).toEqual(runner.payload(response));
@@ -18,7 +18,9 @@ test('run returns correctly with no payload', async () => {
 	const res = await new Promise((resolve) => {
 		const context = { succeed: resolve };
 
-		runner.run({}, context, () => { console.log('not returning payload'); });
+		runner.run({}, context, () => {
+			console.log('not returning payload');
+		});
 	});
 
 	expect(JSON.parse(res.body)).toEqual(runner.payload({}));
@@ -39,7 +41,9 @@ test('run handles error', async () => {
 	const res = await new Promise((resolve) => {
 		const context = { succeed: resolve };
 
-		runner.run({}, context, () => { throw new Error('basic error'); });
+		runner.run({}, context, () => {
+			throw new Error('basic error');
+		});
 	});
 
 	expect(JSON.parse(res.body).status).toEqual('error');
@@ -50,7 +54,9 @@ test('run with custom error handler', async () => {
 	const res = await new Promise((resolve) => {
 		const context = { succeed: resolve };
 
-		run(response, context, () => { throw new Error('basic error'); });
+		run(response, context, () => {
+			throw new Error('basic error');
+		});
 	});
 
 	expect(res.body.test).toEqual('this');
@@ -61,7 +67,9 @@ test('run with custom error handler and send back json', async () => {
 	const res = await new Promise((resolve) => {
 		const context = { succeed: resolve };
 
-		run(response, context, () => { throw new Error('basic error'); });
+		run(response, context, () => {
+			throw new Error('basic error');
+		});
 	});
 
 	expect(JSON.parse(res.body).status).toEqual('error');
@@ -72,7 +80,9 @@ test('run with custom error handler and return invalid response', async () => {
 	const res = await new Promise((resolve) => {
 		const context = { succeed: resolve };
 
-		run(response, context, () => { throw new Error('basic error'); });
+		run(response, context, () => {
+			throw new Error('basic error');
+		});
 	});
 
 	expect(JSON.parse(res.body).status).toEqual('error');
