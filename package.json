@@ -32,11 +32,14 @@
 	"license": "MIT",
 	"name": "lambdify-mono-repo",
 	"scripts": {
-		"build": "lerna run build",
-		"clean": "eslint packages/**/*.js --fix && prettier --config ./.prettierrc.json --write \"packages/**/*.js\"",
-		"precommit": "pretty-quick --staged && lerna bootstrap && lerna run build && lerna bootstrap && lerna run clean && jest",
-		"prepublishOnly": "lerna bootstrap && lerna run build && lerna bootstrap && lerna run clean && jest && pkg-ok",
-		"start": "lerna bootstrap && lerna run build && lerna bootstrap",
+		"build": "gulp build",
+		"clean": "yarn lint && yarn prettify",
+		"compile": "lerna bootstrap && gulp build && lerna bootstrap",
+		"lint": "eslint packages/**/*.js --fix",
+		"precommit": "yarn clean && pretty-quick --staged && yarn compile && yarn test",
+		"prepublishOnly": "yarn clean && yarn compile && yarn test && pkg-ok",
+		"prettify": "prettier --config ./.prettierrc.json --write \"packages/**/*.js\"",
+		"start": "lerna bootstrap && gulp watch",
 		"test": "jest --coverage",
 		"watch": "learn run watch"
 	}
