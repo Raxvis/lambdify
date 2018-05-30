@@ -35,10 +35,10 @@
 		"build": "gulp build",
 		"clean": "yarn lint && yarn prettify",
 		"compile": "lerna bootstrap && gulp build && lerna bootstrap",
-		"lint": "eslint packages/**/*.js --fix",
+		"lint": "eslint packages/**/src/*.js --fix",
 		"precommit": "yarn lint && pretty-quick --staged && yarn test",
 		"prepublishOnly": "yarn clean && yarn compile && yarn test && pkg-ok",
-		"prettify": "prettier --config ./.prettierrc.json --write \"packages/**/*.js\"",
+		"prettify": "prettier --config ./.prettierrc.json --write \"packages/**/src/*.js\"",
 		"start": "lerna bootstrap && gulp watch",
 		"test": "jest --coverage",
 		"watch": "learn run watch"
