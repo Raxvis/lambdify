@@ -8,12 +8,8 @@ export const ignore = (fn, returnError = false, log = false) => async (...params
 			console.log(error);
 		}
 
-		if (returnError) {
-			return error;
-		}
+		return returnError ? error : undefined;
 	}
-
-	return undefined;
 };
 
 export default ignore;
