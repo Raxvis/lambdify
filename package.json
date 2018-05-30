@@ -36,7 +36,7 @@
 		"clean": "yarn lint && yarn prettify",
 		"compile": "lerna bootstrap && gulp build && lerna bootstrap",
 		"lint": "eslint packages/**/*.js --fix",
-		"precommit": "yarn clean && pretty-quick --staged && yarn compile && yarn test",
+		"precommit": "yarn lint && pretty-quick --staged && yarn test",
 		"prepublishOnly": "yarn clean && yarn compile && yarn test && pkg-ok",
 		"prettify": "prettier --config ./.prettierrc.json --write \"packages/**/*.js\"",
 		"start": "lerna bootstrap && gulp watch",
