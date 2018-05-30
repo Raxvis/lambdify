@@ -2,12 +2,11 @@ import { json } from './response';
 import payload from './payload';
 import request from './request';
 
-const buildResponsePayload = (response, error) => {
-	if (!response) {
-		return error ? json(payload({}, error)) : json(payload({}));
-	} else if (response.body || response.headers || response.statusCode) {
+const buildResponsePayload = (response = {}, error) => {
+	if (response.body || response.headers || response.statusCode) {
 		return response;
 	}
+
 	return error ? json(payload({}, error)) : json(payload(response));
 };
 
