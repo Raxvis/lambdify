@@ -19,10 +19,10 @@
 		"type": "git",
 		"url": "git+https://github.com/Prefinem/lambdify/tree/master/packages/lambdify"
 	},
-	"version": "3.0.3",
+	"version": "3.0.4",
 	"dependencies": {
-		"lambdify-fn": "3.0.1",
-		"lambdify-runner": "3.0.2",
-		"lambdify-utils": "3.0.1"
+		"lambdify-fn": "3.0.4",
+		"lambdify-runner": "3.0.4",
+		"lambdify-utils": "3.0.4"
 	}
 }
