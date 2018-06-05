@@ -8,7 +8,9 @@
 	"engines": {
 		"node": ">=8.10"
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"homepage": "https://github.com/Prefinem/lambdify",
 	"license": "MIT",
 	"main": "./dist/index.js",
@@ -17,10 +19,10 @@
 		"type": "git",
 		"url": "git+https://github.com/Prefinem/lambdify/tree/master/packages/lambdify"
 	},
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"dependencies": {
-		"lambdify-fn": "^3.0.0",
-		"lambdify-runner": "^3.0.0",
-		"lambdify-utils": "^3.0.0"
+		"lambdify-fn": "^3.0.1",
+		"lambdify-runner": "^3.0.1",
+		"lambdify-utils": "^3.0.1"
 	}
 }
