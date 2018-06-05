@@ -2,7 +2,7 @@ export const payload = (body, error) => {
 	const response = {
 		debug: error ? error.stack : '',
 		message: error ? error.message : '',
-		name: process.env.AWS_LAMBDA_FUNCTION_NAME || 'no_name',
+		name: process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.name || 'no_name',
 		payload: body,
 		status: error ? 'error' : 'success',
 		timestamp: Math.floor(Date.now() / 1000),
