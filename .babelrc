@@ -3,5 +3,14 @@
 		"transform-es2015-modules-commonjs",
 		"transform-object-rest-spread"
 	],
-	"presets": ["env"]
+	"presets": [
+		[
+			"env",
+			{
+				"targets": {
+					"node": "8.10"
+				}
+			}
+		]
+	]
 }
