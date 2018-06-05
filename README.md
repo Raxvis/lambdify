@@ -16,9 +16,9 @@ Lambdify is a set of tools that makes building and consuming AWS Lambda function
 
 # NOTICE
 
-***WARNING: Version 3.0.0 is for Node 8.10 or greater***
+**_WARNING: Version 3.0.0 is for Node 8.10 or greater_**
 
-These docs are awful.  If you are interested in using one of the library and need some help, please create an issue and I will work on the docs for that first.  Thanks
+These docs are awful. If you are interested in using one of the library and need some help, please create an issue and I will work on the docs for that first. Thanks
 
 # Getting Started
 
@@ -39,7 +39,7 @@ exports.handler = (event, context) => run(event, context, helloWorld);
 ```js
 const lambdify = require('lambdify');
 
-function helloWorld (request) {
+function helloWorld(request) {
 	return 'Hello User, I see that you are coming from IP: ' + request.ip;
 }
 
@@ -63,11 +63,12 @@ const fn = require('lambdify').fn;
 
 fn.pipe();
 ```
-* constant
-* insert
-* lens
-* log
-* pipe
+
+*   constant
+*   insert
+*   lens
+*   log
+*   pipe
 
 ## Lambdify Runner
 
@@ -76,16 +77,17 @@ const runner = require('lambdify').runner;
 
 runner.request();
 ```
-* binary
-* catchError
-* html
-* json
-* payload
-* redirect
-* request
-* response
-* run
-* xml
+
+*   binary
+*   catchError
+*   html
+*   json
+*   payload
+*   redirect
+*   request
+*   response
+*   run
+*   xml
 
 ## Lambdify Utils
 
@@ -94,28 +96,30 @@ const utils = require('lambdify').utils;
 
 utils.retry();
 ```
-* arrayToObject
-* ignore
-* objectToArray
-* retry
-* retry3
-* retryImmediately
-* retryLineary
-* utils
-* withRetry
+
+*   arrayToObject
+*   ignore
+*   objectToArray
+*   retry
+*   retry3
+*   retryImmediately
+*   retryLineary
+*   utils
+*   withRetry
 
 # Packages
 
-Lambdify composes several packages which are documented below.  You can always install just the individual package yourself if you wish.
+Lambdify composes several packages which are documented below. You can always install just the individual package yourself if you wish.
 
 ## Lambdify FN
 
-Lambdify FN is a set of functional methods that are completely Async / Await.  Because they are Async / Await, I highly recommend that you use Lambdify Runner to ensure your lambda functions supports Async / Await (transpile with babel)
+Lambdify FN is a set of functional methods that are completely Async / Await. Because they are Async / Await, I highly recommend that you use Lambdify Runner to ensure your lambda functions supports Async / Await (transpile with babel)
 
 **Installation**
 `npm install lambdify-fn`
 
 ### constant
+
 ```js
 import { constant } from 'lambdify';
 // If you only install this package, use the code below
@@ -133,31 +137,51 @@ const output = await constant((data) => {
 ```
 
 ### insert
+
 ### lens
+
 ### log
+
 ### pipe
 
 ## Lambdify Runner
 
 ### binary
+
 ### catchError
+
 ### html
+
 ### json
+
 ### payload
+
 ### redirect
+
 ### request
+
 ### response
+
 ### run
+
 ### xml
 
 ## Lambdify Utils
 
 ### arrayToObject
+
 ### ignore
+
 ### objectToArray
+
 ### retry
+
 ### retry3
+
 ### retryImmediately
+
 ### retryLineary
+
 ### utils
+
 ### withRetry
