@@ -34,7 +34,7 @@
 	"scripts": {
 		"build": "gulp build",
 		"clean": "yarn lint && yarn prettify",
-		"compile": "lerna bootstrap && gulp build && lerna bootstrap",
+		"compile": "lerna bootstrap && yarn build && lerna bootstrap",
 		"lint": "eslint packages/**/src/*.js --fix",
 		"precommit": "yarn lint && pretty-quick --staged && yarn test",
 		"prepublishOnly": "yarn clean && yarn compile && yarn test && pkg-ok",
