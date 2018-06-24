@@ -3,6 +3,12 @@
 const runner = require('./../src');
 const response = { test: 'this' };
 
+const removeTimestamp = (payload) => {
+	delete payload.timestamp;
+
+	return payload;
+};
+
 test('run returns correct payload', async () => {
 	const res = await new Promise((resolve) => {
 		const context = { succeed: resolve };
@@ -10,7 +16,7 @@ test('run returns correct payload', async () => {
 		runner.run({}, context, () => response);
 	});
 
-	expect(JSON.parse(res.body)).toEqual(runner.payload(response));
+	expect(removeTimestamp(JSON.parse(res.body))).toEqual(removeTimestamp(runner.payload(response)));
 	expect(JSON.parse(res.body).payload).toEqual(response);
 });
 
@@ -23,11 +29,21 @@ test('run returns correctly with no payload', async () => {
 		});
 	});
 
-	expect(JSON.parse(res.body)).toEqual(runner.payload({}));
+	expect(removeTimestamp(JSON.parse(res.body))).toEqual(removeTimestamp(runner.payload({})));
 	expect(JSON.parse(res.body).payload).toEqual({});
 });
 
-test('run returns correctly with response payload', async () => {
+test('run returns correctly with default response payload', async () => {
+	const res = await new Promise((resolve) => {
+		const context = { succeed: resolve };
+
+		runner.run({}, context, () => ({}));
+	});
+
+	expect(JSON.parse(res.body).payload).toEqual({});
+});
+
+test('run returns correctly with json response payload', async () => {
 	const res = await new Promise((resolve) => {
 		const context = { succeed: resolve };
 
