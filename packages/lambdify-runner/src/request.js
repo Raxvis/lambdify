@@ -27,6 +27,7 @@ export const request = (event, context) => ({
 		message: parseJSON(get(event, 'Records.0.Sns.Message', '{}')),
 		subject: get(event, 'Records.0.Sns.Subject', ''),
 	},
+	ua: get(event, 'requestContext.identity.userAgent', ''),
 });
 
 export default request;
