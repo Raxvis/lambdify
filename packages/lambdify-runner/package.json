@@ -19,5 +19,5 @@
 		"type": "git",
 		"url": "git+https://github.com/Prefinem/lambdify/tree/master/packages/lambdify-runner"
 	},
-	"version": "3.0.5"
+	"version": "3.1.0"
 }
