@@ -24,6 +24,7 @@ test('lambdify loads all functions', () => {
 		'log',
 		'objectToArray',
 		'ota',
+		'parsePayload',
 		'payload',
 		'pipe',
 		'redirect',
