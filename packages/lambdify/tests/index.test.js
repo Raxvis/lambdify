@@ -11,7 +11,6 @@ test('lambdify loads all functions', () => {
 		'binary',
 		'catchError',
 		'constant',
-		'context',
 		'default',
 		'event',
 		'fn',

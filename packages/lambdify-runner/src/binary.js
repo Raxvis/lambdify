@@ -1,5 +1,7 @@
+import response from './response';
+
 /**
- * Creates an AWS Lambda proxy response payload
+ * Creates an Binary AWS Lambda proxy response payload
  * Lambda Proxy - https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-as-simple-proxy-for-lambda.html
  *
  * @function
@@ -12,26 +14,18 @@
  * @example
  *
  *
- * import { response } from 'lambdify';
+ * import { binary } from 'lambdify';
  *
  * exports.handler = (event, context) => context.succeed(
- * 	response(
- * 		JSON.stringify({ foo: 'bar' })
- * 	)
+ * 	binary(fs.readFileSync('image.png').toString('base64'), 'image/png')
  * );
  *
  */
 
-export const response = (body, type = 'application/json', options = {}) => ({
-	body,
-	headers: {
-		'Access-Control-Allow-Credentials': 'true',
-		'Access-Control-Allow-Origin': '*',
-		...options.headers,
-		'Content-Type': type,
-	},
-	isBase64Encoded: options.binary,
-	statusCode: options.statusCode || 200,
-});
+export const binary = (body, type, options) =>
+	response(body, type, {
+		...options,
+		binary: true,
+	});
 
-export default response;
+export default binary;

@@ -1,3 +1,31 @@
+/**
+ * Builds a lambda proxy event and allows you to supply a body and / or overrides.  Useful for calling a second lambda function
+ *
+ * @function
+ * @since 3.1.0
+ * @category runner
+ * @param {Object} originalEvent The original lambda proxy event.
+ * @param {Object|Array|string} body The body to set into the event.
+ * @param {Object} overrides The overrides object allows you to selectively override the initial event
+ * @returns {Object} Returns the new event
+ * @example
+ *
+ *
+ * import { event } from 'lambdify';
+ *
+ * const initialEvent = { path: '/foo' };
+ *
+ * event(initialEvent, { foo: 'bar' });
+ * // => { path: '/foo', body: '{"foo":"bar"}' }
+ *
+ * event(initialEvent, {}, { path: '/bar' });
+ * // => { path: '/bar' }
+ *
+ * event(initialEvent, {}, { queryStringParameters: { baz: 'bar' } });
+ * // => { path: '/bar', queryStringParameters: { baz: 'bar' } }
+ *
+ */
+
 export const event = (originalEvent = {}, body = {}, overrides = {}) => ({
 	...originalEvent,
 	...overrides,

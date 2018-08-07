@@ -1,0 +1,23 @@
+{
+	"tags": {
+		"allowUnknownTags": true,
+		"dictionaries": ["jsdoc"]
+	},
+	"source": {
+		"include": ["package.json", "README.md", "packages/lambdify-fn", "packages/lambdify-runner", "packages/lambdify-utils"],
+		"includePattern": ".js$",
+		"excludePattern": "(node_modules/|dist|test)"
+	},
+	"plugins": ["plugins/markdown"],
+	"templates": {
+		"referenceTitle": "Lambdify",
+		"disableSort": false
+	},
+	"opts": {
+		"destination": "./docs/",
+		"encoding": "utf8",
+		"private": true,
+		"recurse": true,
+		"template": "./node_modules/jsdoc-template"
+	}
+}

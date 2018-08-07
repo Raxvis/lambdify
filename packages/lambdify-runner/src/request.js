@@ -1,4 +1,4 @@
-const get = (record, path, defaultValue) => path.match(/([^.[\]]+)/g).reduce((result, piece) => result && result[piece], record) || defaultValue;
+const get = (record, path, defaultValue) => path.match(/([^.[\]]+)/gu).reduce((result, piece) => result && result[piece], record) || defaultValue;
 
 const parseJSON = (json) => {
 	try {
@@ -7,6 +7,27 @@ const parseJSON = (json) => {
 		return json;
 	}
 };
+
+/**
+ * Creates a lambdify request object to ensure that as the AWS Lambda proxy event changes, the request will stay the same
+ *
+ * @function
+ * @since 3.1.0
+ * @category runner
+ * @param {Object} event The AWS Lambda event object
+ * @param {Object} context The AWS Lambda context object
+ * @returns {Object} Lambdify request object
+ * @example
+ *
+ *
+ * import { request } from 'lambdify';
+ *
+ * const intialEvent = { queryStringParameters: { foo : 'bar' } };
+ *
+ * request(intialEvent);
+ * // => { queryParams: { foo: 'bar' } }
+ *
+ */
 
 export const request = (event, context) => ({
 	authToken: get(event, 'headers.x-amz-security-token', get(event, 'headers.X-Amz-Security-Token', '')),
