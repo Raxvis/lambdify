@@ -27,7 +27,7 @@
 		"jsdoc-to-markdown": "^4.0.1",
 		"lerna": "^2.8.0",
 		"pkg-ok": "^2.1.0",
-		"prettier": "1.14.0",
+		"prettier": "1.14.1",
 		"pretty-quick": "^1.6.0",
 		"regenerator-runtime": "^0.12.0",
 		"through2": "^2.0.3"
