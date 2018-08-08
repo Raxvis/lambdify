@@ -26,13 +26,21 @@
 		"jsdoc-template": "https://github.com/braintree/jsdoc-template",
 		"jsdoc-to-markdown": "^4.0.1",
 		"lerna": "^2.8.0",
+		"lint-staged": "^7.2.0",
 		"pkg-ok": "^2.1.0",
 		"prettier": "1.14.1",
-		"pretty-quick": "^1.6.0",
 		"regenerator-runtime": "^0.12.0",
 		"through2": "^2.0.3"
 	},
 	"license": "MIT",
+	"lint-staged": {
+		"*.js": [
+			"eslint --fix",
+			"prettier --config ./.prettierrc.json --write",
+			"jest --bail --findRelatedTests",
+			"git add"
+		]
+	},
 	"name": "lambdify",
 	"scripts": {
 		"build": "gulp build",
@@ -41,9 +49,10 @@
 		"docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
 		"docs:md": "jsdoc2md packages/*/src/**.js >> DOCS.md",
 		"lint": "eslint packages/**/src/*.js --fix",
-		"precommit": "yarn lint && pretty-quick --staged && yarn test",
+		"precommit": "lint-staged",
 		"prepublishOnly": "yarn clean && yarn compile && yarn test && pkg-ok",
 		"prettify": "prettier --config ./.prettierrc.json --write \"packages/**/src/*.js\"",
+		"staged": "lint-staged",
 		"start": "lerna bootstrap && gulp watch",
 		"test": "jest --coverage",
 		"watch": "learn run watch"
