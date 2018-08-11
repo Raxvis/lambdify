@@ -3,7 +3,7 @@ env:
     - CC_TEST_REPORTER_ID=0821c701bb20ce2afc198c727f4a8aefaecc87bf6af23f1aafd2e0fe1b09d8bf
 language: node_js
 node_js:
-  - 9"
+  - 9
 cache: yarn
 before_install:
   - yarn global add lerna
