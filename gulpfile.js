@@ -4,7 +4,6 @@ const eslintIfFixed = require('gulp-eslint-if-fixed');
 const gulp = require('gulp');
 const through = require('through2');
 const gulpif = require('gulp-if');
-const sourcemaps = require('gulp-sourcemaps');
 
 const isJS = (file) => file.path.split('.').pop() === 'js';
 
@@ -14,8 +13,21 @@ gulp.task('build', () =>
 		.pipe(gulpif(isJS, eslint({ fix: true })))
 		.pipe(eslint.format())
 		.pipe(gulpif(isJS, eslintIfFixed('src')))
-		.pipe(sourcemaps.init())
-		.pipe(babel())
+		.pipe(
+			babel({
+				plugins: ['@babel/plugin-syntax-object-rest-spread', '@babel/plugin-transform-modules-commonjs'],
+				presets: [
+					[
+						'@babel/preset-env',
+						{
+							targets: {
+								node: '8.10',
+							},
+						},
+					],
+				],
+			}),
+		)
 		.pipe(
 			through.obj((file, enc, callback) => {
 				file.originalPath = file.path;
@@ -23,7 +35,6 @@ gulp.task('build', () =>
 				callback(null, file);
 			}),
 		)
-		.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest('packages')),
 );
 gulp.task('default', ['build']);
