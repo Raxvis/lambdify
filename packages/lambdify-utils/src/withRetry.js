@@ -9,7 +9,12 @@ const retryStrategies = {
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const withRetry = ({ baseDelay = 100, retryAttempts = 5, retryCount = 0, retryStrategy = 'exponential' } = {}) => async (fn, ...args) => {
+export const withRetry = ({
+	baseDelay = 100,
+	retryAttempts = 5,
+	retryCount = 0,
+	retryStrategy = 'exponential',
+} = {}) => async (fn, ...args) => {
 	try {
 		const response = await fn(...args);
 

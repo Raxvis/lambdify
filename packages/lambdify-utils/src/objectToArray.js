@@ -3,7 +3,8 @@ const merge = (initial, key, value) => ({
 	[key]: value,
 });
 
-export const objectToArray = (obj, keyName) => Object.keys(obj).map((key) => (keyName ? merge(obj[key], keyName, key) : obj[key]));
+export const objectToArray = (obj, keyName) =>
+	Object.keys(obj).map((key) => (keyName ? merge(obj[key], keyName, key) : obj[key]));
 
 export const ota = objectToArray;
 
