@@ -36,7 +36,11 @@ export const request = (event, context) => ({
 	context,
 	event,
 	headers: event.headers,
-	ip: get(event, 'requestContext.identity.sourceIp', ''),
+	ip: get(
+		event,
+		'headers.X-Forwarded-For',
+		get(event, 'headers.x-forwarded-for', get(event, 'requestContext.identity.sourceIp', '')),
+	).split(',')[0],
 	method: get(event, 'requestContext.httpMethod', '').toUpperCase(),
 	path: get(event, 'path', ''),
 	pathParams: get(event, 'pathParameters', {}),
