@@ -1,34 +1,33 @@
 {
 	"env": {
+		"browser": true,
 		"es6": true,
 		"node": true
 	},
-	"extends": ["eslint:all", "prettier"],
+	"extends": ["eslint:all", "prettier", "plugin:jest/recommended"],
 	"parser": "babel-eslint",
 	"parserOptions": {
+		"ecmaVersion": 6,
 		"sourceType": "module"
 	},
+	"plugins": ["babel", "jest"],
 	"rules": {
-		"array-bracket-newline": "off",
 		"array-element-newline": "off",
-		"brace-style": "off",
 		"capitalized-comments": "off",
 		"class-methods-use-this": "off",
 		"eol-last": "off",
+		"func-style": "off",
 		"global-require": "off",
 		"id-length": "off",
 		"init-declarations": "off",
-		"max-statements-per-line": [
-			"error",
-			{
-				"max": 2
-			}
-		],
+		"lines-between-class-members": "off",
+		"multiline-comment-style": "off",
 		"multiline-ternary": "off",
 		"no-console": "off",
 		"no-extra-parens": "off",
+		"no-invalid-this": "off",
 		"no-magic-numbers": "off",
-		"no-process-env": "off",
+		"no-shadow": "off",
 		"no-sync": "off",
 		"no-tabs": "off",
 		"no-ternary": "off",
@@ -51,11 +50,11 @@
 		"quote-props": "off",
 		"quotes": "off",
 		"radix": "off",
-		"valid-jsdoc": [
-			"error",
-			{
-				"requireReturn": false
-			}
-		]
+		"require-jsdoc": "off"
+	},
+	"settings": {
+		"react": {
+			"version": "16.3"
+		}
 	}
 }

@@ -11,7 +11,7 @@ module.exports = (api) => {
 			},
 		],
 	];
-	const plugins = ['@babel/plugin-syntax-object-rest-spread', '@babel/plugin-transform-modules-commonjs'];
+	const plugins = ['@babel/plugin-syntax-object-rest-spread'];
 
 	return {
 		plugins,
