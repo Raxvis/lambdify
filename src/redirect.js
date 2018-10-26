@@ -6,7 +6,6 @@ const response = require('./response');
  *
  * @function
  * @since 3.1.0
- * @category runner
  * @param {String} url The url to be redirected too
  * @returns {Object} Lambda Proxy response object
  * @example

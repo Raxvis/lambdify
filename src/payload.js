@@ -5,7 +5,6 @@ const { env } = process;
  *
  * @function
  * @since 3.1.0
- * @category runner
  * @param {Object|Array|string} body The response being sent back to the client
  * @param {Error} body An error if one occured
  * @returns {Object} Lambdify response object

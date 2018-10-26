@@ -54,7 +54,6 @@ Lambda Proxy - https://docs.aws.amazon.com/apigateway/latest/developerguide/api-
 
 **Kind**: global function  
 **Returns**: <code>Object</code> - Lambda Proxy response object  
-**Category**: runner  
 **Since**: 3.1.0  
 
 | Param | Type | Description |
@@ -78,7 +77,6 @@ Builds a lambda proxy event and allows you to supply a body and / or overrides. 
 
 **Kind**: global function  
 **Returns**: <code>Object</code> - Returns the new event  
-**Category**: runner  
 **Since**: 3.1.0  
 
 | Param | Type | Description |
@@ -110,7 +108,6 @@ Lambda Proxy - https://docs.aws.amazon.com/apigateway/latest/developerguide/api-
 
 **Kind**: global function  
 **Returns**: <code>Object</code> - Lambda Proxy response object  
-**Category**: runner  
 **Since**: 3.1.0  
 
 | Param | Type | Description |
@@ -133,7 +130,6 @@ Invokes a local lambda function simulated as a lambda proxy request
 
 **Kind**: global function  
 **Returns**: <code>Object</code> - Returns a response from the invoked lambda function.  
-**Category**: runner  
 **Since**: 3.1.0  
 
 | Param | Type | Description |
@@ -163,7 +159,6 @@ Lambda Proxy - https://docs.aws.amazon.com/apigateway/latest/developerguide/api-
 
 **Kind**: global function  
 **Returns**: <code>Object</code> - Lambda Proxy response object  
-**Category**: runner  
 **Since**: 3.1.0  
 
 | Param | Type | Description |
@@ -186,7 +181,6 @@ Parses a payload from a lambdify response
 
 **Kind**: global function  
 **Returns**: <code>Object</code> - This is the payload response being returned by the lambda function  
-**Category**: runner  
 **Since**: 3.1.0  
 
 | Param | Type | Description |
@@ -196,9 +190,9 @@ Parses a payload from a lambdify response
 **Example**  
 ```js
 // Lambda Function
-import { runner } from 'lambdify';
+import { run } from 'lambdify';
 
-exports.handler = (event, context) => runner({ foo: 'bar' });
+exports.handler = (event, context) => run({ foo: 'bar' });
 
 
 // Client Side Code
@@ -214,7 +208,6 @@ Creates a lambdify payload for standard responses
 
 **Kind**: global function  
 **Returns**: <code>Object</code> - Lambdify response object  
-**Category**: runner  
 **Since**: 3.1.0  
 
 | Param | Type | Description |
@@ -236,7 +229,6 @@ Lambda Proxy - https://docs.aws.amazon.com/apigateway/latest/developerguide/api-
 
 **Kind**: global function  
 **Returns**: <code>Object</code> - Lambda Proxy response object  
-**Category**: runner  
 **Since**: 3.1.0  
 
 | Param | Type | Description |
@@ -258,7 +250,6 @@ Creates a lambdify request object to ensure that as the AWS Lambda proxy event c
 
 **Kind**: global function  
 **Returns**: <code>Object</code> - Lambdify request object  
-**Category**: runner  
 **Since**: 3.1.0  
 
 | Param | Type | Description |
@@ -283,7 +274,6 @@ Lambda Proxy - https://docs.aws.amazon.com/apigateway/latest/developerguide/api-
 
 **Kind**: global function  
 **Returns**: <code>Object</code> - Lambda Proxy response object  
-**Category**: runner  
 **Since**: 3.1.0  
 
 | Param | Type | Default | Description |
@@ -310,7 +300,6 @@ Lambda Proxy - https://docs.aws.amazon.com/apigateway/latest/developerguide/api-
 
 **Kind**: global function  
 **Returns**: <code>Object</code> - Lambda Proxy response object  
-**Category**: runner  
 **Since**: 3.1.0  
 
 | Param | Type | Description |
@@ -341,7 +330,6 @@ Lambda Proxy - https://docs.aws.amazon.com/apigateway/latest/developerguide/api-
 
 **Kind**: global function  
 **Returns**: <code>Object</code> - Lambda Proxy response object  
-**Category**: runner  
 **Since**: 3.1.0  
 
 | Param | Type | Description |

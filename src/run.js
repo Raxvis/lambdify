@@ -6,7 +6,6 @@ const catchError = require('./catchError');
  *
  * @function
  * @since 3.1.0
- * @category runner
  * @param {Object} event The AWS Lambda Event
  * @param {Object} context The AWS Lambda Context
  * @param {Function} fn The function you wish to execute

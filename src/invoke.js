@@ -5,7 +5,6 @@ const context = (resolve) => ({ succeed: (response) => resolve(response) });
  *
  * @function
  * @since 3.1.0
- * @category runner
  * @param {Object} event The lambda proxy event.
  * @param {string|function} handler The file path to the handler. (use dot notation for specific module)
  * @returns {Object} Returns a response from the invoked lambda function.

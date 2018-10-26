@@ -14,7 +14,6 @@ const parseJSON = (json) => {
  *
  * @function
  * @since 3.1.0
- * @category runner
  * @param {Object} event The AWS Lambda event object
  * @param {Object} context The AWS Lambda context object
  * @returns {Object} Lambdify request object
