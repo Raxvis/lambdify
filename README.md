@@ -26,25 +26,25 @@ These docs are awful. If you are interested in using one of the library and need
 
 # Getting Started
 
-**ES6 Imports**
-
-```js
-import { run } from 'lambdify';
-
-const helloWorld = (request) => {
-	return `Hello User, I see that you are coming from IP: ${request.ip}`;
-};
-
-exports.handler = (event, context) => run(event, context, helloWorld);
-```
-
-**Old School**
+Standard JSON Payload Response:
 
 ```js
 const { run } = require('lambdify');
 
 function helloWorld(request) {
-	return 'Hello User, I see that you are coming from IP: ' + request.ip;
+	return `Hello User, I see that you are coming from IP: ${request.ip}`;
+}
+
+exports.handler = (event, context) => run(event, context, helloWorld);
+```
+
+HTML Response:
+
+```js
+const { html, run } = require('lambdify');
+
+function helloWorld(request) {
+	return html(`Hello User, I see that you are coming from IP: ${request.ip}`);
 }
 
 exports.handler = (event, context) => run(event, context, helloWorld);
