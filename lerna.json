@@ -1,7 +1,10 @@
 {
 	"command": {
 		"publish": {
-			"ignoreChanges": [".DC_Store", "*.md"]
+			"ignoreChanges": [
+				".DC_Store",
+				"*.md"
+			]
 		},
 		"init": {
 			"exact": true
@@ -9,6 +12,8 @@
 	},
 	"lerna": "2.8.0",
 	"npmClient": "yarn",
-	"packages": ["packages/*"],
-	"version": "3.1.0"
+	"packages": [
+		"packages/*"
+	],
+	"version": "3.1.1"
 }
