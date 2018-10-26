@@ -3348,6 +3348,10 @@ jsdoc-parse@^3.0.1:
     sort-array "^2.0.0"
     test-value "^3.0.0"
 
+"jsdoc-template@https://github.com/braintree/jsdoc-template":
+  version "3.3.0"
+  resolved "https://github.com/braintree/jsdoc-template#ec0e3c0ec95de6b4e928af3285bbf69aac2f25b6"
+
 jsdoc-to-markdown@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/jsdoc-to-markdown/-/jsdoc-to-markdown-4.0.1.tgz#247f7d977ecc209428972ec92ca14bd4e610355d"
