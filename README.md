@@ -16,7 +16,11 @@ Lambdify is a set of tools that makes building and consuming AWS Lambda function
 
 # NOTICE
 
-**_WARNING: Version 3.0.0 is for Node 8.10 or greater_**
+** Master branch is v4 in progress. v4 will be dropping lambdify-fn and lambdify-utils and moving to a single package. **
+
+If you used methods from lambdify-fn, you can use [afpf](https://github.com/Prefinem/afpf) instead
+
+**_WARNING: Version >= 3.0.0 is for Node 8.10 or greater_**
 
 These docs are awful. If you are interested in using one of the library and need some help, please create an issue and I will work on the docs for that first. Thanks
 
@@ -37,13 +41,13 @@ exports.handler = (event, context) => run(event, context, helloWorld);
 **Old School**
 
 ```js
-const lambdify = require('lambdify');
+const { run } = require('lambdify');
 
 function helloWorld(request) {
 	return 'Hello User, I see that you are coming from IP: ' + request.ip;
 }
 
-exports.handler = (event, context) => lambdify.run(event, context, helloWorld);
+exports.handler = (event, context) => run(event, context, helloWorld);
 ```
 
 # Installation
