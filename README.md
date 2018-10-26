@@ -16,7 +16,7 @@ Lambdify is a set of tools that makes building and consuming AWS Lambda function
 
 # NOTICE
 
-** Master branch is v4 in progress. v4 will be dropping lambdify-fn and lambdify-utils and moving to a single package. **
+**Master branch is v4 in progress. v4 will be dropping lambdify-fn and lambdify-utils and moving to a single package.**
 
 If you used methods from lambdify-fn, you can use [afpf](https://github.com/Prefinem/afpf) instead
 
