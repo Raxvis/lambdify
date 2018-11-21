@@ -1,29 +1,21 @@
-const binary = require('./binary');
-const catchError = require('./catchError');
-const event = require('./event');
-const html = require('./html');
-const invoke = require('./invoke');
-const json = require('./json');
-const parsePayload = require('./parsePayload');
-const payload = require('./payload');
-const redirect = require('./redirect');
-const request = require('./request');
-const response = require('./response');
-const run = require('./run');
-const xml = require('./xml');
+const { catchError, payload, request } = require('./middleware');
 
-module.exports = {
-	binary,
-	catchError,
-	event,
-	html,
-	invoke,
-	json,
-	parsePayload,
-	payload,
-	redirect,
-	request,
-	response,
-	run,
-	xml,
+let currentMiddleware = [catchError(), request(), payload()];
+
+const next = ([fn, ...rest]) => (request, response) => (fn ? fn(request, response, next(rest)) : response);
+const run = (fn) => (event, context) => next([...currentMiddleware, fn])({ context, event }, {});
+
+const lambdify = (middleware, fn) => {
+	if (Array.isArray(middleware)) {
+		currentMiddleware = middleware;
+		if (fn) {
+			return run(fn);
+		}
+	} else if (!Array.isArray(middleware) && middleware) {
+		return run(middleware);
+	}
+
+	return undefined;
 };
+
+module.exports = lambdify;

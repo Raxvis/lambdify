@@ -7,12 +7,13 @@
 	"extends": ["eslint:all", "prettier", "plugin:jest/recommended"],
 	"parser": "babel-eslint",
 	"parserOptions": {
-		"ecmaVersion": 6,
+		"ecmaVersion": 8,
 		"sourceType": "module"
 	},
-	"plugins": ["babel", "jest"],
+	"plugins": ["jest"],
 	"rules": {
 		"array-element-newline": "off",
+		"callback-return": "off",
 		"capitalized-comments": "off",
 		"class-methods-use-this": "off",
 		"eol-last": "off",

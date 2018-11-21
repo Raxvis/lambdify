@@ -9,27 +9,7 @@ const parseJSON = (json) => {
 	}
 };
 
-/**
- * Creates a lambdify request object to ensure that as the AWS Lambda proxy event changes, the request will stay the same
- *
- * @function
- * @since 3.1.0
- * @param {Object} event The AWS Lambda event object
- * @param {Object} context The AWS Lambda context object
- * @returns {Object} Lambdify request object
- * @example
- *
- *
- * import { request } from 'lambdify';
- *
- * const intialEvent = { queryStringParameters: { foo : 'bar' } };
- *
- * request(intialEvent);
- * // => { queryParams: { foo: 'bar' } }
- *
- */
-
-const request = (event, context) => ({
+const request = (event, context, ctx) => ({
 	authToken: get(event, 'headers.x-amz-security-token', get(event, 'headers.X-Amz-Security-Token', '')),
 	body: parseJSON(get(event, 'body', '{}')),
 	context,
@@ -53,6 +33,7 @@ const request = (event, context) => ({
 		subject: get(event, 'Records.0.Sns.Subject', ''),
 	},
 	ua: get(event, 'requestContext.identity.userAgent', ''),
+	...ctx,
 });
 
-module.exports = request;
+module.exports = (ctx) => ({ event, context }, response, next) => next(request(event, context, ctx), response);
