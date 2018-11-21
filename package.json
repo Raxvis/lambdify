@@ -27,12 +27,7 @@
 	},
 	"license": "MIT",
 	"lint-staged": {
-		"*.js": [
-			"eslint --fix",
-			"prettier --config ./.prettierrc.json --write",
-			"jest --bail --findRelatedTests",
-			"git add"
-		]
+		"*.js": ["eslint --fix", "prettier --config ./.prettierrc.json --write", "git add"]
 	},
 	"main": "index.js",
 	"name": "lambdify",

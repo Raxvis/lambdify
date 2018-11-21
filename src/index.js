@@ -15,7 +15,7 @@ const lambdify = (middleware, fn) => {
 		return run(middleware);
 	}
 
-	return undefined;
+	return middleware;
 };
 
 module.exports = lambdify;
