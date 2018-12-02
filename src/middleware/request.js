@@ -9,11 +9,9 @@ const parseJSON = (json) => {
 	}
 };
 
-const request = (event, context, ctx) => ({
+const lambdifyRequest = (event) => ({
 	authToken: get(event, 'headers.x-amz-security-token', get(event, 'headers.X-Amz-Security-Token', '')),
 	body: parseJSON(get(event, 'body', '{}')),
-	context,
-	event,
 	headers: event.headers,
 	ip: get(
 		event,
@@ -32,8 +30,17 @@ const request = (event, context, ctx) => ({
 		message: parseJSON(get(event, 'Records.0.Sns.Message', '{}')),
 		subject: get(event, 'Records.0.Sns.Subject', ''),
 	},
+	sqs: get(event, 'Records', []).map(({ body }) => parseJSON(body)),
 	ua: get(event, 'requestContext.identity.userAgent', ''),
-	...ctx,
 });
 
-module.exports = (ctx) => ({ event, context }, response, next) => next(request(event, context, ctx), response);
+module.exports = (userContext) => ({ event, context }, response, next) =>
+	next(
+		{
+			context,
+			event,
+			...lambdifyRequest(event),
+			...userContext,
+		},
+		response,
+	);

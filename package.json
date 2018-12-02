@@ -8,7 +8,7 @@
 	"devDependencies": {
 		"eslint": "^5.7.0",
 		"eslint-config-prettier": "^3.1.0",
-		"eslint-plugin-jest": "^22.0.0",
+		"eslint-plugin-jest": "^22.1.0",
 		"husky": "^1.1.2",
 		"jest": "^23.6.0",
 		"jsdoc-template": "https://github.com/braintree/jsdoc-template",
@@ -27,7 +27,11 @@
 	},
 	"license": "MIT",
 	"lint-staged": {
-		"*.js": ["eslint --fix", "prettier --config ./.prettierrc.json --write", "git add"]
+		"*.js": [
+			"eslint --fix",
+			"prettier --config ./.prettierrc.json --write",
+			"git add"
+		]
 	},
 	"main": "index.js",
 	"name": "lambdify",
@@ -40,5 +44,5 @@
 		"staged": "lint-staged",
 		"test": "./node_modules/.bin/jest --coverage"
 	},
-	"version": "4.0.0"
+	"version": "4.0.0-0"
 }
