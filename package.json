@@ -27,11 +27,7 @@
 	},
 	"license": "MIT",
 	"lint-staged": {
-		"*.js": [
-			"eslint --fix",
-			"prettier --config ./.prettierrc.json --write",
-			"git add"
-		]
+		"*.js": ["eslint --fix", "prettier --config ./.prettierrc.json --write", "git add"]
 	},
 	"main": "index.js",
 	"name": "lambdify",
@@ -40,7 +36,7 @@
 		"docs": "./node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
 		"docs:md": "./node_modules/.bin/jsdoc2md src/** >> DOCS.md",
 		"lint": "./node_modules/.bin/eslint src/* --fix",
-		"prettify": "./node_modules/.bin/prettier --config ./.prettierrc.json --write src/",
+		"prettify": "./node_modules/.bin/prettier --config ./.prettierrc.json --write src/*",
 		"staged": "lint-staged",
 		"test": "./node_modules/.bin/jest --coverage"
 	},
