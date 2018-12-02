@@ -1,42 +1,34 @@
-const context = (resolve) => ({ succeed: (response) => resolve(response) });
+const context = (resolve, reject) => ({ fail: (error) => reject(error), succeed: (response) => resolve(response) });
+const callback = (resolve, reject) => (error, success) => (error ? reject(error) : resolve(success));
 
-/**
- * Invokes a local lambda function simulated as a lambda proxy request
- *
- * @function
- * @since 3.1.0
- * @param {Object} event The lambda proxy event.
- * @param {string|function} handler The file path to the handler. (use dot notation for specific module)
- * @returns {Object} Returns a response from the invoked lambda function.
- * @example
- *
- *
- * import { invoke } from 'lambdify';
- *
- * const event = { path: '/foo' };
- *
- * await invoke(event, './index.handler');
- * // => { statusCode: 200, body: '' }
- *
- *
- * const handler = (event, context) => context.succeed('bar');
- * await invoke(event, handler);
- * // => 'bar'
- *
- */
+const getHandler = (handler) => {
+	if (typeof handler === 'string') {
+		const [file, handle] = handler.split('.');
+		const fn = require(file);
 
-const invoke = (event, handler) =>
-	new Promise((resolve, reject) => {
-		if (typeof handler === 'string') {
-			const [file, handle] = handler.split('.');
-			const fn = require(file);
+		return fn[handle];
+	} else if (typeof handler === 'function') {
+		return handler;
+	}
 
-			fn[handle](event, context(resolve, reject));
-		} else if (typeof handler === 'function') {
-			handler(event, context(resolve, reject));
-		} else {
-			reject(new Error('No valid handler passed to invoke'));
-		}
-	});
+	throw new Error('No valid handler passed to invoke');
+};
+
+const invoker = async (resolve, reject, fn) => {
+	try {
+		const response = await fn(event, context(resolve, reject), callback(resolve, reject));
+
+		resolve(response);
+	} catch (error) {
+		reject(error);
+	}
+};
+
+const invoke = async (event, handler) => {
+	const fn = getHandler(handler);
+	const response = await new Promise((resolve, reject) => invoker(resolve, reject, fn));
+
+	return response;
+};
 
 module.exports = invoke;
