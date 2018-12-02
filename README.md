@@ -24,30 +24,33 @@ If you used methods from lambdify-fn, you can use [afpf](https://github.com/Pref
 
 These docs are awful. If you are interested in using one of the library and need some help, please create an issue and I will work on the docs for that first. Thanks
 
+# THESE ARE v4 DOCS. Please see [branch v3](https://github.com/Prefinem/lambdify/tree/v3) for v3 Docs
+
 # Getting Started
 
-Standard JSON Payload Response:
+Lambdify Standard JSON Payload Response:
 
 ```js
-const { run } = require('lambdify');
+const lambdify = require('lambdify');
 
 function helloWorld(request) {
 	return `Hello User, I see that you are coming from IP: ${request.ip}`;
 }
 
-exports.handler = (event, context) => run(event, context, helloWorld);
+exports.handler = lambdify(helloWorld);
 ```
 
 HTML Response:
 
 ```js
-const { html, run } = require('lambdify');
+const lambdify = require('lambdify');
+const html = require('lambdify/middleware');
 
 function helloWorld(request) {
 	return html(`Hello User, I see that you are coming from IP: ${request.ip}`);
 }
 
-exports.handler = (event, context) => run(event, context, helloWorld);
+exports.handler = lambdify(helloWorld, [html()]);
 ```
 
 # Installation
@@ -57,7 +60,3 @@ exports.handler = (event, context) => run(event, context, helloWorld);
 or
 
     yarn add lambdify
-
-# API Docs
-
-[DOCS](https://github.com/Prefinem/lambdify/blob/master/DOCS.md)
