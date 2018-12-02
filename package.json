@@ -27,7 +27,11 @@
 	},
 	"license": "MIT",
 	"lint-staged": {
-		"*.js": ["eslint --fix", "prettier --config ./.prettierrc.json --write", "git add"]
+		"*.js": [
+			"eslint --fix",
+			"prettier --config ./.prettierrc.json --write",
+			"git add"
+		]
 	},
 	"main": "index.js",
 	"name": "lambdify",
@@ -40,5 +44,5 @@
 		"staged": "lint-staged",
 		"test": "./node_modules/.bin/jest --coverage"
 	},
-	"version": "4.0.0"
+	"version": "4.0.0-0"
 }
