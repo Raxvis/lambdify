@@ -28,31 +28,32 @@ These docs are awful. If you are interested in using one of the library and need
 
 # Getting Started
 
-Lambdify Standard JSON Payload Response:
+Basic Lambda Function - JSON Response
 
 ```js
 const lambdify = require('lambdify');
-const { json, request } = require('lambdify/middleware');
-
-function helloWorld(request) {
-	return { message: `Hello User, I see that you are coming from IP: ${request.ip}` };
-}
-
-exports.handler = lambdify(helloWorld, [request(), json()]);
-```
-
-HTML Response:
-
-```js
-const lambdify = require('lambdify');
-const { html, request } = require('lambdify/middleware');
 
 function helloWorld(request, response) {
-	response.html(`Hello User, I see that you are coming from IP: ${request.ip}`);
+	response.json({ message: `Hello User, I see that you are coming from IP: ${request.getIp()}` });
+
 	return response;
 }
 
-exports.handler = lambdify(helloWorld, [request(), html()]);
+exports.handler = lambdify(helloWorld);
+```
+
+Basic Lambda Function - HTML Response
+
+```js
+const lambdify = require('lambdify');
+
+function helloWorld(request, response) {
+	response.html(`Hello User, I see that you are coming from IP: ${request.getIp()}`);
+
+	return response;
+}
+
+exports.handler = lambdify(helloWorld);
 ```
 
 # Installation
@@ -62,3 +63,157 @@ exports.handler = lambdify(helloWorld, [request(), html()]);
 or
 
     yarn add lambdify
+
+# API
+
+```js
+const lambdify = require('lambdify');
+
+const run = (request, response) => {
+	response.json({ foo: 'bar' });
+
+	return response;
+};
+
+exports.handler = lamdify(run);
+```
+
+## request
+
+This is the request object that is built from the lambda event
+
+### request.get(name)
+
+Get a value from a basic key value store
+
+### request.getAuthToken()
+
+Get the authorization token from the request
+
+### request.getBody()
+
+Get the body of the event and parse into an object if JSON
+
+### request.getContext()
+
+Get the lambda context
+
+### request.getCookie(name)
+
+Get value of cookie `name` from API Gateway Request
+
+### request.getCookies()
+
+Get all cookies from API Gateway Request
+
+### request.getEvent()
+
+Get lambda event
+
+### request.getHeader()
+
+Get value of header `name` from API Gateway Request
+
+### request.getHeaders()
+
+Get all headers from API Gateway Request
+
+### request.getIp()
+
+Get remote ip (handles X-Forwarded-For)
+
+### request.getMethod()
+
+Get HTTP request method from API Gateway Request
+
+### request.getPath()
+
+Get URL path from API Gateway Request
+
+### request.getPathParams()
+
+Get path paramaters from API Gateway Request
+
+### request.getQueryParams()
+
+Get query parameter from API Gateway Request
+
+### request.getS3()
+
+Get bucket and key from S3 Trigger
+
+### request.getSns()
+
+Get record from SNS Trigger
+
+### request.getSqs()
+
+Get records from SQS Trigger
+
+### request.getUa()
+
+Get UserAgent from API Gateway Request
+
+### request.set(name, value)
+
+Set a value from a basic key value store
+
+## response
+
+This is the response object that must be returned from your lambda function
+
+### response.enableCors()
+
+Enable CORS for an API Gateway response
+
+### response.getBody()
+
+Get the body of the response
+
+### response.getHeader(name)
+
+Get the value of header `name`
+
+### response.getHeaders()
+
+Get all headers
+
+### response.getResponse()
+
+Get the lambda response object
+
+### response.getStatusCode()
+
+Get the status code of the response
+
+### response.html(body)
+
+Build an html response
+
+### response.json(body)
+
+Build a json response
+
+### response.redirect(url, statusCode = 302)
+
+Build a redirect response
+
+### response.setBinaryResponse(value)
+
+Set the response as a binary response for API Gateway
+
+### response.setBody(body)
+
+Set the body of the response
+
+### response.setHeader(name, value)
+
+Set value of header `name`
+
+### response.setStatusCode(value)
+
+Set the status code of the response
+
+### response.xml(body)
+
+Build an xml response
