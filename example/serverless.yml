@@ -1,0 +1,18 @@
+service: lambdify-test
+provider:
+  name: aws
+  profile: william
+  region: us-east-1
+  role: 'arn:aws:iam::636375193492:role/service-role/lamba'
+  runtime: nodejs8.10
+  deploymentBucket: sls-deploy-bucket
+functions:
+  main:
+    handler: src/index.handler
+    events:
+      - http:
+          cors: true
+          method: any
+          path: /
+plugins:
+  - serverless-offline

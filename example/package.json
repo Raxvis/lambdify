@@ -1,0 +1,14 @@
+{
+	"name": "lambdify",
+	"version": "4.0.0",
+	"description": "Lambdify Example",
+	"author": "Prefinem",
+	"license": "MIT",
+	"scripts": {
+		"start": "sls offline start"
+	},
+	"devDependencies": {
+		"serverless": "^1.35.1",
+		"serverless-offline": "^3.31.3"
+	}
+}
