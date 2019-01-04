@@ -1,3 +1,3 @@
-const get = require('lodash.get');
+const get = require('./../get');
 
 module.exports = (event) => get(event, 'queryStringParameters', {});
