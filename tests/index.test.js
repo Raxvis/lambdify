@@ -19,3 +19,9 @@ test('send event back', async () => {
 
 	expect(JSON.parse(response.body).foo).toEqual('baz');
 });
+
+test('get path params empty test', async () => {
+	const response = await lambdify((req) => req.getPathParams())(event);
+
+	expect(response).toEqual({});
+});
