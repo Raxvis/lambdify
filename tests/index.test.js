@@ -1,23 +1,21 @@
 const lambdify = require('./../src/index');
-const context = {
-	fail: () => {
-		throw new Error('context fail');
-	},
-	success: () => 'success',
-};
 const event = {
 	foo: 'baz',
 };
-const run = (request) => ({ foo: 'bar', hasContext: Boolean(request.context) });
+const run = (req, res) => {
+	res.json({ foo: 'bar' });
+
+	return res;
+};
 
 test('initial run', async () => {
-	const response = await lambdify(run)(event, context);
+	const response = await lambdify(run)(event);
 
-	expect(JSON.parse(response.body).payload.foo).toEqual('bar');
+	expect(JSON.parse(response.body).foo).toEqual('bar');
 });
 
 test('send event back', async () => {
-	const response = await lambdify((request) => ({ ...request.event }))(event, context);
+	const response = await lambdify((req, res) => res.json({ ...req.getEvent() }))(event);
 
-	expect(JSON.parse(response.body).payload.foo).toEqual('baz');
+	expect(JSON.parse(response.body).foo).toEqual('baz');
 });

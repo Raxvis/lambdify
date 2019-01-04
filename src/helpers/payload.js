@@ -1,6 +1,6 @@
 const { env } = process;
 
-const payload = (body, error) => {
+module.exports = (body, error) => {
 	const response = {
 		debug: error ? error.stack : '',
 		message: error ? error.message : '',
@@ -16,5 +16,3 @@ const payload = (body, error) => {
 
 	return response;
 };
-
-module.exports = payload;

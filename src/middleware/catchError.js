@@ -1,6 +1,4 @@
-const { payload, response } = require('./../helpers');
-
-const catchError = (fn) => async (req, res, next) => {
+module.exports = (fn) => async (req, res, next) => {
 	try {
 		const output = await next(req, res);
 
@@ -10,8 +8,6 @@ const catchError = (fn) => async (req, res, next) => {
 			return fn(req, res, error);
 		}
 
-		return response(payload({}, error));
+		return res.json({ errorMessage: error.message });
 	}
 };
-
-module.exports = catchError;

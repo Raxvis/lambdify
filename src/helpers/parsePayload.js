@@ -1,11 +1,9 @@
-const parsePayload = ({ errorMessage, message, payload, status }) => {
-	if (errorMessage) {
-		throw new Error(errorMessage);
-	} else if (status && status === 'error') {
-		throw new Error(message);
+module.exports = (response) => {
+	if (response.errorMessage) {
+		throw new Error(response.errorMessage);
+	} else if (response.status && response.status === 'error') {
+		throw new Error(response.message);
 	}
 
-	return payload;
+	return response;
 };
-
-module.exports = parsePayload;

@@ -32,25 +32,27 @@ Lambdify Standard JSON Payload Response:
 
 ```js
 const lambdify = require('lambdify');
+const { json, request } = require('lambdify/middleware');
 
 function helloWorld(request) {
-	return `Hello User, I see that you are coming from IP: ${request.ip}`;
+	return { message: `Hello User, I see that you are coming from IP: ${request.ip}` };
 }
 
-exports.handler = lambdify(helloWorld);
+exports.handler = lambdify(helloWorld, [request(), json()]);
 ```
 
 HTML Response:
 
 ```js
 const lambdify = require('lambdify');
-const html = require('lambdify/middleware');
+const { html, request } = require('lambdify/middleware');
 
-function helloWorld(request) {
-	return html(`Hello User, I see that you are coming from IP: ${request.ip}`);
+function helloWorld(request, response) {
+	response.html(`Hello User, I see that you are coming from IP: ${request.ip}`);
+	return response;
 }
 
-exports.handler = lambdify(helloWorld, [html()]);
+exports.handler = lambdify(helloWorld, [request(), html()]);
 ```
 
 # Installation
