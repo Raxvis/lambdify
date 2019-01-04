@@ -28,32 +28,51 @@ These docs are awful. If you are interested in using one of the library and need
 
 # Getting Started
 
-Basic Lambda Function - JSON Response
+Basic HTTP Lambda Function - JSON Response
 
 ```js
 const lambdify = require('lambdify');
 
-function helloWorld(request, response) {
+const helloWorld = (request, response) => {
 	response.json({ message: `Hello User, I see that you are coming from IP: ${request.getIp()}` });
 
 	return response;
-}
+};
 
 exports.handler = lambdify(helloWorld);
 ```
 
-Basic Lambda Function - HTML Response
+Basic HTTP Lambda Function - HTML Response
 
 ```js
 const lambdify = require('lambdify');
 
-function helloWorld(request, response) {
+const helloWorld = (request, response) => {
 	response.html(`Hello User, I see that you are coming from IP: ${request.getIp()}`);
 
 	return response;
-}
+};
 
 exports.handler = lambdify(helloWorld);
+```
+
+Basic S3 Trigger
+
+```js
+const lambdify = require('lambdify');
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3({ apiVersion: '2006-03-01' });
+
+const run = async (request) => {
+	const { bucket, key } = request.getS3();
+	const file = await s3.getObject({ Bucket: bucket, Key: key }).promise();
+
+	if (file && file.Body) {
+		// Do something with the file
+	}
+};
+
+exports.handler = lambdify(run);
 ```
 
 # Installation
