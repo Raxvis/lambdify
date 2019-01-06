@@ -44,7 +44,7 @@
 		"staged": "lint-staged",
 		"test": "./node_modules/.bin/jest --coverage"
 	},
-	"version": "4.0.5",
+	"version": "4.0.6",
 	"dependencies": {
 		"cookie": "^0.3.1"
 	}
