@@ -4,11 +4,17 @@
 		"name": "Prefinem",
 		"url": "https://prefinem.com"
 	},
+	"dependencies": {
+		"cookie": "^0.3.1"
+	},
 	"description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
 	"devDependencies": {
+		"chokidar": "^2.0.4",
 		"eslint": "^5.7.0",
 		"eslint-config-prettier": "^3.1.0",
 		"eslint-plugin-jest": "^22.1.1",
+		"fancy-log": "^1.3.3",
+		"fs-extra": "^7.0.1",
 		"husky": "^1.1.2",
 		"jest": "^23.6.0",
 		"jsdoc-template": "https://github.com/braintree/jsdoc-template",
@@ -42,10 +48,8 @@
 		"lint": "./node_modules/.bin/eslint src/* --fix",
 		"prettify": "./node_modules/.bin/prettier --config ./.prettierrc.json --write src/*",
 		"staged": "lint-staged",
-		"test": "./node_modules/.bin/jest --coverage"
+		"test": "./node_modules/.bin/jest --coverage",
+		"watch": "node ./watch.js"
 	},
-	"version": "4.0.7",
-	"dependencies": {
-		"cookie": "^0.3.1"
-	}
+	"version": "4.0.7"
 }
