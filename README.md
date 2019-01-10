@@ -181,6 +181,10 @@ Set a value from a basic key value store
 
 This is the response object that must be returned from your lambda function
 
+### response.binary(base64, contentType)
+
+Build a binary response
+
 ### response.enableCors()
 
 Enable CORS for an API Gateway response

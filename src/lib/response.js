@@ -1,3 +1,4 @@
+const binary = require('./helpers/binary');
 const enableCors = require('./helpers/enableCors');
 const html = require('./helpers/html');
 const json = require('./helpers/json');
@@ -17,6 +18,11 @@ module.exports = () => {
 	};
 
 	return {
+		binary(body, contentType) {
+			binary(res, body, contentType);
+
+			return this;
+		},
 		enableCors: () => enableCors(res),
 		getBody: () => res.body,
 		getHeader: (name) => res.headers[name],
