@@ -8,7 +8,7 @@ import response from './response';
  * @since 3.1.0
  * @category runner
  * @param {String} url The url to be redirected too
- * @param {Int} statusCode The status code sent in the response.  Defaults to 302
+ * @param {Tnt} statusCode The status code sent in the response which defaults to 302
  * @returns {Object} Lambda Proxy response object
  * @example
  *

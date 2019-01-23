@@ -5,7 +5,7 @@
  * @since 3.1.0
  * @category runner
  * @param {Object} originalEvent The original lambda proxy event.
- * @param {Object|Array|string} body The body to set into the event.
+ * @param {Object|Array|String} body The body to set into the event.
  * @param {Object} overrides The overrides object allows you to selectively override the initial event
  * @returns {Object} Returns the new event
  * @example
