@@ -8,6 +8,7 @@ import response from './response';
  * @since 3.1.0
  * @category runner
  * @param {String} url The url to be redirected too
+ * @param {Int} statusCode The status code sent in the response.  Defaults to 302
  * @returns {Object} Lambda Proxy response object
  * @example
  *
@@ -20,10 +21,10 @@ import response from './response';
  *
  */
 
-export const redirect = (url) =>
+export const redirect = (url, statusCode = 302) =>
 	response(null, 'text/html', {
 		headers: { Location: url },
-		statusCode: 302,
+		statusCode,
 	});
 
 export default redirect;
