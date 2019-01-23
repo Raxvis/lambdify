@@ -56,4 +56,4 @@ or
 
 # API Docs
 
-[DOCS](https://github.com/Prefinem/lambdify/blob/master/DOCS.md)
+[DOCS](./DOCS.md)
