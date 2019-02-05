@@ -10,6 +10,7 @@
 	"description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
 	"devDependencies": {
 		"chokidar": "^2.1.0",
+		"chokidar": "^2.0.4",
 		"eslint": "^5.7.0",
 		"eslint-config-prettier": "^3.1.0",
 		"eslint-plugin-jest": "^22.1.1",
@@ -17,6 +18,7 @@
 		"fs-extra": "^7.0.1",
 		"husky": "^1.1.2",
 		"jest": "^23.6.0",
+		"jest-junit": "^6.0.1",
 		"jsdoc-template": "https://github.com/braintree/jsdoc-template",
 		"jsdoc-to-markdown": "^4.0.1",
 		"lint-staged": "^8.0.0",
