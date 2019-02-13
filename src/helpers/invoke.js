@@ -14,21 +14,22 @@ const getHandler = (handler) => {
 	throw new Error('No valid handler passed to invoke');
 };
 
-const invoker = async (resolve, reject, fn) => {
-	try {
-		const response = await fn(event, context(resolve, reject), callback(resolve, reject));
+const invoker = (event, fn) =>
+	new Promise((resolve, reject) => {
+		try {
+			const response = fn(event, context(resolve, reject), callback(resolve, reject));
 
-		resolve(response);
-	} catch (error) {
-		reject(error);
-	}
-};
+			resolve(response);
+		} catch (error) {
+			reject(error);
+		}
+	});
 
 const invoke = async (event, handler) => {
 	const fn = getHandler(handler);
-	const response = await new Promise((resolve, reject) => invoker(resolve, reject, fn));
+	const response = await invoker(event, fn);
 
-	return response;
+	return Promise.resolve(response);
 };
 
 module.exports = invoke;
