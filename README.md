@@ -26,6 +26,12 @@ These docs are awful. If you are interested in using one of the library and need
 
 # THESE ARE v4 DOCS. Please see [branch v3](https://github.com/Prefinem/lambdify/tree/v3) for v3 Docs
 
+# Install
+
+```
+yarn add lambdify@4.0.8
+```
+
 # Getting Started
 
 Basic HTTP Lambda Function - JSON Response
@@ -101,142 +107,88 @@ exports.handler = lamdify(run);
 
 This is the request object that is built from the lambda event
 
-### request.get(name)
-
-Get a value from a basic key value store
-
-### request.getAuthToken()
-
-Get the authorization token from the request
-
-### request.getBody()
-
-Get the body of the event and parse into an object if JSON
-
-### request.getContext()
-
-Get the lambda context
-
-### request.getCookie(name)
-
-Get value of cookie `name` from API Gateway Request
-
-### request.getCookies()
-
-Get all cookies from API Gateway Request
-
-### request.getEvent()
-
-Get lambda event
-
-### request.getHeader()
-
-Get value of header `name` from API Gateway Request
-
-### request.getHeaders()
-
-Get all headers from API Gateway Request
-
-### request.getIp()
-
-Get remote ip (handles X-Forwarded-For)
-
-### request.getMethod()
-
-Get HTTP request method from API Gateway Request
-
-### request.getPath()
-
-Get URL path from API Gateway Request
-
-### request.getPathParams()
-
-Get path paramaters from API Gateway Request
-
-### request.getQueryParams()
-
-Get query parameter from API Gateway Request
-
-### request.getS3()
-
-Get bucket and key from S3 Trigger
-
-### request.getSns()
-
-Get record from SNS Trigger
-
-### request.getSqs()
-
-Get records from SQS Trigger
-
-### request.getUa()
-
-Get UserAgent from API Gateway Request
-
-### request.set(name, value)
-
-Set a value from a basic key value store
+-   `request.get(name)` - Get a value of `name` from a basic key value store
+-   `request.getAuthToken()` - Get the authorization token from the request
+-   `request.getBody()` - Get the body of the event and parse into an object if JSON
+-   `request.getContext()` - Get the lambda context
+-   `request.getCookie(name)` - Get value of cookie `name` from API Gateway Request
+-   `request.getCookies()` - Get all cookies from API Gateway Request
+-   `request.getEvent()` - Get lambda event
+-   `request.getHeader(name)` - Get value of header `name` from API Gateway Request
+-   `request.getHeaders()` - Get all headers from API Gateway Request
+-   `request.getIp()` - Get remote ip (handles X-Forwarded-For)
+-   `request.getMethod()` - Get HTTP request method from API Gateway Request
+-   `request.getPath()` - Get URL path from API Gateway Request
+-   `request.getPathParams()` - Get path paramaters from API Gateway Request
+-   `request.getQueryParams()` - Get query parameter from API Gateway Request
+-   `request.getS3()` - Get bucket and key from S3 Trigger
+-   `request.getSns()` - Get record from SNS Trigger
+-   `request.getSqs()` - Get records from SQS Trigger
+-   `request.getUa()` - Get UserAgent from API Gateway Request
+-   `request.set(name, value)` - Set a `value` of `name` into a basic key value store
 
 ## response
 
-This is the response object that must be returned from your lambda function
+This is the response object that must be returned from your lambda function (or middleware)
 
-### response.binary(base64, contentType)
+-   `response.binary(base64, contentType)`- Build a binary response
+-   `response.enableCors()`- Enable CORS for an API Gateway response
+-   `response.getBody()`- Get the body of the response
+-   `response.getHeader(name)`- Get the value of header `name`
+-   `response.getHeaders()`- Get all headers
+-   `response.getResponse()`- Get the lambda response object
+-   `response.getStatusCode()`- Get the status code of the response
+-   `response.html(body)`- Build an html response
+-   `response.json(body)`- Build a json response
+-   `response.redirect(url, statusCode = 302)`- Build a redirect response
+-   `response.setBinaryResponse(value)`- Set the response as a binary response for API Gateway
+-   `response.setBody(body)`- Set the body of the response
+-   `response.setHeader(name, value)`- Set `value` of header `name`
+-   `response.setStatusCode(value)`- Set the status code of the response
+-   `response.xml(body)`- Build an xml response
 
-Build a binary response
+# Middleware
 
-### response.enableCors()
+Middleware allows you to wrap your function with another function in such a way that you can execute code before or after your function runs. This is useful for instantiating database connections or error handling
 
-Enable CORS for an API Gateway response
+### Example: knex middleware
 
-### response.getBody()
+```js
+const knex = (config) => async (req, res, next) => {
+	const knex = require('knex')(config);
 
-Get the body of the response
+	req.set('knex', knex);
 
-### response.getHeader(name)
+	try {
+		const output = await next(req, res);
 
-Get the value of header `name`
+		await knex.destroy();
 
-### response.getHeaders()
+		return output;
+	} catch (error) {
+		await knex.destroy();
 
-Get all headers
+		throw error;
+	}
+};
 
-### response.getResponse()
+module.exports = knex;
+```
 
-Get the lambda response object
+Usage:
 
-### response.getStatusCode()
+```js
+const lambdify = require('lambdify');
+const knexMiddleware = require('./knexMiddleware');
 
-Get the status code of the response
+const run = (request, response) => {
+	const knex = request.get('knex');
+	const user = knex('user').where({ id: request.getPathParam('userId') });
 
-### response.html(body)
+	response.json({ user });
 
-Build an html response
+	return response;
+};
 
-### response.json(body)
-
-Build a json response
-
-### response.redirect(url, statusCode = 302)
-
-Build a redirect response
-
-### response.setBinaryResponse(value)
-
-Set the response as a binary response for API Gateway
-
-### response.setBody(body)
-
-Set the body of the response
-
-### response.setHeader(name, value)
-
-Set value of header `name`
-
-### response.setStatusCode(value)
-
-Set the status code of the response
-
-### response.xml(body)
-
-Build an xml response
+exports.handler = lamdify(run, knexMiddleware(dbConfig));
+```
