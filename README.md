@@ -16,21 +16,13 @@ Lambdify is a set of tools that makes building and consuming AWS Lambda function
 
 # NOTICE
 
-**Master branch is v4 in progress. v4 will be dropping lambdify-fn and lambdify-utils and moving to a single package.**
+**THESE ARE v4 DOCS. Please see [branch v3](https://github.com/Prefinem/lambdify/tree/v3) for v3 Docs**
+
+**Master branch is v4. v4 drops lambdify-fn and lambdify-utils and is moving to a single package.**
 
 If you used methods from lambdify-fn, you can use [afpf](https://github.com/Prefinem/afpf) instead
 
 **_WARNING: Version >= 3.0.0 is for Node 8.10 or greater_**
-
-These docs are awful. If you are interested in using one of the library and need some help, please create an issue and I will work on the docs for that first. Thanks
-
-# THESE ARE v4 DOCS. Please see [branch v3](https://github.com/Prefinem/lambdify/tree/v3) for v3 Docs
-
-# Install
-
-```
-yarn add lambdify@4.0.8
-```
 
 # Getting Started
 
