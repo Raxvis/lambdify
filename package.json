@@ -53,5 +53,5 @@
 		"test": "./node_modules/.bin/jest --coverage",
 		"watch": "node ./watch.js"
 	},
-	"version": "4.0.9"
+	"version": "4.1.0"
 }
