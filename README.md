@@ -81,10 +81,13 @@ or
 
     yarn add lambdify
 
-# API
+# `lambdify(fn, middleware = [])`
+
+Lambdify accepts a function and an array of middleware
 
 ```js
 const lambdify = require('lambdify');
+const errorMiddleware = require('errorMiddleware');
 
 const run = (request, response) => {
 	response.json({ foo: 'bar' });
@@ -92,7 +95,7 @@ const run = (request, response) => {
 	return response;
 };
 
-exports.handler = lamdify(run);
+exports.handler = lamdify(run, [errorMiddleware]);
 ```
 
 ## request
@@ -123,6 +126,8 @@ This is the request object that is built from the lambda event
 
 This is the response object that must be returned from your lambda function (or middleware)
 
+Methods `binary`, `html`, `json`, `redirect`, `xml` can be returned directly
+
 -   `response.binary(base64, contentType)`- Build a binary response
 -   `response.enableCors()`- Enable CORS for an API Gateway response
 -   `response.getBody()`- Get the body of the response
@@ -143,6 +148,74 @@ This is the response object that must be returned from your lambda function (or 
 
 Middleware allows you to wrap your function with another function in such a way that you can execute code before or after your function runs. This is useful for instantiating database connections or error handling
 
+### Example: simple middleware
+
+```js
+const middleware = async (req, res, next) => {
+	const response = await next(req, res);
+
+	response.setHeader('Cookie', 'test=this');
+
+	return response;
+};
+
+module.exports = middleware;
+```
+
+Usage:
+
+```js
+const lambdify = require('lambdify');
+const middleware = require('./middleware');
+
+const run = (request, response) => {
+	response.json({ foo: 'bar' });
+
+	return response;
+};
+
+exports.handler = lamdify(run, [middleware]);
+```
+
+### Example: error middleware
+
+```js
+const errorMiddleware = async (req, res, next) => {
+	try {
+		const response = await next(req, res);
+
+		return response;
+	} catch (error) {
+		// Fire off log to error system like raygun / sentry
+
+		res.setStatusCode(500);
+
+		return res.json({
+			message: error.message,
+			stack: error.stack,
+			status: 'error',
+		});
+	}
+};
+
+module.exports = errorMiddleware;
+```
+
+Usage:
+
+```js
+const lambdify = require('lambdify');
+const errorMiddleware = require('./errorMiddleware');
+
+const run = (request, response) => {
+	response.json({ foo: 'bar' });
+
+	return response;
+};
+
+exports.handler = lamdify(run, [errorMiddleware]);
+```
+
 ### Example: knex middleware
 
 ```js
@@ -152,11 +225,11 @@ const knex = (config) => async (req, res, next) => {
 	req.set('knex', knex);
 
 	try {
-		const output = await next(req, res);
+		const response = await next(req, res);
 
 		await knex.destroy();
 
-		return output;
+		return response;
 	} catch (error) {
 		await knex.destroy();
 
@@ -182,5 +255,43 @@ const run = (request, response) => {
 	return response;
 };
 
-exports.handler = lamdify(run, knexMiddleware(dbConfig));
+exports.handler = lamdify(run, [knexMiddleware(dbConfig)]);
 ```
+
+# Helpers
+
+Lambdify provides a couple of helpers to help consume other local lambda functions and build / extend events.
+
+## `invoke(event, fn)`
+
+Invoke is used to invoke other local lambda code correctly irregardless if the function uses callback, context or a standard response.
+
+-   `event` is the event payload that your lambda accepts. See `event` below for event creation
+-   `fn` is the function handler
+
+Example
+
+```js
+
+const lambdify = require('lambdify');
+const { event, invoke } = require('lambdify/helpers');
+
+const run = (req, res) => {
+	const newEvent = event(req.getEvent(), { foo: 'bar' });
+	const fn = require('./otherProjectLambdaFunction/turnBarToBaz').handler;
+	const response = await invoke(newEvent, fn);
+
+	return res.json((JSON.parse(response.body));
+	// => { foo: 'baz' }
+};
+
+exports.handler = lambdify(run);
+```
+
+## `event(originalEvent = {}, body = {}, overrides = {})`
+
+The goal of event is to ensure a consistent event payload to be sent to other lambda functions in a clean and consistent structure
+
+-   `originalEvent` is the original event object you wish to extend
+-   `body` is the new body payload being sent that is automatically `JSON.stringify`'ed
+-   `overrides` is an object that will override anything else in the original event

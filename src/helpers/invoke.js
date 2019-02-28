@@ -1,19 +1,6 @@
 const context = (resolve, reject) => ({ fail: (error) => reject(error), succeed: (response) => resolve(response) });
 const callback = (resolve, reject) => (error, success) => (error ? reject(error) : resolve(success));
 
-const getHandler = (handler) => {
-	if (typeof handler === 'string') {
-		const [file, handle] = handler.split('.');
-		const fn = require(file);
-
-		return fn[handle];
-	} else if (typeof handler === 'function') {
-		return handler;
-	}
-
-	throw new Error('No valid handler passed to invoke');
-};
-
 const invoker = (event, fn) =>
 	new Promise((resolve, reject) => {
 		try {
@@ -26,8 +13,11 @@ const invoker = (event, fn) =>
 	});
 
 const invoke = async (event, handler) => {
-	const fn = getHandler(handler);
-	const response = await invoker(event, fn);
+	if (typeof handler !== 'function') {
+		throw new Error('No valid handler passed to invoke');
+	}
+
+	const response = await invoker(event, handler);
 
 	return Promise.resolve(response);
 };

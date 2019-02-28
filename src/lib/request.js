@@ -15,7 +15,7 @@ const getUa = require('./getters/getUa');
 module.exports = (event, context) => {
 	const data = {};
 
-	return {
+	return Object.freeze({
 		get: (name) => data[name],
 		getAuthToken: () => getAuthToken(event),
 		getBody: () => getBody(event),
@@ -39,5 +39,5 @@ module.exports = (event, context) => {
 		set: (name, value) => {
 			data[name] = value;
 		},
-	};
+	});
 };

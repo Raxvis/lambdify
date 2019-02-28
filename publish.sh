@@ -5,3 +5,4 @@ cp ./README.md ./dist/README.md
 cd dist
 # npm publish --tag canary
 npm publish
+rm -rf ./dist
