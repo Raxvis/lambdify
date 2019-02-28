@@ -1,7 +1,4 @@
 module.exports = (res) => {
-	res.headers = {
-		...res.headers,
-		'Access-Control-Allow-Credentials': 'true',
-		'Access-Control-Allow-Origin': '*',
-	};
+	res.setHeader('Access-Control-Allow-Credentials', 'true');
+	res.setHeader('Access-Control-Allow-Origin', '*');
 };

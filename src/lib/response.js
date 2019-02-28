@@ -9,48 +9,52 @@ const setHeader = require('./setters/setHeader');
 const setStatusCode = require('./setters/setStatusCode');
 const xml = require('./helpers/xml');
 
+const buildResponse = (res) => ({
+	getBody: () => res.body,
+	getHeader: (name) => res.headers[name],
+	getHeaders: () => res.headers,
+	getResponse: () => res,
+	getStatusCode: () => res.statusCode,
+	setBinaryResponse: (value) => setBinaryResponse(res, value),
+	setBody: (body) => setBody(res, body),
+	setHeader: (name, value) => setHeader(res, name, value),
+	setHeaders: (headers) => Object.keys(headers).map((name) => setHeader(res, name, headers[name])),
+	setStatusCode: (value) => setStatusCode(res, value),
+});
+
 module.exports = () => {
-	const res = {
+	const response = buildResponse({
 		body: undefined,
 		headers: {},
 		isBase64Encoded: false,
 		statusCode: 200,
-	};
+	});
 
 	return Object.freeze({
+		...response,
 		binary(body, contentType) {
-			binary(res, body, contentType);
+			binary(response, body, contentType);
 
 			return this;
 		},
-		enableCors: () => enableCors(res),
-		getBody: () => res.body,
-		getHeader: (name) => res.headers[name],
-		getHeaders: () => res.headers,
-		getResponse: () => res,
-		getStatusCode: () => res.statusCode,
+		enableCors: () => enableCors(response),
 		html(body) {
-			html(res, body);
+			html(response, body);
 
 			return this;
 		},
 		json(body) {
-			json(res, body);
+			json(response, body);
 
 			return this;
 		},
 		redirect(url, statusCode) {
-			redirect(res, url, statusCode);
+			redirect(response, url, statusCode);
 
 			return this;
 		},
-		setBinaryResponse: (value) => setBinaryResponse(res, value),
-		setBody: (body) => setBody(res, body),
-		setHeader: (name, value) => setHeader(res, name, value),
-		setHeaders: (headers) => Object.keys(headers).map((name) => setHeader(res, name, headers[name])),
-		setStatusCode: (value) => setStatusCode(res, value),
 		xml(body) {
-			xml(res, body);
+			xml(response, body);
 
 			return this;
 		},
