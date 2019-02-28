@@ -1,7 +1,7 @@
 const lambdify = require('./../src/index');
-const event = {
-	foo: 'baz',
-};
+
+const event = { foo: 'baz' };
+
 const run = (req, res) => {
 	res.json({ foo: 'bar' });
 
@@ -24,4 +24,15 @@ test('get path params empty test', async () => {
 	const response = await lambdify((req) => req.getPathParams())(event);
 
 	expect(response).toEqual({});
+});
+
+test('empty response', async () => {
+	const response = await lambdify()(event);
+
+	expect(response).toEqual({
+		body: undefined,
+		headers: {},
+		isBase64Encoded: false,
+		statusCode: 200,
+	});
 });

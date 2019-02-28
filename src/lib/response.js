@@ -17,7 +17,7 @@ module.exports = () => {
 		statusCode: 200,
 	};
 
-	return {
+	return Object.freeze({
 		binary(body, contentType) {
 			binary(res, body, contentType);
 
@@ -47,11 +47,12 @@ module.exports = () => {
 		setBinaryResponse: (value) => setBinaryResponse(res, value),
 		setBody: (body) => setBody(res, body),
 		setHeader: (name, value) => setHeader(res, name, value),
+		setHeaders: (headers) => Object.keys(headers).map((name) => setHeader(res, name, headers[name])),
 		setStatusCode: (value) => setStatusCode(res, value),
 		xml(body) {
 			xml(res, body);
 
 			return this;
 		},
-	};
+	});
 };
