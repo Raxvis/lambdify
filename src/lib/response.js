@@ -9,17 +9,17 @@ const setHeader = require('./setters/setHeader');
 const setStatusCode = require('./setters/setStatusCode');
 const xml = require('./helpers/xml');
 
-const buildResponse = (res) => ({
-	getBody: () => res.body,
-	getHeader: (name) => res.headers[name],
-	getHeaders: () => res.headers,
-	getResponse: () => res,
-	getStatusCode: () => res.statusCode,
-	setBinaryResponse: (value) => setBinaryResponse(res, value),
-	setBody: (body) => setBody(res, body),
-	setHeader: (name, value) => setHeader(res, name, value),
-	setHeaders: (headers) => Object.keys(headers).map((name) => setHeader(res, name, headers[name])),
-	setStatusCode: (value) => setStatusCode(res, value),
+const buildResponse = (response) => ({
+	getBody: () => response.body,
+	getHeader: (name) => response.headers[name],
+	getHeaders: () => response.headers,
+	getResponse: () => response,
+	getStatusCode: () => response.statusCode,
+	setBinaryResponse: (value) => setBinaryResponse(response, value),
+	setBody: (body) => setBody(response, body),
+	setHeader: (name, value) => setHeader(response, name, value),
+	setHeaders: (headers) => Object.keys(headers).map((name) => setHeader(response, name, headers[name])),
+	setStatusCode: (value) => setStatusCode(response, value),
 });
 
 module.exports = () => {
@@ -48,7 +48,7 @@ module.exports = () => {
 
 			return this;
 		},
-		redirect(url, statusCode) {
+		redirect(url, statusCode = 302) {
 			redirect(response, url, statusCode);
 
 			return this;
