@@ -1,6 +1,3 @@
-const encode = require('./encode');
+const response = require('./response');
 
-module.exports = (res, body) => {
-	res.setHeader('Content-Type', 'text/html');
-	res.setBody(res.getResponse().isBase64Encoded ? encode(body) : body);
-};
+module.exports = (res, body) => response(res, body, 'text/html');
