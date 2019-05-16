@@ -5,7 +5,7 @@
 		"url": "https://prefinem.com"
 	},
 	"dependencies": {
-		"cookie": "^0.3.1"
+		"cookie": "^0.4.0"
 	},
 	"description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
 	"devDependencies": {
