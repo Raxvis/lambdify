@@ -9,20 +9,20 @@
 	},
 	"description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
 	"devDependencies": {
-		"chokidar": "^3.0.0",
-		"codecov": "^3.1.0",
+		"chokidar": "3.0.0",
+		"codecov": "3.2.0",
 		"eslint": "6.5.1",
-		"eslint-config-prettier": "^6.0.0",
-		"eslint-plugin-jest": "^22.13.2",
-		"fancy-log": "^1.3.3",
-		"fs-extra": "^8.0.0",
-		"husky": "^3.0.0",
-		"jest": "^23.6.0",
-		"jest-junit": "^8.0.0",
+		"eslint-config-prettier": "6.0.0",
+		"eslint-plugin-jest": "22.15.2",
+		"fancy-log": "1.3.3",
+		"fs-extra": "8.0.0",
+		"husky": "3.0.0",
+		"jest": "23.6.0",
+		"jest-junit": "8.0.0",
 		"jsdoc-template": "https://github.com/braintree/jsdoc-template",
-		"jsdoc-to-markdown": "^5.0.0",
-		"lint-staged": "^9.0.0",
-		"prettier": "^1.15.3"
+		"jsdoc-to-markdown": "5.0.0",
+		"lint-staged": "9.0.0",
+		"prettier": "1.16.4"
 	},
 	"engines": {
 		"node": ">=8.10"
