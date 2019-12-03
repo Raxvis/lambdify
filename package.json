@@ -9,13 +9,10 @@
 	},
 	"description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
 	"devDependencies": {
-		"chokidar": "3.3.0",
 		"codecov": "3.6.1",
 		"eslint": "6.7.2",
 		"eslint-config-prettier": "6.7.0",
 		"eslint-plugin-jest": "23.1.1",
-		"fancy-log": "1.3.3",
-		"fs-extra": "8.1.0",
 		"husky": "3.1.0",
 		"jest": "24.9.0",
 		"jest-junit": "10.0.0",
@@ -27,6 +24,9 @@
 	"engines": {
 		"node": ">=8.10"
 	},
+	"files": [
+		"src/**"
+	],
 	"homepage": "https://github.com/Prefinem/lambdify",
 	"husky": {
 		"hooks": {
@@ -41,17 +41,17 @@
 			"git add"
 		]
 	},
-	"main": "index.js",
+	"main": "src/index.js",
 	"name": "lambdify",
 	"scripts": {
+		"canary": "npm publish --tag canary",
 		"clean": "yarn lint && yarn prettify",
 		"docs": "./node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
 		"docs:md": "./node_modules/.bin/jsdoc2md src/** >> DOCS.md",
 		"lint": "./node_modules/.bin/eslint src/* --fix",
 		"prettify": "./node_modules/.bin/prettier --config ./.prettierrc.json --write src/*",
 		"staged": "lint-staged",
-		"test": "./node_modules/.bin/jest --coverage",
-		"watch": "node ./watch.js"
+		"test": "./node_modules/.bin/jest --coverage"
 	},
-	"version": "4.1.0"
+	"version": "4.2.0"
 }
