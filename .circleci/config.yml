@@ -1,19 +1,19 @@
 version: 2
 jobs:
     build:
-        environment:
-            CC_TEST_REPORTER_ID: 0821c701bb20ce2afc198c727f4a8aefaecc87bf6af23f1aafd2e0fe1b09d8bf
+        # environment:
+        #     CC_TEST_REPORTER_ID: 0821c701bb20ce2afc198c727f4a8aefaecc87bf6af23f1aafd2e0fe1b09d8bf
         working_directory: ~/project
         docker:
             - image: circleci/node:8
         steps:
             - checkout
-            - run:
-                  name: Setup Code Climate test-reporter
-                  command: |
-                      curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-                      chmod +x ./cc-test-reporter
-                      ./cc-test-reporter before-build
+            # - run:
+            #       name: Setup Code Climate test-reporter
+            #       command: |
+            #           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            #           chmod +x ./cc-test-reporter
+            #           ./cc-test-reporter before-build
             - restore_cache:
                   key: dependency-cache-{{ checksum "package.json" }}
             - run:
@@ -45,9 +45,9 @@ jobs:
                   prefix: coverage
             - store_test_results:
                   path: reports/junit/test-results.xml
-            - run:
-                  name: codeclimate
-                  command: |
-                      ./cc-test-reporter format-coverage -t lcov coverage/lcov.info
-                      ./cc-test-reporter upload-coverage
-                      ./cc-test-reporter after-build --exit-code $?
+            # - run:
+            #       name: codeclimate
+            #       command: |
+            #           ./cc-test-reporter format-coverage -t lcov coverage/lcov.info
+            #           ./cc-test-reporter upload-coverage
+            #           ./cc-test-reporter after-build --exit-code $?
