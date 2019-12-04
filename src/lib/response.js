@@ -48,7 +48,7 @@ module.exports = () => {
 
 			return this;
 		},
-		redirect(url, statusCode = 302) {
+		redirect(url, statusCode) {
 			redirect(response, url, statusCode);
 
 			return this;

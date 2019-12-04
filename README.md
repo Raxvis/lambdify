@@ -258,6 +258,35 @@ const run = (request, response) => {
 exports.handler = lamdify(run, [knexMiddleware(dbConfig)]);
 ```
 
+# Router
+
+Lambdify provides a router to enable your to attach a lambda to an ALB endpoint or a proxy+ api gateway path
+
+## Example
+
+```js
+const lambdify = require('lambdify');
+const router = require('lambdify/router')(); # Mind the double parentheses here
+
+const index = (req, res) => res.json({ foo: 'bar' });
+
+router.path('get', '/', index);
+
+exports.handlers = lambdify(router.serve);
+```
+
+## `router.path(httpMethod, path, fn, ...middleware)`
+
+This will match the method and path. The path can be a valid url path defined [here](https://www.npmjs.com/package/url-pattern)
+
+## `router.sqs(key/fn, [value, fn], ...middleware)`
+
+If key, value, fn are provided, it will match on the matching key / value inside the sqs request payload (single SQS message only). If just fn is provided, it will execute the fn when there is an SQS event
+
+## `router.serve`
+
+This is the fn that lambdify accepts
+
 # Helpers
 
 Lambdify provides a couple of helpers to help consume other local lambda functions and build / extend events.

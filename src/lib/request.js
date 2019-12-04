@@ -11,6 +11,7 @@ const getS3 = require('./getters/getS3');
 const getSns = require('./getters/getSns');
 const getSqs = require('./getters/getSqs');
 const getUa = require('./getters/getUa');
+const setPathParam = require('./setters/setPathParam');
 
 module.exports = (event, context) => {
 	const data = {};
@@ -39,5 +40,6 @@ module.exports = (event, context) => {
 		set: (name, value) => {
 			data[name] = value;
 		},
+		setPathParam: (name, value) => setPathParam(event, name, value),
 	});
 };

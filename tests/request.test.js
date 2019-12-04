@@ -73,3 +73,25 @@ test('set / get work correctly', () => {
 	expect(req.get('obj')).toEqual({ foo: 'bar' });
 	expect(req.get('arr')).toEqual([{ foo: 'bar' }]);
 });
+
+test('handle alb event', () => {
+	const req = request(
+		{
+			body: Buffer.from(JSON.stringify({ foo: 'bar' })).toString('base64'),
+			headers: {
+				host: 'host.example.com',
+				'x-forwarded-for': 'ip_address',
+				'x-forwarded-port': '443',
+				'x-forwarded-proto': 'https',
+			},
+			httpMethod: 'GET',
+			isBase64Encoded: true,
+			path: '/',
+			queryStringParameters: {},
+			requestContext: { elb: { targetGroupArn: 'arn:aws:elasticloadbalancing:*' } },
+		},
+		{},
+	);
+
+	expect(req.getBody()).toEqual({ foo: 'bar' });
+});

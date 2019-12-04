@@ -1,0 +1,528 @@
+diff --git a/jest.config.js b/jest.config.js
+index aaed025..7e42244 100644
+--- a/jest.config.js
++++ b/jest.config.js
+@@ -1,6 +1,6 @@
+ module.exports = {
+-	collectCoverage: true,
+-	collectCoverageFrom: ['src/**.{js,jsx}', '!**/node_modules/**', '!**/vendor/**'],
+-	coverageDirectory: './coverage/',
+-	coverageReporters: ['lcov'],
++    collectCoverage: true,
++    collectCoverageFrom: ['src/**/*.js', '!**/node_modules/**', '!**/vendor/**'],
++    coverageDirectory: './coverage/',
++    coverageReporters: ['lcov'],
+ };
+diff --git a/package.json b/package.json
+index a2648d1..d6dc3d4 100644
+--- a/package.json
++++ b/package.json
+@@ -1,57 +1,55 @@
+ {
+-	"author": {
+-		"email": "prefinem@gmail.com",
+-		"name": "Prefinem",
+-		"url": "https://prefinem.com"
+-	},
+-	"dependencies": {
+-		"cookie": "^0.4.0"
+-	},
+-	"description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
+-	"devDependencies": {
+-		"codecov": "3.6.1",
+-		"eslint": "6.7.2",
+-		"eslint-config-prettier": "6.7.0",
+-		"eslint-plugin-jest": "23.1.1",
+-		"husky": "3.1.0",
+-		"jest": "24.9.0",
+-		"jest-junit": "10.0.0",
+-		"jsdoc-template": "https://github.com/braintree/jsdoc-template",
+-		"jsdoc-to-markdown": "5.0.3",
+-		"lint-staged": "9.5.0",
+-		"prettier": "1.19.1"
+-	},
+-	"engines": {
+-		"node": ">=8.10"
+-	},
+-	"files": [
+-		"src/**"
+-	],
+-	"homepage": "https://github.com/Prefinem/lambdify",
+-	"husky": {
+-		"hooks": {
+-			"pre-commit": "yarn staged"
+-		}
+-	},
+-	"license": "MIT",
+-	"lint-staged": {
+-		"*.js": [
+-			"eslint --fix",
+-			"prettier --config ./.prettierrc.json --write",
+-			"git add"
+-		]
+-	},
+-	"main": "src/index.js",
+-	"name": "lambdify",
+-	"scripts": {
+-		"canary": "npm publish --tag canary",
+-		"clean": "yarn lint && yarn prettify",
+-		"docs": "./node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
+-		"docs:md": "./node_modules/.bin/jsdoc2md src/** >> DOCS.md",
+-		"lint": "./node_modules/.bin/eslint src/* --fix",
+-		"prettify": "./node_modules/.bin/prettier --config ./.prettierrc.json --write src/*",
+-		"staged": "lint-staged",
+-		"test": "./node_modules/.bin/jest --coverage"
+-	},
+-	"version": "4.2.0"
++    "author": {
++        "email": "prefinem@gmail.com",
++        "name": "Prefinem",
++        "url": "https://prefinem.com"
++    },
++    "dependencies": {
++        "cookie": "^0.4.0",
++        "url-pattern": "^1.0.3"
++    },
++    "description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
++    "devDependencies": {
++        "codecov": "3.6.1",
++        "eslint": "6.7.2",
++        "eslint-config-prettier": "6.7.0",
++        "eslint-plugin-jest": "23.1.1",
++        "husky": "3.1.0",
++        "jest": "24.9.0",
++        "jest-junit": "10.0.0",
++        "jsdoc-template": "https://github.com/braintree/jsdoc-template",
++        "jsdoc-to-markdown": "5.0.3",
++        "lint-staged": "9.5.0",
++        "prettier": "1.19.1"
++    },
++    "engines": {
++        "node": ">=8.10"
++    },
++    "homepage": "https://github.com/Prefinem/lambdify",
++    "husky": {
++        "hooks": {
++            "pre-commit": "yarn staged"
++        }
++    },
++    "license": "MIT",
++    "lint-staged": {
++        "*.js": [
++            "eslint --fix",
++            "prettier --config ./.prettierrc.json --write",
++            "git add"
++        ]
++    },
++    "main": "index.js",
++    "name": "lambdify",
++    "scripts": {
++        "canary": "npm publish --tag canary",
++        "clean": "yarn lint && yarn prettify",
++        "docs": "./node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
++        "docs:md": "./node_modules/.bin/jsdoc2md src/** >> DOCS.md",
++        "lint": "./node_modules/.bin/eslint src/* --fix",
++        "prettify": "./node_modules/.bin/prettier --config ./.prettierrc.json --write src/*",
++        "staged": "lint-staged",
++        "test": "./node_modules/.bin/jest --coverage"
++    },
++    "version": "4.2.0"
+ }
+diff --git a/src/index.js b/src/index.js
+index e723704..ba81c62 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -1,8 +1,7 @@
++const init = require('./lib/init');
++const next = require('./lib/next');
+ const request = require('./lib/request');
+ const response = require('./lib/response');
+-const init = require('./lib/init');
+-
+-const next = (fn, ...rest) => (req, res) => (fn ? fn(req, res, next(...rest)) : res);
+
+ module.exports = (fn, middleware = []) => (event, context) =>
+-	next(init, ...middleware, fn)(request(event, context), response());
++    next(init, ...middleware, fn)(request(event, context), response());
+diff --git a/src/lib/getters/getAuthToken.js b/src/lib/getters/getAuthToken.js
+index 0ca8078..1115e2b 100644
+--- a/src/lib/getters/getAuthToken.js
++++ b/src/lib/getters/getAuthToken.js
+@@ -1,4 +1,8 @@
+ const get = require('./../get');
+
+ module.exports = (event) =>
+-	get(event, 'headers.x-amz-security-token') || get(event, 'headers.X-Amz-Security-Token', '');
++    get(event, 'headers.x-amz-security-token') ||
++    get(event, 'headers.X-Amz-Security-Token') ||
++    get(event, 'headers.authorization') ||
++    get(event, 'headers.Authorization') ||
++    '';
+diff --git a/src/lib/getters/getBody.js b/src/lib/getters/getBody.js
+index 83f12f1..68bead3 100644
+--- a/src/lib/getters/getBody.js
++++ b/src/lib/getters/getBody.js
+@@ -1,4 +1,12 @@
+ const get = require('./../get');
+ const parseJson = require('./../parseJson');
+
+-module.exports = (event) => parseJson(get(event, 'body', '{}'));
++module.exports = (event) => {
++    const body = get(event, 'body');
++
++    if (body && event.isBase64Encoded) {
++        return parseJson(Buffer.from(body, 'base64').toString());
++    }
++
++    return parseJson(get(event, 'body', '{}'));
++};
+diff --git a/src/lib/getters/getMethod.js b/src/lib/getters/getMethod.js
+index 354d11c..641e7c9 100644
+--- a/src/lib/getters/getMethod.js
++++ b/src/lib/getters/getMethod.js
+@@ -1,3 +1,11 @@
+ const get = require('./../get');
+
+-module.exports = (event) => get(event, 'requestContext.httpMethod', '').toUpperCase();
++module.exports = (event) => {
++    const method = get(event, 'requestContext.httpMethod', '').toUpperCase();
++
++    if (method) {
++        return method;
++    }
++
++    return get(event, 'httpMethod', '').toUpperCase();
++};
+diff --git a/src/lib/request.js b/src/lib/request.js
+index 2b97673..cb0d16f 100644
+--- a/src/lib/request.js
++++ b/src/lib/request.js
+@@ -11,33 +11,35 @@ const getS3 = require('./getters/getS3');
+ const getSns = require('./getters/getSns');
+ const getSqs = require('./getters/getSqs');
+ const getUa = require('./getters/getUa');
++const setPathParam = require('./setters/setPathParam');
+
+ module.exports = (event, context) => {
+-	const data = {};
++    const data = {};
+
+-	return Object.freeze({
+-		get: (name) => data[name],
+-		getAuthToken: () => getAuthToken(event),
+-		getBody: () => getBody(event),
+-		getContext: () => context,
+-		getCookie: (name) => getCookie(event, name),
+-		getCookies: () => getCookies(event),
+-		getEvent: () => event,
+-		getHeader: (name) => event.headers[name],
+-		getHeaders: () => event.headers,
+-		getIp: () => getIp(event),
+-		getMethod: () => getMethod(event),
+-		getPath: () => getPath(event),
+-		getPathParam: (name) => getPathParams(event)[name],
+-		getPathParams: () => getPathParams(event),
+-		getQueryParam: (name) => getQueryParams(event)[name],
+-		getQueryParams: () => getQueryParams(event),
+-		getS3: () => getS3(event),
+-		getSns: () => getSns(event),
+-		getSqs: () => getSqs(event),
+-		getUa: () => getUa(event),
+-		set: (name, value) => {
+-			data[name] = value;
+-		},
+-	});
++    return Object.freeze({
++        get: (name) => data[name],
++        getAuthToken: () => getAuthToken(event),
++        getBody: () => getBody(event),
++        getContext: () => context,
++        getCookie: (name) => getCookie(event, name),
++        getCookies: () => getCookies(event),
++        getEvent: () => event,
++        getHeader: (name) => event.headers[name],
++        getHeaders: () => event.headers,
++        getIp: () => getIp(event),
++        getMethod: () => getMethod(event),
++        getPath: () => getPath(event),
++        getPathParam: (name) => getPathParams(event)[name],
++        getPathParams: () => getPathParams(event),
++        getQueryParam: (name) => getQueryParams(event)[name],
++        getQueryParams: () => getQueryParams(event),
++        getS3: () => getS3(event),
++        getSns: () => getSns(event),
++        getSqs: () => getSqs(event),
++        getUa: () => getUa(event),
++        set: (name, value) => {
++            data[name] = value;
++        },
++        setPathParam: (name, value) => setPathParam(event, name, value),
++    });
+ };
+diff --git a/src/lib/response.js b/src/lib/response.js
+index 115435a..5ba5ebc 100644
+--- a/src/lib/response.js
++++ b/src/lib/response.js
+@@ -10,53 +10,53 @@ const setStatusCode = require('./setters/setStatusCode');
+ const xml = require('./helpers/xml');
+
+ const buildResponse = (response) => ({
+-	getBody: () => response.body,
+-	getHeader: (name) => response.headers[name],
+-	getHeaders: () => response.headers,
+-	getResponse: () => response,
+-	getStatusCode: () => response.statusCode,
+-	setBinaryResponse: (value) => setBinaryResponse(response, value),
+-	setBody: (body) => setBody(response, body),
+-	setHeader: (name, value) => setHeader(response, name, value),
+-	setHeaders: (headers) => Object.keys(headers).map((name) => setHeader(response, name, headers[name])),
+-	setStatusCode: (value) => setStatusCode(response, value),
++    getBody: () => response.body,
++    getHeader: (name) => response.headers[name],
++    getHeaders: () => response.headers,
++    getResponse: () => response,
++    getStatusCode: () => response.statusCode,
++    setBinaryResponse: (value) => setBinaryResponse(response, value),
++    setBody: (body) => setBody(response, body),
++    setHeader: (name, value) => setHeader(response, name, value),
++    setHeaders: (headers) => Object.keys(headers).map((name) => setHeader(response, name, headers[name])),
++    setStatusCode: (value) => setStatusCode(response, value),
+ });
+
+ module.exports = () => {
+-	const response = buildResponse({
+-		body: undefined,
+-		headers: {},
+-		isBase64Encoded: false,
+-		statusCode: 200,
+-	});
+-
+-	return Object.freeze({
+-		...response,
+-		binary(body, contentType) {
+-			binary(response, body, contentType);
+-
+-			return this;
+-		},
+-		enableCors: () => enableCors(response),
+-		html(body) {
+-			html(response, body);
+-
+-			return this;
+-		},
+-		json(body) {
+-			json(response, body);
+-
+-			return this;
+-		},
+-		redirect(url, statusCode = 302) {
+-			redirect(response, url, statusCode);
+-
+-			return this;
+-		},
+-		xml(body) {
+-			xml(response, body);
+-
+-			return this;
+-		},
+-	});
++    const response = buildResponse({
++        body: undefined,
++        headers: {},
++        isBase64Encoded: false,
++        statusCode: 200,
++    });
++
++    return Object.freeze({
++        ...response,
++        binary(body, contentType) {
++            binary(response, body, contentType);
++
++            return this;
++        },
++        enableCors: () => enableCors(response),
++        html(body) {
++            html(response, body);
++
++            return this;
++        },
++        json(body) {
++            json(response, body);
++
++            return this;
++        },
++        redirect(url, statusCode) {
++            redirect(response, url, statusCode);
++
++            return this;
++        },
++        xml(body) {
++            xml(response, body);
++
++            return this;
++        },
++    });
+ };
+diff --git a/tests/request.test.js b/tests/request.test.js
+index 21429fa..df99840 100644
+--- a/tests/request.test.js
++++ b/tests/request.test.js
+@@ -5,71 +5,93 @@
+ const request = require('./../src/lib/request');
+
+ test('handle apiGatewayProxyEvent', () => {
+-	const context = { foo: 'bar' };
+-	const apiGatewayProxyEvent = require('./events/apiGatewayProxy.json');
+-	const req = request(apiGatewayProxyEvent, context);
++    const context = { foo: 'bar' };
++    const apiGatewayProxyEvent = require('./events/apiGatewayProxy.json');
++    const req = request(apiGatewayProxyEvent, context);
+
+-	expect(req.getAuthToken()).toEqual('');
+-	expect(req.getBody()).toEqual({ foo: 'bar' });
+-	expect(req.getContext()).toEqual({ foo: 'bar' });
+-	expect(req.getCookie('test')).toEqual('this');
+-	expect(req.getCookies()).toEqual({ test: 'this' });
+-	expect(req.getEvent()).toEqual(apiGatewayProxyEvent);
+-	expect(req.getHeader('Cookie')).toEqual('test=this');
+-	expect(req.getHeader('Cookie')).toEqual(apiGatewayProxyEvent.headers.Cookie);
+-	expect(req.getHeaders()).toEqual(apiGatewayProxyEvent.headers);
+-	expect(req.getIp()).toEqual('50.129.117.14');
+-	expect(req.getIp()).toEqual(apiGatewayProxyEvent.requestContext.identity.sourceIp);
+-	expect(req.getMethod()).toEqual('POST');
+-	expect(req.getMethod()).toEqual(apiGatewayProxyEvent.requestContext.httpMethod);
+-	expect(req.getPath()).toEqual('/');
+-	expect(req.getPath()).toEqual(apiGatewayProxyEvent.path);
+-	expect(req.getPathParam('email')).toEqual(apiGatewayProxyEvent.pathParameters.email);
+-	expect(req.getPathParam('email')).toEqual('me@example.com');
+-	expect(req.getPathParams()).toEqual(apiGatewayProxyEvent.pathParameters);
+-	expect(req.getPathParams()).toEqual({ email: 'me@example.com' });
+-	expect(req.getQueryParam('version')).toEqual(apiGatewayProxyEvent.queryStringParameters.version);
+-	expect(req.getQueryParam('version')).toEqual('1.0.0');
+-	expect(req.getQueryParams()).toEqual(apiGatewayProxyEvent.queryStringParameters);
+-	expect(req.getQueryParams()).toEqual({ version: '1.0.0' });
+-	expect(req.getUa()).toEqual(apiGatewayProxyEvent.requestContext.identity.userAgent);
+-	expect(req.getUa()).toEqual(
+-		'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
+-	);
++    expect(req.getAuthToken()).toEqual('');
++    expect(req.getBody()).toEqual({ foo: 'bar' });
++    expect(req.getContext()).toEqual({ foo: 'bar' });
++    expect(req.getCookie('test')).toEqual('this');
++    expect(req.getCookies()).toEqual({ test: 'this' });
++    expect(req.getEvent()).toEqual(apiGatewayProxyEvent);
++    expect(req.getHeader('Cookie')).toEqual('test=this');
++    expect(req.getHeader('Cookie')).toEqual(apiGatewayProxyEvent.headers.Cookie);
++    expect(req.getHeaders()).toEqual(apiGatewayProxyEvent.headers);
++    expect(req.getIp()).toEqual('50.129.117.14');
++    expect(req.getIp()).toEqual(apiGatewayProxyEvent.requestContext.identity.sourceIp);
++    expect(req.getMethod()).toEqual('POST');
++    expect(req.getMethod()).toEqual(apiGatewayProxyEvent.requestContext.httpMethod);
++    expect(req.getPath()).toEqual('/');
++    expect(req.getPath()).toEqual(apiGatewayProxyEvent.path);
++    expect(req.getPathParam('email')).toEqual(apiGatewayProxyEvent.pathParameters.email);
++    expect(req.getPathParam('email')).toEqual('me@example.com');
++    expect(req.getPathParams()).toEqual(apiGatewayProxyEvent.pathParameters);
++    expect(req.getPathParams()).toEqual({ email: 'me@example.com' });
++    expect(req.getQueryParam('version')).toEqual(apiGatewayProxyEvent.queryStringParameters.version);
++    expect(req.getQueryParam('version')).toEqual('1.0.0');
++    expect(req.getQueryParams()).toEqual(apiGatewayProxyEvent.queryStringParameters);
++    expect(req.getQueryParams()).toEqual({ version: '1.0.0' });
++    expect(req.getUa()).toEqual(apiGatewayProxyEvent.requestContext.identity.userAgent);
++    expect(req.getUa()).toEqual(
++        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
++    );
+ });
+
+ test('handle s3Event', () => {
+-	const context = { foo: 'bar' };
+-	const s3Event = require('./events/s3.json');
+-	const req = request(s3Event, context);
++    const context = { foo: 'bar' };
++    const s3Event = require('./events/s3.json');
++    const req = request(s3Event, context);
+
+-	expect(req.getS3()).toEqual({ bucket: 'sourcebucket', key: 'HappyFace.jpg' });
++    expect(req.getS3()).toEqual({ bucket: 'sourcebucket', key: 'HappyFace.jpg' });
+ });
+
+ test('handle snsEvent', () => {
+-	const context = { foo: 'bar' };
+-	const snsEvent = require('./events/sns.json');
+-	const req = request(snsEvent, context);
++    const context = { foo: 'bar' };
++    const snsEvent = require('./events/sns.json');
++    const req = request(snsEvent, context);
+
+-	expect(req.getSns()).toEqual({ message: 'Hello from SNS!', subject: 'TestInvoke' });
++    expect(req.getSns()).toEqual({ message: 'Hello from SNS!', subject: 'TestInvoke' });
+ });
+
+ test('handle sqsEvent', () => {
+-	const context = { foo: 'bar' };
+-	const sqsEvent = require('./events/sqs.json');
+-	const req = request(sqsEvent, context);
++    const context = { foo: 'bar' };
++    const sqsEvent = require('./events/sqs.json');
++    const req = request(sqsEvent, context);
+
+-	expect(req.getSqs()).toEqual([{ foo: 'bar' }]);
++    expect(req.getSqs()).toEqual([{ foo: 'bar' }]);
+ });
+
+ test('set / get work correctly', () => {
+-	const req = request({}, {});
++    const req = request({}, {});
+
+-	req.set('foo', 'bar');
+-	req.set('obj', { foo: 'bar' });
+-	req.set('arr', [{ foo: 'bar' }]);
++    req.set('foo', 'bar');
++    req.set('obj', { foo: 'bar' });
++    req.set('arr', [{ foo: 'bar' }]);
+
+-	expect(req.get('foo')).toEqual('bar');
+-	expect(req.get('obj')).toEqual({ foo: 'bar' });
+-	expect(req.get('arr')).toEqual([{ foo: 'bar' }]);
++    expect(req.get('foo')).toEqual('bar');
++    expect(req.get('obj')).toEqual({ foo: 'bar' });
++    expect(req.get('arr')).toEqual([{ foo: 'bar' }]);
++});
++
++test('handle alb event', () => {
++    const req = request(
++        {
++            body: Buffer.from(JSON.stringify({ foo: 'bar' })).toString('base64'),
++            headers: {
++                host: 'host.example.com',
++                'x-forwarded-for': 'ip_address',
++                'x-forwarded-port': '443',
++                'x-forwarded-proto': 'https',
++            },
++            httpMethod: 'GET',
++            isBase64Encoded: true,
++            path: '/',
++            queryStringParameters: {},
++            requestContext: { elb: { targetGroupArn: 'arn:aws:elasticloadbalancing:*' } },
++        },
++        {},
++    );
++
++    expect(req.getBody()).toEqual({ foo: 'bar' });
+ });
+diff --git a/yarn.lock b/yarn.lock
+index 8e0b5e5..c602cf0 100644
+--- a/yarn.lock
++++ b/yarn.lock
+@@ -5012,6 +5012,11 @@ urix@^0.1.0:
+   resolved "https://artifactory.cloud.capitalone.com:443/artifactory/api/npm/NPM/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
+   integrity sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
+
++url-pattern@^1.0.3:
++  version "1.0.3"
++  resolved "https://artifactory.cloud.capitalone.com:443/artifactory/api/npm/npm-internalfacing/url-pattern/-/url-pattern-1.0.3.tgz#0409292471b24f23c50d65a47931793d2b5acfc1"
++  integrity sha1-BAkpJHGyTyPFDWWkeTF5PStaz8E=
++
+ urlgrey@^0.4.4:
+   version "0.4.4"
+   resolved "https://artifactory.cloud.capitalone.com:443/artifactory/api/npm/NPM/urlgrey/-/urlgrey-0.4.4.tgz#892fe95960805e85519f1cd4389f2cb4cbb7652f"
