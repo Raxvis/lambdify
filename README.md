@@ -1,16 +1,14 @@
 # lambdify
 
-[![npm pack age](https://nodei.co/npm/lambdify.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.org/package/lambdify)
+[![Version](https://img.shields.io/npm/v/lambdify?style=for-the-badge)](https://npmjs.org/package/lambdify)
 
-[![Version](https://badge.fury.io/js/lambdify.svg)](https://npmjs.org/package/lambdify) [![Build Status](https://travis-ci.org/Prefinem/lambdify.svg)](https://travis-ci.org/Prefinem/lambdify)
+[![Build Status](https://img.shields.io/github/workflow/status/Prefinem/lambdify/Node%20CI?style=for-the-badge)](https://github.com/Prefinem/lambdify/actions) [![Maintainability](https://img.shields.io/codeclimate/coverage-letter/Prefinem/lambdify?style=for-the-badge)](https://codeclimate.com/github/Prefinem/lambdify/maintainability) [![Test Coverage](https://img.shields.io/codecov/c/github/Prefinem/lambdify?style=for-the-badge)](https://codecov.io/gh/Prefinem/lambdify)
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/4f911850391938e811f1/maintainability)](https://codeclimate.com/github/Prefinem/lambdify/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/4f911850391938e811f1/test_coverage)](https://codeclimate.com/github/Prefinem/lambdify/test_coverage) [![Greenkeeper badge](https://badges.greenkeeper.io/Prefinem/lambdify.svg)](https://greenkeeper.io/)
+![Monthly Downloads](https://img.shields.io/npm/dm/lambdify?style=for-the-badge)
 
-![Weekly Downloads](https://img.shields.io/npm/dw/lambdify.svg) ![Monthly Downloads](https://img.shields.io/npm/dm/lambdify.svg) ![Yearly Downloads](https://img.shields.io/npm/dy/lambdify.svg)
+![Issues](https://img.shields.io/github/issues/Prefinem/lambdify?style=for-the-badge) ![Pull Requests](https://img.shields.io/github/issues-pr/Prefinem/lambdify?style=for-the-badge)
 
-![Issues](https://img.shields.io/github/issues/Prefinem/lambdify.svg) ![Pull Requests](https://img.shields.io/github/issues-pr/Prefinem/lambdify.svg)
-
-![Dependencies](https://david-dm.org/Prefinem/lambdify.svg) ![Dev Dependencies](https://david-dm.org/Prefinem/lambdify/dev-status.svg)
+![Dependencies](https://img.shields.io/david/Prefinem/lambdify?style=for-the-badge) ![Dev Dependencies](https://img.shields.io/david/dev/Prefinem/lambdify?style=for-the-badge)
 
 Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier.
 
