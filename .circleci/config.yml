@@ -29,9 +29,9 @@ jobs:
             - run:
                   name: test
                   command: yarn test
-            - run:
-                  name: codecov
-                  command: ./node_modules/.bin/codecov
+            # - run:
+            #       name: codecov
+            #       command: ./node_modules/.bin/codecov
             - run:
                   name: Run tests with JUnit as reporter
                   command: ./node_modules/.bin/jest --ci --reporters=default --reporters=jest-junit

@@ -34,12 +34,9 @@ jobs:
                   yarn test --coverage
             - uses: codecov/codecov-action@v1
               with:
-                  # User defined upload name. Visible in Codecov UI
                   name: Prefinem
-                  # Repository upload token - get it from codecov.io
                   token: ${{ secrets.CODECOV_TOKEN }}
-                  # Path to coverage file to upload
-                  # file: # optional
+                  file: coverage/lcov.info
                   # Flag upload to group coverage metrics (e.g. unittests | integration | ui,chrome)
                   # flags: # optional
                   # Specify the location of the .codecov.yml config file
