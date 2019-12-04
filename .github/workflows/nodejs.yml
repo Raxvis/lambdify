@@ -40,6 +40,8 @@ jobs:
                   CI: true
     codecov:
         needs: test
+        runs-on: ubuntu-latest
+
         steps:
             - uses: actions/checkout@master
             - uses: codecov/codecov-action@v1
