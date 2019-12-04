@@ -48,6 +48,8 @@ jobs:
 
         steps:
             - uses: actions/checkout@master
+            - name: yarn install
+              run: yarn
             - name: Code Climate
               uses: paambaati/codeclimate-action@v2.3.0
               env:
