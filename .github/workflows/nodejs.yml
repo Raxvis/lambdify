@@ -3,23 +3,35 @@ name: Node CI
 on: [push]
 
 jobs:
-  build:
+    build:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [8.x, 10.x, 12.x]
 
-    strategy:
-      matrix:
-        node-version: [8.x, 10.x, 12.x]
-
-    steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: yarn install, build, and test
-      run: |
-        yarn
-        yarn test
-      env:
-        CI: true
+        steps:
+            - uses: actions/checkout@v1
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - name: yarn install and test
+              run: |
+                  yarn
+                  yarn test --coverage
+              env:
+                  CI: true
+    codecov:
+        uses: codecov/codecov-action@v1.0.4
+        with:
+            # User defined upload name. Visible in Codecov UI
+            name: Prefinem
+            # Repository upload token - get it from codecov.io
+            token: b3eaf44f-73c9-40f4-8663-82f8460beba8
+            # Path to coverage file to upload
+            # file: # optional
+            # Flag upload to group coverage metrics (e.g. unittests | integration | ui,chrome)
+            # flags: # optional
+            # Specify the location of the .codecov.yml config file
+            # yml: # optional
