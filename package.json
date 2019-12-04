@@ -10,7 +10,6 @@
 	},
 	"description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
 	"devDependencies": {
-		"codecov": "3.6.1",
 		"eslint": "6.7.2",
 		"eslint-config-prettier": "6.7.0",
 		"eslint-plugin-jest": "23.1.1",
@@ -18,7 +17,6 @@
 		"jest": "24.9.0",
 		"jest-junit": "10.0.0",
 		"jsdoc-template": "https://github.com/braintree/jsdoc-template",
-		"jsdoc-to-markdown": "5.0.3",
 		"lint-staged": "9.5.0",
 		"prettier": "1.19.1"
 	},
@@ -45,7 +43,6 @@
 		"canary": "npm publish --tag canary",
 		"clean": "yarn lint && yarn prettify",
 		"docs": "./node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
-		"docs:md": "./node_modules/.bin/jsdoc2md src/** >> DOCS.md",
 		"lint": "./node_modules/.bin/eslint 'src/**' --fix",
 		"prettify": "./node_modules/.bin/prettier --config ./.prettierrc.json --write 'src/**'",
 		"staged": "lint-staged",
