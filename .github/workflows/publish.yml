@@ -41,9 +41,5 @@ jobs:
           scope: '@Prefinem'
       - run: yarn
       - run: ./publish.sh
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
-          scope: '@Prefinem'
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
