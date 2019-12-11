@@ -2,7 +2,7 @@
 
 [![Version](https://img.shields.io/npm/v/lambdify?style=for-the-badge)](https://npmjs.org/package/lambdify)
 
-[![Build Status](https://img.shields.io/github/workflow/status/Prefinem/lambdify/Node%20CI?style=for-the-badge)](https://github.com/Prefinem/lambdify/actions) [![Maintainability](https://img.shields.io/codeclimate/coverage-letter/Prefinem/lambdify?style=for-the-badge)](https://codeclimate.com/github/Prefinem/lambdify/maintainability) [![Test Coverage](https://img.shields.io/codecov/c/github/Prefinem/lambdify?style=for-the-badge)](https://codecov.io/gh/Prefinem/lambdify)
+[![Build Status](https://img.shields.io/github/workflow/status/Prefinem/lambdify/ci?style=for-the-badge)](https://github.com/Prefinem/lambdify/actions) [![Maintainability](https://img.shields.io/codeclimate/coverage-letter/Prefinem/lambdify?style=for-the-badge)](https://codeclimate.com/github/Prefinem/lambdify/maintainability) [![Test Coverage](https://img.shields.io/codecov/c/github/Prefinem/lambdify?style=for-the-badge)](https://codecov.io/gh/Prefinem/lambdify)
 
 ![Monthly Downloads](https://img.shields.io/npm/dm/lambdify?style=for-the-badge)
 

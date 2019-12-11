@@ -1,3 +1,4 @@
+mkdir -p dist/
 rm -rf ./dist/*
 cp -r ./src/ ./dist
 cp ./package.json ./dist/package.json
