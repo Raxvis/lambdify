@@ -1,5 +1,5 @@
-const lambdify = require('./../src/index');
-const router = require('./../src/router/index')();
+const lambdify = require('./../index');
+const router = require('./../router/index')();
 
 it('router 404', async () => {
 	const handler = lambdify(router.serve);

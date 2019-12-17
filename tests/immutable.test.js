@@ -1,6 +1,6 @@
-const lambdify = require('./../src/index');
-const request = require('./../src/lib/request');
-const response = require('./../src/lib/response');
+const lambdify = require('./../index');
+const request = require('./../lib/request');
+const response = require('./../lib/response');
 
 const event = { foo: 'baz' };
 

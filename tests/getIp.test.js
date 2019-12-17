@@ -1,4 +1,4 @@
-const request = require('./../src/lib/request');
+const request = require('./../lib/request');
 
 test('getIp requestContext sourceIp', () => {
 	const event = { requestContext: { identity: { sourceIp: '50.129.117.14' } } };

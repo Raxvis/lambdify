@@ -1,4 +1,4 @@
-const lambdify = require('./../../src');
+const lambdify = require('./../../index');
 
 const run = (req, res) => res.json({ foo: 'bar' });
 

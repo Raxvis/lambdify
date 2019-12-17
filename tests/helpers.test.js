@@ -1,4 +1,4 @@
-const helpers = require('./../src/helpers');
+const helpers = require('./../helpers');
 
 test('helpers - event basic creation', () => {
 	const apiGatewayProxyEvent = require('./events/apiGatewayProxy.json');
@@ -49,10 +49,10 @@ test('helpers - invoke with require using lambdify', async () => {
 	expect(JSON.parse(response.body)).toEqual({ foo: 'bar' });
 });
 
-test('helpers - invoke with no handler', () => {
+test('helpers - invoke with no handler', async () => {
 	const fn = require('./fn/lambdify');
 
-	expect(helpers.invoke({}, fn)).rejects.toEqual(new Error('No valid handler passed to invoke'));
+	await expect(helpers.invoke({}, fn)).rejects.toEqual(new Error('No valid handler passed to invoke'));
 });
 
 test('helpers - invoke with context.succeed', async () => {
@@ -62,10 +62,10 @@ test('helpers - invoke with context.succeed', async () => {
 	expect(response).toEqual({ foo: 'bar' });
 });
 
-test('helpers - invoke with context.fail', () => {
+test('helpers - invoke with context.fail', async () => {
 	const fn = require('./fn/contextFail').handler;
 
-	expect(helpers.invoke({}, fn)).rejects.toEqual(new Error('failed'));
+	await expect(helpers.invoke({}, fn)).rejects.toEqual(new Error('failed'));
 });
 
 test('helpers - invoke with callback succeed', async () => {
@@ -75,14 +75,14 @@ test('helpers - invoke with callback succeed', async () => {
 	expect(response).toEqual({ foo: 'bar' });
 });
 
-test('helpers - invoke with callback fail', () => {
+test('helpers - invoke with callback fail', async () => {
 	const fn = require('./fn/callbackFail').handler;
 
-	expect(helpers.invoke({}, fn)).rejects.toEqual(new Error('failed'));
+	await expect(helpers.invoke({}, fn)).rejects.toEqual(new Error('failed'));
 });
 
-test('helpers - invoke with failed function', () => {
+test('helpers - invoke with failed function', async () => {
 	const fn = require('./fn/fail').handler;
 
-	expect(helpers.invoke({}, fn)).rejects.toEqual(new Error('failed'));
+	await expect(helpers.invoke({}, fn)).rejects.toEqual(new Error('failed'));
 });

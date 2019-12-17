@@ -1,4 +1,4 @@
-const lambdify = require('./../src/index');
+const lambdify = require('./../index');
 
 const event = { foo: 'baz' };
 

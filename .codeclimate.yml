@@ -1,6 +1,6 @@
 plugins:
-    eslint:
-        enabled: true
-        channel: 'eslint-5'
-    config:
-        config: .eslintrc.json
+  eslint:
+    enabled: true
+    channel: 'eslint-5'
+  config:
+    config: .eslintrc.json

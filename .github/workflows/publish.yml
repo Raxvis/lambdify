@@ -25,7 +25,7 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: yarn
-      - run: ./publish.sh
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
@@ -40,7 +40,6 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: '@Prefinem'
       - run: yarn
-      - run: npm config set registry https://npm.pkg.github.com/
-      - run: ./publish.sh
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

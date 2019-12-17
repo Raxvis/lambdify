@@ -2,7 +2,7 @@
 
 // Event Sources: https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html
 
-const request = require('./../src/lib/request');
+const request = require('./../lib/request');
 
 test('handle apiGatewayProxyEvent', () => {
 	const context = { foo: 'bar' };
