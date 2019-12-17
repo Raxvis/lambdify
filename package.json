@@ -21,6 +21,11 @@
 	"engines": {
 		"node": ">=8.10"
 	},
+	"files": [
+		"lib/",
+		"helpers/",
+		"router/"
+	],
 	"homepage": "https://github.com/Prefinem/lambdify",
 	"husky": {
 		"hooks": {
