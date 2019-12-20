@@ -10,7 +10,7 @@
 	},
 	"description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
 	"devDependencies": {
-		"eslint": "6.7.2",
+		"eslint": "6.8.0",
 		"eslint-config-prettier": "6.7.0",
 		"eslint-plugin-jest": "23.1.1",
 		"husky": "3.1.0",
