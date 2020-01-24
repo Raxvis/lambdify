@@ -44,8 +44,8 @@
 	"scripts": {
 		"canary": "npm publish --tag canary",
 		"clean": "yarn lint && yarn prettify",
-		"lint": "./node_modules/.bin/eslint **/**.js --fix",
-		"prettify": "./node_modules/.bin/prettier --config ./.prettierrc.json --write '**/**.js'",
+		"lint": "./node_modules/.bin/eslint '**/*.js' --fix",
+		"prettify": "./node_modules/.bin/prettier --config ./.prettierrc.json --write '**/*.js'",
 		"staged": "lint-staged",
 		"test": "./node_modules/.bin/jest"
 	},
