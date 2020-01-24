@@ -1,4 +1,4 @@
-const helpers = require('./../helpers');
+const helpers = require('./../src/helpers');
 
 test('helpers - event basic creation', () => {
 	const apiGatewayProxyEvent = require('./events/apiGatewayProxy.json');

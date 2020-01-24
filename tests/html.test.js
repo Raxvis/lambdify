@@ -1,5 +1,5 @@
-const response = require('./../lib/response');
-const encode = require('./../lib/helpers/encode');
+const response = require('./../src/lib/response');
+const encode = require('./../src/lib/helpers/encode');
 
 test('html response', () => {
 	const res = response();

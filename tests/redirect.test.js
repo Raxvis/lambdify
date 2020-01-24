@@ -1,4 +1,4 @@
-const response = require('./../lib/response');
+const response = require('./../src/lib/response');
 
 test('redirect response', () => {
 	const res = response();

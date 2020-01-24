@@ -1,4 +1,4 @@
-const match = require('./../router/match');
+const match = require('./../src/router/match');
 
 it('match should throw if now known type', () => {
 	expect(() => match({}, 'unknown')).toThrow();

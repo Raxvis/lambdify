@@ -1,4 +1,4 @@
-const lambdify = require('./../index');
+const lambdify = require('./../src/index');
 
 test('parse json from body', async () => {
 	const event = { body: '{"foo": "bar"}' };

@@ -2,7 +2,7 @@
 
 // Event Sources: https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html
 
-const response = require('./../lib/response');
+const response = require('./../src/lib/response');
 
 test('enableCors response', () => {
 	const res = response();
