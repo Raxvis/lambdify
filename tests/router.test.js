@@ -46,6 +46,16 @@ it('router override pathParameters', async () => {
 	await expect(JSON.parse(res.body).id).toEqual('1');
 });
 
+it('router handle file extensions', async () => {
+	router.path('any', '/:id', (req, res) => res.json({ id: req.getPathParam('id'), status: 'success' }));
+
+	const handler = lambdify(router.serve);
+	const res = await handler({ path: '/1.png', pathParameters: { id: 2 } }, {});
+
+	await expect(res.statusCode).toEqual(200);
+	await expect(JSON.parse(res.body).id).toEqual('1.png');
+});
+
 it('router match sqs', async () => {
 	router.sqs('event', 'foo', (req, res) => res.json({ status: 'success' }));
 

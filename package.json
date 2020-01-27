@@ -6,7 +6,7 @@
 	},
 	"dependencies": {
 		"cookie": "^0.4.0",
-		"url-pattern": "^1.0.3"
+		"route-parser": "^0.0.5"
 	},
 	"description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
 	"devDependencies": {

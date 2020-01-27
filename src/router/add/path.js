@@ -1,5 +1,5 @@
 /* eslint-disable max-params */
-const UrlPattern = require('url-pattern');
+const Route = require('route-parser');
 
 const addPath = (actions, method, path, fn, ...middleware) => {
 	actions.push({
@@ -7,7 +7,7 @@ const addPath = (actions, method, path, fn, ...middleware) => {
 		method,
 		middleware,
 		path,
-		pattern: new UrlPattern(path),
+		pattern: new Route(path),
 		type: 'path',
 	});
 };
