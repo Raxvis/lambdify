@@ -1,8 +1,10 @@
 const pathMatch = (req, action) => {
 	try {
 		if (action.method.toUpperCase() === 'ANY' || action.method.toUpperCase() === req.getMethod()) {
-			if (action.pattern.match(req.getPath())) {
-				const params = action.pattern.match(req.getPath());
+			const isMatch = action.pattern(req.getPath());
+
+			if (isMatch) {
+				const { params } = isMatch;
 
 				// This sets the path params
 				Object.keys(params).forEach((key) => req.setPathParam(key, params[key]));

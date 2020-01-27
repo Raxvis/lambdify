@@ -6,7 +6,7 @@
 	},
 	"dependencies": {
 		"cookie": "^0.4.0",
-		"route-parser": "^0.0.5"
+		"path-to-regexp": "^6.1.0"
 	},
 	"description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
 	"devDependencies": {
@@ -49,5 +49,5 @@
 		"staged": "lint-staged",
 		"test": "./node_modules/.bin/jest"
 	},
-	"version": "4.2.7"
+	"version": "4.3.0"
 }

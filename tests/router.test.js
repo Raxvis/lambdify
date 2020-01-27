@@ -1,7 +1,9 @@
 const lambdify = require('./../src/index');
-const router = require('./../src/router/index')();
+const createRouter = require('./../src/router/index');
 
 it('router 404', async () => {
+	const router = createRouter();
+
 	const handler = lambdify(router.serve);
 	const res = await handler({}, {});
 
@@ -9,6 +11,8 @@ it('router 404', async () => {
 });
 
 it('router simple path', async () => {
+	const router = createRouter();
+
 	router.path('any', '/', (req, res) => res.json({ status: 'success' }));
 
 	const handler = lambdify(router.serve);
@@ -18,6 +22,8 @@ it('router simple path', async () => {
 });
 
 it('router simple path with specific method', async () => {
+	const router = createRouter();
+
 	router.path('get', '/', (req, res) => res.json({ status: 'success' }));
 
 	const handler = lambdify(router.serve);
@@ -27,6 +33,8 @@ it('router simple path with specific method', async () => {
 });
 
 it('router get id from path', async () => {
+	const router = createRouter();
+
 	router.path('any', '/:id', (req, res) => res.json({ id: req.getPathParam('id'), status: 'success' }));
 
 	const handler = lambdify(router.serve);
@@ -37,6 +45,8 @@ it('router get id from path', async () => {
 });
 
 it('router override pathParameters', async () => {
+	const router = createRouter();
+
 	router.path('any', '/:id', (req, res) => res.json({ id: req.getPathParam('id'), status: 'success' }));
 
 	const handler = lambdify(router.serve);
@@ -47,6 +57,8 @@ it('router override pathParameters', async () => {
 });
 
 it('router handle file extensions', async () => {
+	const router = createRouter();
+
 	router.path('any', '/:id', (req, res) => res.json({ id: req.getPathParam('id'), status: 'success' }));
 
 	const handler = lambdify(router.serve);
@@ -56,7 +68,35 @@ it('router handle file extensions', async () => {
 	await expect(JSON.parse(res.body).id).toEqual('1.png');
 });
 
+it('router multiple matches with optional', async () => {
+	const router = createRouter();
+
+	router.path('any', '/:firstName/:lastName?', (req, res) => res.json({ ...req.getPathParams(), status: 'success' }));
+
+	const handler = lambdify(router.serve);
+	const res = await handler({ path: '/John', pathParameters: { id: 2 } }, {});
+
+	await expect(res.statusCode).toEqual(200);
+	await expect(JSON.parse(res.body).firstName).toEqual('John');
+	await expect(JSON.parse(res.body).lastName).toEqual(undefined);
+});
+
+it('router multiple matches', async () => {
+	const router = createRouter();
+
+	router.path('any', '/:firstName/:lastName', (req, res) => res.json({ ...req.getPathParams(), status: 'success' }));
+
+	const handler = lambdify(router.serve);
+	const res = await handler({ path: '/John/Smith', pathParameters: { id: 2 } }, {});
+
+	await expect(res.statusCode).toEqual(200);
+	await expect(JSON.parse(res.body).firstName).toEqual('John');
+	await expect(JSON.parse(res.body).lastName).toEqual('Smith');
+});
+
 it('router match sqs', async () => {
+	const router = createRouter();
+
 	router.sqs('event', 'foo', (req, res) => res.json({ status: 'success' }));
 
 	const handler = lambdify(router.serve);
@@ -66,6 +106,8 @@ it('router match sqs', async () => {
 });
 
 it('router failed match sqs', async () => {
+	const router = createRouter();
+
 	router.sqs('event', 'foo', (req, res) => res.json({ status: 'success' }));
 
 	const handler = lambdify(router.serve);
@@ -76,6 +118,8 @@ it('router failed match sqs', async () => {
 
 // This has to go after the match cases otherwise it will always hit
 it('router simple sqs', async () => {
+	const router = createRouter();
+
 	router.sqs((req, res) => res.json({ status: 'success' }));
 
 	const handler = lambdify(router.serve);
@@ -85,6 +129,8 @@ it('router simple sqs', async () => {
 });
 
 it('setup notfound', async () => {
+	const router = createRouter();
+
 	router.notFound((req, res) => res.json({ status: 'success' }));
 
 	const handler = lambdify(router.serve);
