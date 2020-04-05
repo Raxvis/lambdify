@@ -35,13 +35,11 @@ jobs:
       - name: Codecov
         uses: codecov/codecov-action@v1
         with:
-          name: Prefinem
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: coverage/lcov.info
-          # Flag upload to group coverage metrics (e.g. unittests | integration | ui,chrome)
-          # flags: # optional
-          # Specify the location of the .codecov.yml config file
-          # yml: # optional
+          # name: Prefinem
+          # token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/lcov.info
+          flags: unittests
+          fail_ci_if_error: true
   codeclimate:
     needs: build
     runs-on: ubuntu-latest
