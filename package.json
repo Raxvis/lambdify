@@ -26,7 +26,8 @@
 	"files": [
 		"lib/",
 		"helpers/",
-		"router/"
+		"router/",
+		"server/"
 	],
 	"homepage": "https://github.com/Prefinem/lambdify",
 	"husky": {
