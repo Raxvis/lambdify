@@ -28,6 +28,6 @@ jobs:
           mv ./package.json ./src/package.json
           mv ./README.md ./src/README.md
           mv ./LICENSE ./src/LICENSE
-          npm publish --tag canary ./src
+          npm publish ./src
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
