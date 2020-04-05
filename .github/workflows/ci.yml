@@ -34,12 +34,6 @@ jobs:
           yarn test --coverage
       - name: Codecov
         uses: codecov/codecov-action@v1
-        # with:
-        # name: Prefinem
-        # token: ${{ secrets.CODECOV_TOKEN }}
-        # file: ./coverage/lcov.info
-        # flags: unittests
-        # fail_ci_if_error: true
   codeclimate:
     needs: build
     runs-on: ubuntu-latest
