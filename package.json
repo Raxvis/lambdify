@@ -46,7 +46,7 @@
 	"name": "lambdify",
 	"resolutions": {
 		"kind-of": "6.0.3",
-		"minimist": "1.2.3"
+		"minimist": "1.2.5"
 	},
 	"scripts": {
 		"canary": "npm publish --tag canary",
