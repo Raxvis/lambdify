@@ -35,16 +35,9 @@ test('basic test', async () => {
 
 	const response = await lambdaServer(app, true)(event);
 
-	await expect(response).toEqual({
-		body: 'SGVsbG8gV29ybGQh',
-		headers: {
-			'content-length': '12',
-			'content-type': 'text/html; charset=utf-8',
-			date: expect.any(String),
-			etag: expect.any(String),
-			'x-powered-by': 'Express',
-		},
-		isBase64Encoded: true,
-		statusCode: 200,
-	});
+	await expect(response.body).toEqual('SGVsbG8gV29ybGQh');
+	await expect(response.isBase64Encoded).toEqual(true);
+	await expect(response.statusCode).toEqual(200);
+	await expect(response.headers['content-length']).toEqual('12');
+	await expect(response.headers['content-type']).toEqual('text/html; charset=utf-8');
 });
