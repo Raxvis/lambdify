@@ -33,7 +33,7 @@ test('basic test', async () => {
 
 	app.get('/', (req, res) => res.send('Hello World!'));
 
-	const response = await lambdaServer(app)(event);
+	const response = await lambdaServer(app, true)(event);
 
 	await expect(response).toEqual({
 		body: 'SGVsbG8gV29ybGQh',

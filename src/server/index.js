@@ -17,7 +17,7 @@ process.on('unhandledRejection', (err) => {
 	process.exit(1); // eslint-disable-line no-process-exit
 });
 
-const server = (requestListener) => {
+const proxyServer = (requestListener, closeOnEnd) => {
 	const server = http.createServer(requestListener);
 	const socketPath = getSocketPath();
 	let serverIsListenting = false;
@@ -36,10 +36,12 @@ const server = (requestListener) => {
 
 		const response = await proxyEvent(event, socketPath);
 
-		server.close();
+		if (closeOnEnd) {
+			server.close();
+		}
 
 		return response;
 	};
 };
 
-module.exports = server;
+module.exports = proxyServer;
