@@ -11,14 +11,14 @@
 	},
 	"description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
 	"devDependencies": {
-		"eslint": "7.11.0",
-		"eslint-config-prettier": "6.12.0",
-		"eslint-plugin-jest": "24.1.0",
+		"eslint": "7.14.0",
+		"eslint-config-prettier": "6.15.0",
+		"eslint-plugin-jest": "24.1.3",
 		"express": "4.17.1",
 		"husky": "4.3.0",
-		"jest": "26.5.3",
-		"lint-staged": "10.4.0",
-		"prettier": "2.1.2"
+		"jest": "26.6.3",
+		"lint-staged": "10.5.2",
+		"prettier": "2.2.1"
 	},
 	"engines": {
 		"node": ">=8.10"
@@ -46,7 +46,7 @@
 	"name": "lambdify",
 	"resolutions": {
 		"kind-of": "6.0.3",
-		"minimist": "1.2.3"
+		"minimist": "1.2.5"
 	},
 	"scripts": {
 		"canary": "npm publish --tag canary",
