@@ -6,8 +6,8 @@
 	},
 	"dependencies": {
 		"binary-case": "^1.1.4",
-		"cookie": "^0.4.0",
-		"path-to-regexp": "^6.1.0"
+		"cookie": "^0.4.1",
+		"path-to-regexp": "^6.2.0"
 	},
 	"description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
 	"devDependencies": {
