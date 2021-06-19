@@ -44,10 +44,6 @@
   },
   "main": "index.js",
   "name": "lambdify",
-  "resolutions": {
-    "kind-of": "6.0.3",
-    "minimist": "1.2.5"
-  },
   "scripts": {
     "canary": "npm publish --tag canary",
     "clean": "yarn lint && yarn prettify",
@@ -56,5 +52,5 @@
     "staged": "lint-staged",
     "test": "./node_modules/.bin/jest"
   },
-  "version": "4.3.3"
+  "version": "4.4.0"
 }
