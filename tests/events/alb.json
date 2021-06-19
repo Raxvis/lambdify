@@ -1,0 +1,24 @@
+{
+  "body": "eyJmb28iOiAiYmFyIn0=",
+  "headers": {
+    "accept-encoding": "gzip, deflate",
+    "cache-control": "no-cache",
+    "content-length": "242",
+    "cookie": "test=this",
+    "host": "host.example.com",
+    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36",
+    "x-amzn-trace-id": "Root=1-5dbafc0f-a4ac9c9046b152c44e90ca34",
+    "x-forwarded-for": "50.129.117.14, 50.112.234.94",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "httpMethod": "GET",
+  "isBase64Encoded": true,
+  "path": "/",
+  "queryStringParameters": { "version": "1.0.0" },
+  "requestContext": {
+    "elb": {
+      "targetGroupArn": "arn:aws:elasticloadbalancing:*"
+    }
+  }
+}

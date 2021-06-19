@@ -38,6 +38,35 @@ test('handle apiGatewayProxyEvent', () => {
   );
 });
 
+test('handle albEvent', () => {
+  const context = { foo: 'bar' };
+  const albEvent = require('./events/alb.json');
+  const req = request(albEvent, context);
+
+  expect(req.getAuthToken()).toEqual('');
+  expect(req.getBody()).toEqual({ foo: 'bar' });
+  expect(req.getContext()).toEqual({ foo: 'bar' });
+  expect(req.getCookie('test')).toEqual('this');
+  expect(req.getCookies()).toEqual({ test: 'this' });
+  expect(req.getEvent()).toEqual(albEvent);
+  expect(req.getHeader('cookie')).toEqual('test=this');
+  expect(req.getHeader('cookie')).toEqual(albEvent.headers.cookie);
+  expect(req.getHeaders()).toEqual(albEvent.headers);
+  expect(req.getIp()).toEqual('50.129.117.14');
+  expect(req.getMethod()).toEqual('GET');
+  expect(req.getMethod()).toEqual(albEvent.httpMethod);
+  expect(req.getPath()).toEqual('/');
+  expect(req.getPath()).toEqual(albEvent.path);
+  expect(req.getQueryParam('version')).toEqual(albEvent.queryStringParameters.version);
+  expect(req.getQueryParam('version')).toEqual('1.0.0');
+  expect(req.getQueryParams()).toEqual(albEvent.queryStringParameters);
+  expect(req.getQueryParams()).toEqual({ version: '1.0.0' });
+  expect(req.getUa()).toEqual(albEvent.headers['user-agent']);
+  expect(req.getUa()).toEqual(
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
+  );
+});
+
 test('handle s3Event', () => {
   const context = { foo: 'bar' };
   const s3Event = require('./events/s3.json');

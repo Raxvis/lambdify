@@ -127,7 +127,7 @@ This is the response object that must be returned from your lambda function (or 
 
 Methods `binary`, `html`, `json`, `redirect`, `xml` can be returned directly
 
-- `response.binary(base64, contentType)`- Build a binary response
+- `response.binary(base64 | buffer, contentType)`- Build a binary response
 - `response.enableCors()`- Enable CORS for an API Gateway response
 - `response.getBody()`- Get the body of the response
 - `response.getHeader(name)`- Get the value of header `name`
