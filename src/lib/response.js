@@ -1,6 +1,7 @@
 const binary = require('./helpers/binary');
 const enableCors = require('./helpers/enableCors');
 const html = require('./helpers/html');
+const file = require('./helpers/file');
 const json = require('./helpers/json');
 const redirect = require('./helpers/redirect');
 const setBinaryResponse = require('./setters/setBinaryResponse');
@@ -38,6 +39,11 @@ module.exports = () => {
       return this;
     },
     enableCors: () => enableCors(response),
+    file(filePath, contentType) {
+      file(response, filePath, contentType);
+
+      return this;
+    },
     html(body) {
       html(response, body);
 

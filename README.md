@@ -136,6 +136,7 @@ Methods `binary`, `html`, `json`, `redirect`, `xml` can be returned directly
 - `response.getStatusCode()`- Get the status code of the response
 - `response.html(body)`- Build an html response
 - `response.json(body)`- Build a json response
+- `response.file(filePath, contentType)`- Sends file
 - `response.redirect(url, statusCode = 302)`- Build a redirect response
 - `response.setBinaryResponse(value)`- Set the response as a binary response for API Gateway
 - `response.setBody(body)`- Set the body of the response
