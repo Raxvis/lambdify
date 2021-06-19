@@ -30,9 +30,9 @@ Basic HTTP Lambda Function - JSON Response
 const lambdify = require('lambdify');
 
 const helloWorld = (request, response) => {
-	response.json({ message: `Hello User, I see that you are coming from IP: ${request.getIp()}` });
+  response.json({ message: `Hello User, I see that you are coming from IP: ${request.getIp()}` });
 
-	return response;
+  return response;
 };
 
 exports.handler = lambdify(helloWorld);
@@ -44,9 +44,9 @@ Basic HTTP Lambda Function - HTML Response
 const lambdify = require('lambdify');
 
 const helloWorld = (request, response) => {
-	response.html(`Hello User, I see that you are coming from IP: ${request.getIp()}`);
+  response.html(`Hello User, I see that you are coming from IP: ${request.getIp()}`);
 
-	return response;
+  return response;
 };
 
 exports.handler = lambdify(helloWorld);
@@ -60,12 +60,12 @@ const AWS = require('aws-sdk');
 const s3 = new AWS.S3({ apiVersion: '2006-03-01' });
 
 const run = async (request) => {
-	const { bucket, key } = request.getS3();
-	const file = await s3.getObject({ Bucket: bucket, Key: key }).promise();
+  const { bucket, key } = request.getS3();
+  const file = await s3.getObject({ Bucket: bucket, Key: key }).promise();
 
-	if (file && file.Body) {
-		// Do something with the file
-	}
+  if (file && file.Body) {
+    // Do something with the file
+  }
 };
 
 exports.handler = lambdify(run);
@@ -88,9 +88,9 @@ const lambdify = require('lambdify');
 const errorMiddleware = require('errorMiddleware');
 
 const run = (request, response) => {
-	response.json({ foo: 'bar' });
+  response.json({ foo: 'bar' });
 
-	return response;
+  return response;
 };
 
 exports.handler = lamdify(run, [errorMiddleware]);
@@ -100,25 +100,26 @@ exports.handler = lamdify(run, [errorMiddleware]);
 
 This is the request object that is built from the lambda event
 
--   `request.get(name)` - Get a value of `name` from a basic key value store
--   `request.getAuthToken()` - Get the authorization token from the request
--   `request.getBody()` - Get the body of the event and parse into an object if JSON
--   `request.getContext()` - Get the lambda context
--   `request.getCookie(name)` - Get value of cookie `name` from API Gateway Request
--   `request.getCookies()` - Get all cookies from API Gateway Request
--   `request.getEvent()` - Get lambda event
--   `request.getHeader(name)` - Get value of header `name` from API Gateway Request
--   `request.getHeaders()` - Get all headers from API Gateway Request
--   `request.getIp()` - Get remote ip (handles X-Forwarded-For)
--   `request.getMethod()` - Get HTTP request method from API Gateway Request
--   `request.getPath()` - Get URL path from API Gateway Request
--   `request.getPathParams()` - Get path paramaters from API Gateway Request
--   `request.getQueryParams()` - Get query parameter from API Gateway Request
--   `request.getS3()` - Get bucket and key from S3 Trigger
--   `request.getSns()` - Get record from SNS Trigger
--   `request.getSqs()` - Get records from SQS Trigger
--   `request.getUa()` - Get UserAgent from API Gateway Request
--   `request.set(name, value)` - Set a `value` of `name` into a basic key value store
+- `request.get(name)` - Get a value of `name` from a basic key value store
+- `request.getAuthToken()` - Get the authorization token from the request
+- `request.getBody()` - Get the body of the event and parse into an object if JSON
+- `request.getContext()` - Get the lambda context
+- `request.getCookie(name)` - Get value of cookie `name` from API Gateway Request
+- `request.getCookies()` - Get all cookies from API Gateway Request
+- `request.getEvent()` - Get lambda event
+- `request.getHeader(name)` - Get value of header `name` from API Gateway Request
+- `request.getHeaders()` - Get all headers from API Gateway Request
+- `request.getIp()` - Get remote ip (handles X-Forwarded-For)
+- `request.getMethod()` - Get HTTP request method from API Gateway Request
+- `request.getPath()` - Get URL path from API Gateway Request
+- `request.getPathParams()` - Get path paramaters from API Gateway Request
+- `request.getQueryParam(name)` - Get value of query parameter `name` from API Gateway Request
+- `request.getQueryParams()` - Get query parameters from API Gateway Request
+- `request.getS3()` - Get bucket and key from S3 Trigger
+- `request.getSns()` - Get record from SNS Trigger
+- `request.getSqs()` - Get records from SQS Trigger
+- `request.getUa()` - Get UserAgent from API Gateway Request
+- `request.set(name, value)` - Set a `value` of `name` into a basic key value store
 
 ## response
 
@@ -126,21 +127,21 @@ This is the response object that must be returned from your lambda function (or 
 
 Methods `binary`, `html`, `json`, `redirect`, `xml` can be returned directly
 
--   `response.binary(base64, contentType)`- Build a binary response
--   `response.enableCors()`- Enable CORS for an API Gateway response
--   `response.getBody()`- Get the body of the response
--   `response.getHeader(name)`- Get the value of header `name`
--   `response.getHeaders()`- Get all headers
--   `response.getResponse()`- Get the lambda response object
--   `response.getStatusCode()`- Get the status code of the response
--   `response.html(body)`- Build an html response
--   `response.json(body)`- Build a json response
--   `response.redirect(url, statusCode = 302)`- Build a redirect response
--   `response.setBinaryResponse(value)`- Set the response as a binary response for API Gateway
--   `response.setBody(body)`- Set the body of the response
--   `response.setHeader(name, value)`- Set `value` of header `name`
--   `response.setStatusCode(value)`- Set the status code of the response
--   `response.xml(body)`- Build an xml response
+- `response.binary(base64, contentType)`- Build a binary response
+- `response.enableCors()`- Enable CORS for an API Gateway response
+- `response.getBody()`- Get the body of the response
+- `response.getHeader(name)`- Get the value of header `name`
+- `response.getHeaders()`- Get all headers
+- `response.getResponse()`- Get the lambda response object
+- `response.getStatusCode()`- Get the status code of the response
+- `response.html(body)`- Build an html response
+- `response.json(body)`- Build a json response
+- `response.redirect(url, statusCode = 302)`- Build a redirect response
+- `response.setBinaryResponse(value)`- Set the response as a binary response for API Gateway
+- `response.setBody(body)`- Set the body of the response
+- `response.setHeader(name, value)`- Set `value` of header `name`
+- `response.setStatusCode(value)`- Set the status code of the response
+- `response.xml(body)`- Build an xml response
 
 # Middleware
 
@@ -150,11 +151,11 @@ Middleware allows you to wrap your function with another function in such a way 
 
 ```js
 const middleware = async (req, res, next) => {
-	const response = await next(req, res);
+  const response = await next(req, res);
 
-	response.setHeader('Cookie', 'test=this');
+  response.setHeader('Cookie', 'test=this');
 
-	return response;
+  return response;
 };
 
 module.exports = middleware;
@@ -167,9 +168,9 @@ const lambdify = require('lambdify');
 const middleware = require('./middleware');
 
 const run = (request, response) => {
-	response.json({ foo: 'bar' });
+  response.json({ foo: 'bar' });
 
-	return response;
+  return response;
 };
 
 exports.handler = lamdify(run, [middleware]);
@@ -179,21 +180,21 @@ exports.handler = lamdify(run, [middleware]);
 
 ```js
 const errorMiddleware = async (req, res, next) => {
-	try {
-		const response = await next(req, res);
+  try {
+    const response = await next(req, res);
 
-		return response;
-	} catch (error) {
-		// Fire off log to error system like raygun / sentry
+    return response;
+  } catch (error) {
+    // Fire off log to error system like raygun / sentry
 
-		res.setStatusCode(500);
+    res.setStatusCode(500);
 
-		return res.json({
-			message: error.message,
-			stack: error.stack,
-			status: 'error',
-		});
-	}
+    return res.json({
+      message: error.message,
+      stack: error.stack,
+      status: 'error',
+    });
+  }
 };
 
 module.exports = errorMiddleware;
@@ -206,9 +207,9 @@ const lambdify = require('lambdify');
 const errorMiddleware = require('./errorMiddleware');
 
 const run = (request, response) => {
-	response.json({ foo: 'bar' });
+  response.json({ foo: 'bar' });
 
-	return response;
+  return response;
 };
 
 exports.handler = lamdify(run, [errorMiddleware]);
@@ -218,21 +219,21 @@ exports.handler = lamdify(run, [errorMiddleware]);
 
 ```js
 const knex = (config) => async (req, res, next) => {
-	const knex = require('knex')(config);
+  const knex = require('knex')(config);
 
-	req.set('knex', knex);
+  req.set('knex', knex);
 
-	try {
-		const response = await next(req, res);
+  try {
+    const response = await next(req, res);
 
-		await knex.destroy();
+    await knex.destroy();
 
-		return response;
-	} catch (error) {
-		await knex.destroy();
+    return response;
+  } catch (error) {
+    await knex.destroy();
 
-		throw error;
-	}
+    throw error;
+  }
 };
 
 module.exports = knex;
@@ -245,12 +246,12 @@ const lambdify = require('lambdify');
 const knexMiddleware = require('./knexMiddleware');
 
 const run = (request, response) => {
-	const knex = request.get('knex');
-	const user = knex('user').where({ id: request.getPathParam('userId') });
+  const knex = request.get('knex');
+  const user = knex('user').where({ id: request.getPathParam('userId') });
 
-	response.json({ user });
+  response.json({ user });
 
-	return response;
+  return response;
 };
 
 exports.handler = lamdify(run, [knexMiddleware(dbConfig)]);
@@ -293,8 +294,8 @@ Lambdify provides a couple of helpers to help consume other local lambda functio
 
 Invoke is used to invoke other local lambda code correctly irregardless if the function uses callback, context or a standard response.
 
--   `event` is the event payload that your lambda accepts. See `event` below for event creation
--   `fn` is the function handler
+- `event` is the event payload that your lambda accepts. See `event` below for event creation
+- `fn` is the function handler
 
 Example
 
@@ -304,12 +305,12 @@ const lambdify = require('lambdify');
 const { event, invoke } = require('lambdify/helpers');
 
 const run = (req, res) => {
-	const newEvent = event(req.getEvent(), { foo: 'bar' });
-	const fn = require('./otherProjectLambdaFunction/turnBarToBaz').handler;
-	const response = await invoke(newEvent, fn);
+  const newEvent = event(req.getEvent(), { foo: 'bar' });
+  const fn = require('./otherProjectLambdaFunction/turnBarToBaz').handler;
+  const response = await invoke(newEvent, fn);
 
-	return res.json((JSON.parse(response.body));
-	// => { foo: 'baz' }
+  return res.json((JSON.parse(response.body));
+  // => { foo: 'baz' }
 };
 
 exports.handler = lambdify(run);
@@ -319,9 +320,9 @@ exports.handler = lambdify(run);
 
 The goal of event is to ensure a consistent event payload to be sent to other lambda functions in a clean and consistent structure
 
--   `originalEvent` is the original event object you wish to extend
--   `body` is the new body payload being sent that is automatically `JSON.stringify`'ed
--   `overrides` is an object that will override anything else in the original event
+- `originalEvent` is the original event object you wish to extend
+- `body` is the new body payload being sent that is automatically `JSON.stringify`'ed
+- `overrides` is an object that will override anything else in the original event
 
 # Lambda Web Server / Express
 
