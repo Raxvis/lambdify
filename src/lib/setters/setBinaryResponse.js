@@ -1,3 +1,3 @@
 module.exports = (res, value) => {
-	res.isBase64Encoded = value;
+  res.isBase64Encoded = value;
 };

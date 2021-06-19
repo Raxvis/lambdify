@@ -13,35 +13,35 @@ const getSocketPath = require('./getSocketPath');
 const http = require('http');
 
 process.on('unhandledRejection', (err) => {
-	console.error('Unhandled rejection:', err);
-	process.exit(1); // eslint-disable-line no-process-exit
+  console.error('Unhandled rejection:', err);
+  process.exit(1); // eslint-disable-line no-process-exit
 });
 
 const proxyServer = (requestListener, closeOnEnd) => {
-	const server = http.createServer(requestListener);
-	const socketPath = getSocketPath();
-	let serverIsListenting = false;
+  const server = http.createServer(requestListener);
+  const socketPath = getSocketPath();
+  let serverIsListenting = false;
 
-	server.on('listening', () => {
-		serverIsListenting = true;
-	});
-	server.on('close', () => {
-		serverIsListenting = false;
-	});
+  server.on('listening', () => {
+    serverIsListenting = true;
+  });
+  server.on('close', () => {
+    serverIsListenting = false;
+  });
 
-	return async (event) => {
-		if (!serverIsListenting) {
-			await new Promise((resolve) => server.listen(socketPath).on('listening', resolve));
-		}
+  return async (event) => {
+    if (!serverIsListenting) {
+      await new Promise((resolve) => server.listen(socketPath).on('listening', resolve));
+    }
 
-		const response = await proxyEvent(event, socketPath);
+    const response = await proxyEvent(event, socketPath);
 
-		if (closeOnEnd) {
-			server.close();
-		}
+    if (closeOnEnd) {
+      server.close();
+    }
 
-		return response;
-	};
+    return response;
+  };
 };
 
 module.exports = proxyServer;

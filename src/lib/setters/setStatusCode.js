@@ -1,3 +1,3 @@
 module.exports = (res, value) => {
-	res.statusCode = value;
+  res.statusCode = value;
 };

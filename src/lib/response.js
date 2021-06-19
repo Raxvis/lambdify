@@ -10,53 +10,53 @@ const setStatusCode = require('./setters/setStatusCode');
 const xml = require('./helpers/xml');
 
 const buildResponse = (response) => ({
-	getBody: () => response.body,
-	getHeader: (name) => response.headers[name],
-	getHeaders: () => response.headers,
-	getResponse: () => response,
-	getStatusCode: () => response.statusCode,
-	setBinaryResponse: (value) => setBinaryResponse(response, value),
-	setBody: (body) => setBody(response, body),
-	setHeader: (name, value) => setHeader(response, name, value),
-	setHeaders: (headers) => Object.keys(headers).map((name) => setHeader(response, name, headers[name])),
-	setStatusCode: (value) => setStatusCode(response, value),
+  getBody: () => response.body,
+  getHeader: (name) => response.headers[name],
+  getHeaders: () => response.headers,
+  getResponse: () => response,
+  getStatusCode: () => response.statusCode,
+  setBinaryResponse: (value) => setBinaryResponse(response, value),
+  setBody: (body) => setBody(response, body),
+  setHeader: (name, value) => setHeader(response, name, value),
+  setHeaders: (headers) => Object.keys(headers).map((name) => setHeader(response, name, headers[name])),
+  setStatusCode: (value) => setStatusCode(response, value),
 });
 
 module.exports = () => {
-	const response = buildResponse({
-		body: undefined,
-		headers: {},
-		isBase64Encoded: false,
-		statusCode: 200,
-	});
+  const response = buildResponse({
+    body: undefined,
+    headers: {},
+    isBase64Encoded: false,
+    statusCode: 200,
+  });
 
-	return Object.freeze({
-		...response,
-		binary(body, contentType) {
-			binary(response, body, contentType);
+  return Object.freeze({
+    ...response,
+    binary(body, contentType) {
+      binary(response, body, contentType);
 
-			return this;
-		},
-		enableCors: () => enableCors(response),
-		html(body) {
-			html(response, body);
+      return this;
+    },
+    enableCors: () => enableCors(response),
+    html(body) {
+      html(response, body);
 
-			return this;
-		},
-		json(body) {
-			json(response, body);
+      return this;
+    },
+    json(body) {
+      json(response, body);
 
-			return this;
-		},
-		redirect(url, statusCode) {
-			redirect(response, url, statusCode);
+      return this;
+    },
+    redirect(url, statusCode) {
+      redirect(response, url, statusCode);
 
-			return this;
-		},
-		xml(body) {
-			xml(response, body);
+      return this;
+    },
+    xml(body) {
+      xml(response, body);
 
-			return this;
-		},
-	});
+      return this;
+    },
+  });
 };

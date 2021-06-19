@@ -1,3 +1,3 @@
 module.exports = (res, body) => {
-	res.body = body;
+  res.body = body;
 };

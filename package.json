@@ -1,60 +1,60 @@
 {
-	"author": {
-		"email": "prefinem@gmail.com",
-		"name": "Prefinem",
-		"url": "https://prefinem.com"
-	},
-	"dependencies": {
-		"binary-case": "^1.1.4",
-		"cookie": "^0.4.1",
-		"path-to-regexp": "^6.2.0"
-	},
-	"description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
-	"devDependencies": {
-		"eslint": "7.29.0",
-		"eslint-config-prettier": "8.3.0",
-		"eslint-plugin-jest": "24.3.6",
-		"express": "4.17.1",
-		"husky": "6.0.0",
-		"jest": "27.0.4",
-		"lint-staged": "11.0.0",
-		"prettier": "2.3.1"
-	},
-	"engines": {
-		"node": ">=8.10"
-	},
-	"files": [
-		"lib/",
-		"helpers/",
-		"router/",
-		"server/"
-	],
-	"homepage": "https://github.com/Prefinem/lambdify",
-	"husky": {
-		"hooks": {
-			"pre-commit": "yarn staged"
-		}
-	},
-	"license": "MIT",
-	"lint-staged": {
-		"*.js": [
-			"eslint --fix",
-			"prettier --config ./.prettierrc.json --write"
-		]
-	},
-	"main": "index.js",
-	"name": "lambdify",
-	"resolutions": {
-		"kind-of": "6.0.3",
-		"minimist": "1.2.5"
-	},
-	"scripts": {
-		"canary": "npm publish --tag canary",
-		"clean": "yarn lint && yarn prettify",
-		"lint": "./node_modules/.bin/eslint '**/*.js' --fix",
-		"prettify": "./node_modules/.bin/prettier --config ./.prettierrc.json --write '**/*.js'",
-		"staged": "lint-staged",
-		"test": "./node_modules/.bin/jest"
-	},
-	"version": "4.3.3"
+  "author": {
+    "email": "prefinem@gmail.com",
+    "name": "Prefinem",
+    "url": "https://prefinem.com"
+  },
+  "dependencies": {
+    "binary-case": "^1.1.4",
+    "cookie": "^0.4.1",
+    "path-to-regexp": "^6.2.0"
+  },
+  "description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
+  "devDependencies": {
+    "eslint": "7.29.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-jest": "24.3.6",
+    "express": "4.17.1",
+    "husky": "6.0.0",
+    "jest": "27.0.4",
+    "lint-staged": "11.0.0",
+    "prettier": "2.3.1"
+  },
+  "engines": {
+    "node": ">=8.10"
+  },
+  "files": [
+    "lib/",
+    "helpers/",
+    "router/",
+    "server/"
+  ],
+  "homepage": "https://github.com/Prefinem/lambdify",
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn staged"
+    }
+  },
+  "license": "MIT",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --config ./.prettierrc.json --write"
+    ]
+  },
+  "main": "index.js",
+  "name": "lambdify",
+  "resolutions": {
+    "kind-of": "6.0.3",
+    "minimist": "1.2.5"
+  },
+  "scripts": {
+    "canary": "npm publish --tag canary",
+    "clean": "yarn lint && yarn prettify",
+    "lint": "./node_modules/.bin/eslint '**/*.js' --fix",
+    "prettify": "./node_modules/.bin/prettier --config ./.prettierrc.json --write '**/*.js'",
+    "staged": "lint-staged",
+    "test": "./node_modules/.bin/jest"
+  },
+  "version": "4.3.3"
 }
