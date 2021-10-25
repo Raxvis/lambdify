@@ -4,10 +4,15 @@ const handleRequestResponse = require('./handleRequestResponse');
 const http = require('http');
 const url = require('url');
 
+const cleanHeaders = (headers) =>
+  Object.keys(headers)
+    .filter((header) => typeof headers[header] !== 'undefined')
+    .reduce((result, header) => ({ ...result, [header]: headers[header] }), {});
+
 const proxyEvent = (event, socketPath) =>
   new Promise((resolve) => {
     const requestOptions = {
-      headers: event.headers,
+      headers: cleanHeaders(event.headers),
       method: event.httpMethod,
       path: url.format({ pathname: event.path, query: event.queryStringParameters }),
       socketPath,

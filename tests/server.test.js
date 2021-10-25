@@ -41,3 +41,17 @@ test('basic test', async () => {
   await expect(response.headers['content-length']).toEqual('12');
   await expect(response.headers['content-type']).toEqual('text/html; charset=utf-8');
 });
+
+test('iframe sends undefined cookie', async () => {
+  const app = express();
+  const noCookieEvent = { ...event };
+
+  noCookieEvent.headers.cookie = undefined;
+  noCookieEvent.headers.Cookie = undefined;
+
+  app.get('/', (req, res) => res.send('Hello World!'));
+
+  const response = await lambdaServer(app, true)(noCookieEvent);
+
+  await expect(response.body).toEqual('SGVsbG8gV29ybGQh');
+});
