@@ -55,3 +55,16 @@ test('iframe sends undefined cookie', async () => {
 
   await expect(response.body).toEqual('SGVsbG8gV29ybGQh');
 });
+
+test('no headers sent', async () => {
+  const app = express();
+  const noHeaderEvent = { ...event };
+
+  noHeaderEvent.headers = undefined;
+
+  app.get('/', (req, res) => res.send('Hello World!'));
+
+  const response = await lambdaServer(app, true)(noHeaderEvent);
+
+  await expect(response.body).toEqual('SGVsbG8gV29ybGQh');
+});
