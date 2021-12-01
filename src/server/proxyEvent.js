@@ -4,7 +4,7 @@ const handleRequestResponse = require('./handleRequestResponse');
 const http = require('http');
 const url = require('url');
 
-const cleanHeaders = (headers) =>
+const cleanHeaders = (headers = {}) =>
   Object.keys(headers)
     .filter((header) => typeof headers[header] !== 'undefined')
     .reduce((result, header) => ({ ...result, [header]: headers[header] }), {});
