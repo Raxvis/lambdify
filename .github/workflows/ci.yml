@@ -33,7 +33,7 @@ jobs:
           yarn
           yarn test --coverage
       - name: Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
   codeclimate:
     needs: build
     runs-on: ubuntu-latest
