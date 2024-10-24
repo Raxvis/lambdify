@@ -31,7 +31,9 @@ const proxyServer = (requestListener, closeOnEnd) => {
 
   return async (event) => {
     if (!serverIsListenting) {
-      await new Promise((resolve) => server.listen(socketPath).on('listening', resolve));
+      await new Promise((resolve) => {
+        server.listen(socketPath).on('listening', resolve);
+      });
     }
 
     const response = await proxyEvent(event, socketPath);

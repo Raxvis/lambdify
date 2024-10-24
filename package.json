@@ -46,7 +46,7 @@
   "name": "lambdify",
   "scripts": {
     "canary": "npm publish --tag canary",
-    "clean": "yarn lint && yarn prettify",
+    "clean": "npm run lint && npm run prettify",
     "lint": "./node_modules/.bin/eslint '**/*.js' --fix",
     "prettify": "./node_modules/.bin/prettier --config ./.prettierrc.json --write '**/*.js'",
     "staged": "lint-staged",
