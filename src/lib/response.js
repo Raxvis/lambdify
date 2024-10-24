@@ -1,14 +1,14 @@
-const binary = require('./helpers/binary');
-const enableCors = require('./helpers/enableCors');
-const html = require('./helpers/html');
-const file = require('./helpers/file');
-const json = require('./helpers/json');
-const redirect = require('./helpers/redirect');
-const setBinaryResponse = require('./setters/setBinaryResponse');
-const setBody = require('./setters/setBody');
-const setHeader = require('./setters/setHeader');
-const setStatusCode = require('./setters/setStatusCode');
-const xml = require('./helpers/xml');
+const binary = require("./helpers/binary");
+const enableCors = require("./helpers/enableCors");
+const html = require("./helpers/html");
+const file = require("./helpers/file");
+const json = require("./helpers/json");
+const redirect = require("./helpers/redirect");
+const setBinaryResponse = require("./setters/setBinaryResponse");
+const setBody = require("./setters/setBody");
+const setHeader = require("./setters/setHeader");
+const setStatusCode = require("./setters/setStatusCode");
+const xml = require("./helpers/xml");
 
 const buildResponse = (response) => ({
   getBody: () => response.body,
@@ -19,7 +19,10 @@ const buildResponse = (response) => ({
   setBinaryResponse: (value) => setBinaryResponse(response, value),
   setBody: (body) => setBody(response, body),
   setHeader: (name, value) => setHeader(response, name, value),
-  setHeaders: (headers) => Object.keys(headers).map((name) => setHeader(response, name, headers[name])),
+  setHeaders: (headers) =>
+    Object.keys(headers).map((name) =>
+      setHeader(response, name, headers[name]),
+    ),
   setStatusCode: (value) => setStatusCode(response, value),
 });
 

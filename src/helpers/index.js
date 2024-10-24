@@ -1,5 +1,5 @@
-const event = require('./event');
-const invoke = require('./invoke');
+const event = require("./event");
+const invoke = require("./invoke");
 
 module.exports = {
   event,

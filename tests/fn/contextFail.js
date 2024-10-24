@@ -1,3 +1,3 @@
 exports.handler = (event, context) => {
-  context.fail(new Error('failed'));
+  context.fail(new Error("failed"));
 };

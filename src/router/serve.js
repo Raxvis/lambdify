@@ -1,5 +1,5 @@
-const match = require('./match');
-const next = require('./../lib/next');
+const match = require("./match");
+const next = require("./../lib/next");
 
 const serveRequest = (req, res, { actions, notFoundFn }) => {
   const matchingAction = actions.find((action) => match(req, action));

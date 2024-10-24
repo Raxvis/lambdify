@@ -1,4 +1,4 @@
-const get = require('./../../lib/get');
+const get = require("./../../lib/get");
 
 const sqsMatch = (req, action) => {
   try {
@@ -6,9 +6,11 @@ const sqsMatch = (req, action) => {
 
     if (!message) {
       return false;
-    } else if (!action.options || !action.options.key) {
+    }
+    if (!action.options || !action.options.key) {
       return true;
-    } else if (get(message, action.options.key) === action.options.value) {
+    }
+    if (get(message, action.options.key) === action.options.value) {
       return true;
     }
   } catch (error) {

@@ -1,5 +1,5 @@
 {
-	"extends": ["config:base"],
-	"automerge": true,
-	"assignees": ["Prefinem"]
+  "extends": ["config:base"],
+  "automerge": true,
+  "assignees": ["Prefinem"]
 }

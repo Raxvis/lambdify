@@ -18,7 +18,9 @@ const event = (originalEvent = {}, body = {}, overrides = {}) => ({
     ...originalEvent.requestContext,
     ...overrides.requestContext,
     identity: {
-      ...(originalEvent.requestContext ? originalEvent.requestContext.identity : {}),
+      ...(originalEvent.requestContext
+        ? originalEvent.requestContext.identity
+        : {}),
       ...(overrides.requestContext ? overrides.requestContext.identity : {}),
     },
   },

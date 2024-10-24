@@ -1,3 +1,3 @@
 exports.handler = () => {
-  throw new Error('failed');
+  throw new Error("failed");
 };

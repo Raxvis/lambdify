@@ -1,5 +1,5 @@
-const lambdify = require('./../../src/index');
+const lambdify = require("./../../src/index");
 
-const run = (req, res) => res.json({ foo: 'bar' });
+const run = (req, res) => res.json({ foo: "bar" });
 
 exports.handler = lambdify(run);
