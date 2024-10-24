@@ -1,5 +1,5 @@
 const context = (resolve, reject) => ({ fail: (error) => reject(error), succeed: (response) => resolve(response) });
-const callback = (resolve, reject) => (error, success) => error ? reject(error) : resolve(success);
+const callback = (resolve, reject) => (error, success) => (error ? reject(error) : resolve(success));
 
 const invoker = (event, fn) =>
   new Promise((resolve, reject) => {
