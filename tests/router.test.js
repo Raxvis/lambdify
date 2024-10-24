@@ -71,7 +71,7 @@ it('router handle file extensions', async () => {
 it('router multiple matches with optional', async () => {
   const router = createRouter();
 
-  router.path('any', '/:firstName/:lastName?', (req, res) => res.json({ ...req.getPathParams(), status: 'success' }));
+  router.path('any', '/:firstName{/:lastName}', (req, res) => res.json({ ...req.getPathParams(), status: 'success' }));
 
   const handler = lambdify(router.serve);
   const res = await handler({ path: '/John', pathParameters: { id: 2 } }, {});
@@ -79,6 +79,19 @@ it('router multiple matches with optional', async () => {
   await expect(res.statusCode).toEqual(200);
   await expect(JSON.parse(res.body).firstName).toEqual('John');
   await expect(JSON.parse(res.body).lastName).toEqual(undefined);
+});
+
+it('router multiple matches with optional matchings', async () => {
+  const router = createRouter();
+
+  router.path('any', '/:firstName{/:lastName}', (req, res) => res.json({ ...req.getPathParams(), status: 'success' }));
+
+  const handler = lambdify(router.serve);
+  const res = await handler({ path: '/John/Smith', pathParameters: { id: 2 } }, {});
+
+  await expect(res.statusCode).toEqual(200);
+  await expect(JSON.parse(res.body).firstName).toEqual('John');
+  await expect(JSON.parse(res.body).lastName).toEqual('Smith');
 });
 
 it('router multiple matches', async () => {
