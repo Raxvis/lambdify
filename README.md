@@ -2,23 +2,23 @@
 
 [![Version](https://img.shields.io/npm/v/lambdify?style=for-the-badge)](https://npmjs.org/package/lambdify)
 
-[![Build Status](https://img.shields.io/github/workflow/status/Prefinem/lambdify/ci?style=for-the-badge)](https://github.com/Prefinem/lambdify/actions) [![Maintainability](https://img.shields.io/codeclimate/coverage-letter/Prefinem/lambdify?style=for-the-badge)](https://codeclimate.com/github/Prefinem/lambdify/maintainability) [![Test Coverage](https://img.shields.io/codecov/c/github/Prefinem/lambdify?style=for-the-badge)](https://codecov.io/gh/Prefinem/lambdify)
+[![Build Status](https://img.shields.io/github/workflow/status/Raxvis/lambdify/ci?style=for-the-badge)](https://github.com/Raxvis/lambdify/actions) [![Maintainability](https://img.shields.io/codeclimate/coverage-letter/Raxvis/lambdify?style=for-the-badge)](https://codeclimate.com/github/Raxvis/lambdify/maintainability) [![Test Coverage](https://img.shields.io/codecov/c/github/Raxvis/lambdify?style=for-the-badge)](https://codecov.io/gh/Raxvis/lambdify)
 
 ![Monthly Downloads](https://img.shields.io/npm/dm/lambdify?style=for-the-badge)
 
-![Issues](https://img.shields.io/github/issues/Prefinem/lambdify?style=for-the-badge) ![Pull Requests](https://img.shields.io/github/issues-pr/Prefinem/lambdify?style=for-the-badge)
+![Issues](https://img.shields.io/github/issues/Raxvis/lambdify?style=for-the-badge) ![Pull Requests](https://img.shields.io/github/issues-pr/Raxvis/lambdify?style=for-the-badge)
 
-![Dependencies](https://img.shields.io/david/Prefinem/lambdify?style=for-the-badge) ![Dev Dependencies](https://img.shields.io/david/dev/Prefinem/lambdify?style=for-the-badge)
+![Dependencies](https://img.shields.io/david/Raxvis/lambdify?style=for-the-badge) ![Dev Dependencies](https://img.shields.io/david/dev/Raxvis/lambdify?style=for-the-badge)
 
 Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier.
 
 # NOTICE
 
-**THESE ARE v4 DOCS. Please see [branch v3](https://github.com/Prefinem/lambdify/tree/v3) for v3 Docs**
+**THESE ARE v4 DOCS. Please see [branch v3](https://github.com/Raxvis/lambdify/tree/v3) for v3 Docs**
 
 **Master branch is v4. v4 drops lambdify-fn and lambdify-utils and is moving to a single package.**
 
-If you used methods from lambdify-fn, you can use [afpf](https://github.com/Prefinem/afpf) instead
+If you used methods from lambdify-fn, you can use [afpf](https://github.com/Raxvis/afpf) instead
 
 **_WARNING: Version >= 3.0.0 is for Node 8.10 or greater_**
 

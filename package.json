@@ -1,8 +1,7 @@
 {
   "author": {
-    "email": "prefinem@gmail.com",
-    "name": "Prefinem",
-    "url": "https://prefinem.com"
+    "email": "william@raxvis.com",
+    "name": "Raxvis"
   },
   "dependencies": {
     "binary-case": "^1.1.4",
@@ -29,7 +28,7 @@
     "router/",
     "server/"
   ],
-  "homepage": "https://github.com/Prefinem/lambdify",
+  "homepage": "https://github.com/Raxvis/lambdify",
   "husky": {
     "hooks": {
       "pre-commit": "yarn staged"
