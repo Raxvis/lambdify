@@ -19,7 +19,12 @@
   "engines": {
     "node": ">=8.10"
   },
-  "files": ["lib/", "helpers/", "router/", "server/"],
+  "files": [
+    "lib/",
+    "helpers/",
+    "router/",
+    "server/"
+  ],
   "homepage": "https://github.com/Raxvis/lambdify",
   "husky": {
     "hooks": {
@@ -28,7 +33,10 @@
   },
   "license": "MIT",
   "lint-staged": {
-    "*.js": ["eslint --fix", "prettier --config ./.prettierrc.json --write"]
+    "*.js": [
+      "eslint --fix",
+      "prettier --config ./.prettierrc.json --write"
+    ]
   },
   "main": "index.js",
   "name": "lambdify",
@@ -40,5 +48,5 @@
     "staged": "lint-staged",
     "test": "./node_modules/.bin/jest"
   },
-  "version": "4.5.0"
+  "version": "4.6.0"
 }
