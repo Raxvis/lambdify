@@ -12,15 +12,6 @@
 
 Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier.
 
-# NOTICE
-
-**THESE ARE v4 DOCS. Please see [branch v3](https://github.com/Raxvis/lambdify/tree/v3) for v3 Docs**
-
-**Master branch is v4. v4 drops lambdify-fn and lambdify-utils and is moving to a single package.**
-
-If you used methods from lambdify-fn, you can use [afpf](https://github.com/Raxvis/afpf) instead
-
-**_WARNING: Version >= 3.0.0 is for Node 8.10 or greater_**
 
 # Getting Started
 
