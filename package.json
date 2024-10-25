@@ -19,12 +19,7 @@
   "engines": {
     "node": ">=8.10"
   },
-  "files": [
-    "lib/",
-    "helpers/",
-    "router/",
-    "server/"
-  ],
+  "files": ["lib/", "helpers/", "router/", "server/"],
   "homepage": "https://github.com/Raxvis/lambdify",
   "husky": {
     "hooks": {

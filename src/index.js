@@ -1,7 +1,7 @@
-const init = require("./lib/init");
-const next = require("./lib/next");
-const request = require("./lib/request");
-const response = require("./lib/response");
+const init = require('./lib/init');
+const next = require('./lib/next');
+const request = require('./lib/request');
+const response = require('./lib/response');
 
 module.exports =
   (fn, middleware = []) =>

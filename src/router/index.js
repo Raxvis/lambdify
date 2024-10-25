@@ -1,7 +1,7 @@
-const addPath = require("./add/path");
-const addSqs = require("./add/sqs");
-const defaultNotFound = require("./defaultNotFound");
-const serve = require("./serve");
+const addPath = require('./add/path');
+const addSqs = require('./add/sqs');
+const defaultNotFound = require('./defaultNotFound');
+const serve = require('./serve');
 
 const router = () => {
   const actions = [];

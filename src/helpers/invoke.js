@@ -21,8 +21,8 @@ const invoker = (event, fn) =>
   });
 
 const invoke = async (event, handler) => {
-  if (typeof handler !== "function") {
-    throw new Error("No valid handler passed to invoke");
+  if (typeof handler !== 'function') {
+    throw new Error('No valid handler passed to invoke');
   }
 
   const response = await invoker(event, handler);

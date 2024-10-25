@@ -1,7 +1,7 @@
 const pathMatch = (req, action) => {
   try {
     if (
-      action.method.toUpperCase() === "ANY" ||
+      action.method.toUpperCase() === 'ANY' ||
       action.method.toUpperCase() === req.getMethod()
     ) {
       const isMatch = action.pattern(req.getPath());

@@ -8,12 +8,12 @@ https://github.com/awslabs/aws-serverless-express/blob/master/src/index.js
 
 */
 
-const proxyEvent = require("./proxyEvent");
-const getSocketPath = require("./getSocketPath");
-const http = require("node:http");
+const proxyEvent = require('./proxyEvent');
+const getSocketPath = require('./getSocketPath');
+const http = require('node:http');
 
-process.on("unhandledRejection", (err) => {
-  console.error("Unhandled rejection:", err);
+process.on('unhandledRejection', (err) => {
+  console.error('Unhandled rejection:', err);
   process.exit(1); // eslint-disable-line no-process-exit
 });
 
@@ -22,17 +22,17 @@ const proxyServer = (requestListener, closeOnEnd) => {
   const socketPath = getSocketPath();
   let serverIsListenting = false;
 
-  server.on("listening", () => {
+  server.on('listening', () => {
     serverIsListenting = true;
   });
-  server.on("close", () => {
+  server.on('close', () => {
     serverIsListenting = false;
   });
 
   return async (event) => {
     if (!serverIsListenting) {
       await new Promise((resolve) => {
-        server.listen(socketPath).on("listening", resolve);
+        server.listen(socketPath).on('listening', resolve);
       });
     }
 

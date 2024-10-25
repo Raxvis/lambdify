@@ -1,1 +1,1 @@
-module.exports = (body) => Buffer.from(body).toString("base64");
+module.exports = (body) => Buffer.from(body).toString('base64');

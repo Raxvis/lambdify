@@ -1,4 +1,4 @@
-const binarycase = require("binary-case");
+const binarycase = require('binary-case');
 
 const handleHeaders = (originalHeaders, bodyBuffer) => {
   // HACK: modifies header casing to get around API Gateway's limitation of not allowing multiple
@@ -7,11 +7,11 @@ const handleHeaders = (originalHeaders, bodyBuffer) => {
   delete originalHeaders.connection;
 
   return {
-    "content-length": String(bodyBuffer.length),
+    'content-length': String(bodyBuffer.length),
     ...Object.keys(originalHeaders).reduce((result, header) => {
       const value = originalHeaders[header];
 
-      if (header.toLowerCase() === "set-cookie" && Array.isArray(value)) {
+      if (header.toLowerCase() === 'set-cookie' && Array.isArray(value)) {
         value.forEach((cookie, index) => {
           result[binarycase(header, index + 1)] = cookie;
         });
@@ -20,7 +20,7 @@ const handleHeaders = (originalHeaders, bodyBuffer) => {
       }
 
       result[header.toLowerCase()] = Array.isArray(value)
-        ? value.join(",")
+        ? value.join(',')
         : value;
 
       return result;

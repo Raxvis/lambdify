@@ -1,4 +1,4 @@
-const get = require("./../../lib/get");
+const get = require('./../../lib/get');
 
 const sqsMatch = (req, action) => {
   try {

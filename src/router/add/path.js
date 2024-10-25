@@ -1,5 +1,5 @@
 /* eslint-disable max-params */
-const { match } = require("path-to-regexp");
+const { match } = require('path-to-regexp');
 
 const addPath = (actions, method, path, fn, ...middleware) => {
   actions.push({
@@ -8,7 +8,7 @@ const addPath = (actions, method, path, fn, ...middleware) => {
     middleware,
     path,
     pattern: match(path),
-    type: "path",
+    type: 'path',
   });
 };
 

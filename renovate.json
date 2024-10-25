@@ -1,5 +1,5 @@
 {
-	"extends": ["config:base"],
-	"automerge": true,
-	"assignees": ["Raxvis"]
+  "extends": ["config:base"],
+  "automerge": true,
+  "assignees": ["Raxvis"]
 }

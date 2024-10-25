@@ -1,12 +1,12 @@
-const getEventBody = require("./getEventBody");
-const handleError = require("./handleError");
-const handleRequestResponse = require("./handleRequestResponse");
-const http = require("node:http");
-const url = require("node:url");
+const getEventBody = require('./getEventBody');
+const handleError = require('./handleError');
+const handleRequestResponse = require('./handleRequestResponse');
+const http = require('node:http');
+const url = require('node:url');
 
 const cleanHeaders = (headers = {}) =>
   Object.keys(headers)
-    .filter((header) => typeof headers[header] !== "undefined")
+    .filter((header) => typeof headers[header] !== 'undefined')
     .reduce((result, header) => {
       result[header] = headers[header];
       return result;
@@ -38,7 +38,7 @@ const proxyEvent = (event, socketPath) =>
       req.write(getEventBody(event));
     }
 
-    req.on("error", (error) => resolve(handleError(error, 502)));
+    req.on('error', (error) => resolve(handleError(error, 502)));
     req.end();
   });
 
