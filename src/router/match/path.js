@@ -10,7 +10,7 @@ const pathMatch = (req, action) => {
         const { params } = isMatch;
 
         // This sets the path params
-        for (const key of params) {
+        for (const key of Object.keys(params)) {
           req.setPathParam(key, params[key]);
         }
 

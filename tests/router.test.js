@@ -80,9 +80,6 @@ it('router handle file extensions', async () => {
 it('router multiple matches with optional', async () => {
   const router = createRouter();
 
-  router.path('any', '/:firstName/:lastName?', (req, res) =>
-    res.json({ ...req.getPathParams(), status: 'success' }),
-  );
   router.path('any', '/:firstName{/:lastName}', (req, res) =>
     res.json({ ...req.getPathParams(), status: 'success' }),
   );
