@@ -19,7 +19,10 @@ const buildResponse = (response) => ({
   setBinaryResponse: (value) => setBinaryResponse(response, value),
   setBody: (body) => setBody(response, body),
   setHeader: (name, value) => setHeader(response, name, value),
-  setHeaders: (headers) => Object.keys(headers).map((name) => setHeader(response, name, headers[name])),
+  setHeaders: (headers) =>
+    Object.keys(headers).map((name) =>
+      setHeader(response, name, headers[name]),
+    ),
   setStatusCode: (value) => setStatusCode(response, value),
 });
 

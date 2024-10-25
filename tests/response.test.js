@@ -9,7 +9,9 @@ test('enableCors response', () => {
 
   res.enableCors();
 
-  expect(res.getResponse().headers['Access-Control-Allow-Credentials']).toEqual('true');
+  expect(res.getResponse().headers['Access-Control-Allow-Credentials']).toEqual(
+    'true',
+  );
   expect(res.getResponse().headers['Access-Control-Allow-Origin']).toEqual('*');
 });
 

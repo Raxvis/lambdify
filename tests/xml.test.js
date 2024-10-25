@@ -3,7 +3,7 @@ const encode = require('./../src/lib/helpers/encode');
 
 test('xml response', () => {
   const res = response();
-  const xml = `<xml></xml>`;
+  const xml = '<xml></xml>';
 
   res.xml(xml);
 
@@ -17,7 +17,7 @@ test('xml response', () => {
 
 test('xml response with base64', () => {
   const res = response();
-  const xml = `<xml></xml>`;
+  const xml = '<xml></xml>';
 
   res.xml(xml);
 
@@ -31,7 +31,7 @@ test('xml response with base64', () => {
 
 test('xml response with binary', () => {
   const res = response();
-  const xml = `<xml></xml>`;
+  const xml = '<xml></xml>';
 
   res.setBinaryResponse(true);
   res.xml(xml);

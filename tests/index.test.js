@@ -15,7 +15,9 @@ test('initial run', async () => {
 });
 
 test('send event back', async () => {
-  const response = await lambdify((req, res) => res.json({ ...req.getEvent() }))(event);
+  const response = await lambdify((req, res) =>
+    res.json({ ...req.getEvent() }),
+  )(event);
 
   expect(JSON.parse(response.body).foo).toEqual('baz');
 });

@@ -1,10 +1,18 @@
-const context = (resolve, reject) => ({ fail: (error) => reject(error), succeed: (response) => resolve(response) });
-const callback = (resolve, reject) => (error, success) => (error ? reject(error) : resolve(success));
+const context = (resolve, reject) => ({
+  fail: (error) => reject(error),
+  succeed: (response) => resolve(response),
+});
+const callback = (resolve, reject) => (error, success) =>
+  error ? reject(error) : resolve(success);
 
 const invoker = (event, fn) =>
   new Promise((resolve, reject) => {
     try {
-      const response = fn(event, context(resolve, reject), callback(resolve, reject));
+      const response = fn(
+        event,
+        context(resolve, reject),
+        callback(resolve, reject),
+      );
 
       resolve(response);
     } catch (error) {

@@ -19,20 +19,32 @@ test('handle apiGatewayProxyEvent', () => {
   expect(req.getHeader('Cookie')).toEqual(apiGatewayProxyEvent.headers.Cookie);
   expect(req.getHeaders()).toEqual(apiGatewayProxyEvent.headers);
   expect(req.getIp()).toEqual('50.129.117.14');
-  expect(req.getIp()).toEqual(apiGatewayProxyEvent.requestContext.identity.sourceIp);
+  expect(req.getIp()).toEqual(
+    apiGatewayProxyEvent.requestContext.identity.sourceIp,
+  );
   expect(req.getMethod()).toEqual('POST');
-  expect(req.getMethod()).toEqual(apiGatewayProxyEvent.requestContext.httpMethod);
+  expect(req.getMethod()).toEqual(
+    apiGatewayProxyEvent.requestContext.httpMethod,
+  );
   expect(req.getPath()).toEqual('/');
   expect(req.getPath()).toEqual(apiGatewayProxyEvent.path);
-  expect(req.getPathParam('email')).toEqual(apiGatewayProxyEvent.pathParameters.email);
+  expect(req.getPathParam('email')).toEqual(
+    apiGatewayProxyEvent.pathParameters.email,
+  );
   expect(req.getPathParam('email')).toEqual('me@example.com');
   expect(req.getPathParams()).toEqual(apiGatewayProxyEvent.pathParameters);
   expect(req.getPathParams()).toEqual({ email: 'me@example.com' });
-  expect(req.getQueryParam('version')).toEqual(apiGatewayProxyEvent.queryStringParameters.version);
+  expect(req.getQueryParam('version')).toEqual(
+    apiGatewayProxyEvent.queryStringParameters.version,
+  );
   expect(req.getQueryParam('version')).toEqual('1.0.0');
-  expect(req.getQueryParams()).toEqual(apiGatewayProxyEvent.queryStringParameters);
+  expect(req.getQueryParams()).toEqual(
+    apiGatewayProxyEvent.queryStringParameters,
+  );
   expect(req.getQueryParams()).toEqual({ version: '1.0.0' });
-  expect(req.getUa()).toEqual(apiGatewayProxyEvent.requestContext.identity.userAgent);
+  expect(req.getUa()).toEqual(
+    apiGatewayProxyEvent.requestContext.identity.userAgent,
+  );
   expect(req.getUa()).toEqual(
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
   );
@@ -57,7 +69,9 @@ test('handle albEvent', () => {
   expect(req.getMethod()).toEqual(albEvent.httpMethod);
   expect(req.getPath()).toEqual('/');
   expect(req.getPath()).toEqual(albEvent.path);
-  expect(req.getQueryParam('version')).toEqual(albEvent.queryStringParameters.version);
+  expect(req.getQueryParam('version')).toEqual(
+    albEvent.queryStringParameters.version,
+  );
   expect(req.getQueryParam('version')).toEqual('1.0.0');
   expect(req.getQueryParams()).toEqual(albEvent.queryStringParameters);
   expect(req.getQueryParams()).toEqual({ version: '1.0.0' });
@@ -80,7 +94,10 @@ test('handle snsEvent', () => {
   const snsEvent = require('./events/sns.json');
   const req = request(snsEvent, context);
 
-  expect(req.getSns()).toEqual({ message: 'Hello from SNS!', subject: 'TestInvoke' });
+  expect(req.getSns()).toEqual({
+    message: 'Hello from SNS!',
+    subject: 'TestInvoke',
+  });
 });
 
 test('handle sqsEvent', () => {
@@ -117,7 +134,9 @@ test('handle alb event', () => {
       isBase64Encoded: true,
       path: '/',
       queryStringParameters: {},
-      requestContext: { elb: { targetGroupArn: 'arn:aws:elasticloadbalancing:*' } },
+      requestContext: {
+        elb: { targetGroupArn: 'arn:aws:elasticloadbalancing:*' },
+      },
     },
     {},
   );

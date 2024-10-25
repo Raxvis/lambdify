@@ -10,7 +10,7 @@ https://github.com/awslabs/aws-serverless-express/blob/master/src/index.js
 
 const proxyEvent = require('./proxyEvent');
 const getSocketPath = require('./getSocketPath');
-const http = require('http');
+const http = require('node:http');
 
 process.on('unhandledRejection', (err) => {
   console.error('Unhandled rejection:', err);

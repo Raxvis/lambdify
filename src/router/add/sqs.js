@@ -4,7 +4,12 @@
 // Or key, value, fn, [middleware]
 const addSqs = (actions, key, value, fn, ...middleware) => {
   if (typeof key === 'function') {
-    actions.push({ fn: key, middleware: [value, fn, ...middleware], options: {}, type: 'sqs' });
+    actions.push({
+      fn: key,
+      middleware: [value, fn, ...middleware],
+      options: {},
+      type: 'sqs',
+    });
   } else {
     actions.push({
       fn,

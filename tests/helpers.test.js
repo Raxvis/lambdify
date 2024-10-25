@@ -23,11 +23,17 @@ test('helpers - event other overrides', () => {
   const event = helpers.event(
     apiGatewayProxyEvent,
     { foo: 'bar' },
-    { headers: { test: 'this' }, requestContext: { identity: { test: 'this' } } },
+    {
+      headers: { test: 'this' },
+      requestContext: { identity: { test: 'this' } },
+    },
   );
 
   apiGatewayProxyEvent.body = JSON.stringify({ foo: 'bar' });
-  apiGatewayProxyEvent.headers = { ...apiGatewayProxyEvent.headers, test: 'this' };
+  apiGatewayProxyEvent.headers = {
+    ...apiGatewayProxyEvent.headers,
+    test: 'this',
+  };
   apiGatewayProxyEvent.requestContext = {
     ...apiGatewayProxyEvent.requestContext,
     identity: { ...apiGatewayProxyEvent.requestContext.identity, test: 'this' },
@@ -52,7 +58,9 @@ test('helpers - invoke with require using lambdify', async () => {
 test('helpers - invoke with no handler', async () => {
   const fn = require('./fn/lambdify');
 
-  await expect(helpers.invoke({}, fn)).rejects.toEqual(new Error('No valid handler passed to invoke'));
+  await expect(helpers.invoke({}, fn)).rejects.toEqual(
+    new Error('No valid handler passed to invoke'),
+  );
 });
 
 test('helpers - invoke with context.succeed', async () => {
