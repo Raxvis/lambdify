@@ -72,3 +72,27 @@ test('no headers sent', async () => {
 
   await expect(response.body).toEqual('SGVsbG8gV29ybGQh');
 });
+
+test('cookie headers', async () => {
+  const app = express();
+  const cookieEvent = { ...event };
+
+  app.get('/', (req, res) => {
+    res.setHeader('set-cookie', ['foo=bar', 'test=true']);
+    res.send('Hello World!');
+  });
+
+  const response = await lambdaServer(app, true)(cookieEvent);
+
+  await expect(response.body).toEqual('SGVsbG8gV29ybGQh');
+  await expect(response.headers).toEqual({
+    'Set-cookie': 'foo=bar',
+    'sEt-cookie': 'test=true',
+    'content-length': '12',
+    'content-type': 'text/html; charset=utf-8',
+    date: expect.any(String),
+    etag: 'W/"c-Lve95gjOVATpfV8EL5X4nxwjKHE"',
+    'keep-alive': 'timeout=5',
+    'x-powered-by': 'Express',
+  });
+});
