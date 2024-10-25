@@ -1,13 +1,12 @@
 {
   "author": {
-    "email": "prefinem@gmail.com",
-    "name": "Prefinem",
-    "url": "https://prefinem.com"
+    "email": "william@raxvis.com",
+    "name": "Raxvis"
   },
   "dependencies": {
     "binary-case": "^1.1.4",
-    "cookie": "^0.7.0",
-    "path-to-regexp": "^6.2.0"
+    "cookie": "^1.0.0",
+    "path-to-regexp": "^8.2.0"
   },
   "description": "Lambdify is a set of tools that makes building and consuming AWS Lambda functions easier",
   "devDependencies": {
@@ -20,8 +19,13 @@
   "engines": {
     "node": ">=8.10"
   },
-  "files": ["lib/", "helpers/", "router/", "server/"],
-  "homepage": "https://github.com/Prefinem/lambdify",
+  "files": [
+    "lib/",
+    "helpers/",
+    "router/",
+    "server/"
+  ],
+  "homepage": "https://github.com/Raxvis/lambdify",
   "husky": {
     "hooks": {
       "pre-commit": "yarn staged"
@@ -41,5 +45,5 @@
     "staged": "lint-staged",
     "test": "./node_modules/.bin/jest"
   },
-  "version": "4.4.2"
+  "version": "4.5.0"
 }
