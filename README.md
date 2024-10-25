@@ -359,5 +359,3 @@ This focuses on simplicity and standard use cases. It also doesn't worry about l
 ## Other inspiration
 
 This was originally developed to handle next.js SSR on AWS Lambda. Officially there is no support and although packages like [serverless-nextjs-plugin](https://www.npmjs.com/package/serverless-nextjs-plugin) exist, they require more packages and the serverless deployment system.
-
-Example of Next.js package soon to come
