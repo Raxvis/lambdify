@@ -33,7 +33,7 @@ jobs:
           npm i
           npm test -- --coverage
       - name: Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
   codeclimate:
